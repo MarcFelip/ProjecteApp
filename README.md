@@ -1,3 +1,1 @@
 # ProjecteApp
-
-Andorid-Studio-master.
