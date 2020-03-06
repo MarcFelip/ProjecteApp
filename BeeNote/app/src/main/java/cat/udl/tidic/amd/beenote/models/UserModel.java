@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class UserModel {
 
     @SerializedName("created_at")
@@ -109,5 +112,24 @@ public class UserModel {
     @Override
     public String toString(){
         return this.name + " " + this.surname;
+    }
+
+    private void JSON(){
+        JSONObject object = new JSONObject();
+        String diccionari ="";
+        try {
+
+            object.put("username", "Joan");
+            object.put("password", "1234");
+            object.put("email", "Joan@gmail.com");
+            object.put("name", "Joan");
+            object.put("surname", "Rialp");
+            object.put("genere", "M");
+
+            diccionari = object.toString();
+        }
+        catch(JSONException ex) {
+
+        }
     }
 }

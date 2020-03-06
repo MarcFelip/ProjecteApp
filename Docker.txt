@@ -23,9 +23,22 @@ Android Studio --> DAM-Retrofit-master
 - [A] GET /users/show/{username:str}
 
 
+
 - El Retrofit és una llibreria que fem anar des de Android per fer les peticions (GET,POST,PUT,DELETE…)
 https://square.github.io/retrofit/
 
 - Les taules al MySQL les inicialitza aquest script: /dev/reset_database.py
+
+
+------------------------------ IP -----------------------------------
+
+1- Fitxer de propietats (Crear)
+2- Variable d'entorn
+(Per guardar cada un la seva IP)
+
+IP Emulador --> 10.0.2.2
+
+res/xml/network_security_config.xml --> Canviar on hi ha la IP, posar la teva del Windows. (192.168.x.x)
+RetrofitClientInstance --> Canviar aqui tambe la IP, posar la de Windows. (192.168.x.x:8000)
 
 
