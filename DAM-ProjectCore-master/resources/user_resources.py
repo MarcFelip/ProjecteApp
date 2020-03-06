@@ -36,6 +36,8 @@ class ResourceRegisterUser(DAMCoreResource):
     @jsonschema.validate(SchemaRegisterUser)
     def on_post(self, req, resp, *args, **kwargs):
         super(ResourceRegisterUser, self).on_post(req, resp, *args, **kwargs)
+        
+        print(req.media)
 
         aux_user = User()
 
@@ -43,6 +45,7 @@ class ResourceRegisterUser(DAMCoreResource):
             try:
                 aux_genere = GenereEnum(req.media["genere"].upper())
             except ValueError:
+                print(messages.genere_invalid)
                 raise falcon.HTTPBadRequest(description=messages.genere_invalid)
 
 
@@ -58,9 +61,11 @@ class ResourceRegisterUser(DAMCoreResource):
             try:
                 self.db_session.commit()
             except IntegrityError:
+                print(messages.user_exists)
                 raise falcon.HTTPBadRequest(description=messages.user_exists)
 
         except KeyError:
+            print(messages.parameters_invalid)
             raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
 
         resp.status = falcon.HTTP_200

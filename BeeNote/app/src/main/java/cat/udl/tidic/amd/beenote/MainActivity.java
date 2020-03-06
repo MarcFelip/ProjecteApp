@@ -3,10 +3,14 @@ package cat.udl.tidic.amd.beenote;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
@@ -47,18 +51,26 @@ public class MainActivity extends AppCompatActivity {
         UserService userService = RetrofitClientInstance.
                 getRetrofitInstance().create(UserService.class);
 
-        UserModel model = new UserModel("joan","1234","joanrialp@gmail.com","Joan","Rialp","M");
-        Call<UserModel> call = userService.postUserProfile(diccionari);
+        Map<String, String> map = new HashMap<>();
+        map.put("Content-Type", "application/json");
 
-        call.enqueue(new Callback<UserModel>() {
+        UserModel model = new UserModel("joan14345435234","1234","joanrialp@gmail.com","Joan","Rialp","M");
+        Call<Void> call = userService.postUserProfile(map,model);
+
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                Log.d("MainActivity",response.toString());
 
                 salida.setText("OK");
             }
 
             @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
+
+                System.out.println(t.getMessage());
+                Log.d("MainActivity333",t.getMessage());
 
                 salida.setText("Error");
             }
