@@ -2,10 +2,13 @@ package cat.udl.tidic.amd.beenote.models;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import cat.udl.tidic.amd.beenote.services.UserService;
 
 public class UserModel {
 
@@ -131,5 +134,15 @@ public class UserModel {
         catch(JSONException ex) {
 
         }
+
+        JsonObject userJson = new JsonObject();
+        userJson.addProperty("username","");
+        userJson.addProperty("password", "1234");
+        userJson.addProperty("email", "Joan@gmail.com");
+        userJson.addProperty("name", "Joan");
+        userJson.addProperty("surname", "Rialp");
+        userJson.addProperty("genere", "M");
+
+        //UserService.
     }
 }
