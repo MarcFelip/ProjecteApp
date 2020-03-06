@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
 
                 Log.d("MainActivity",response.toString());
+                Log.d("MainActiviti ok",response.message().toString());
 
                 salida.setText("OK");
             }
