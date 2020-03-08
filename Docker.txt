@@ -1,0 +1,49 @@
+docker-compose up --build --> Erro: docker-compose.yml(Python) canviar volumes: "- ../../nom del projecte/.:/app"
+docker-compose down --build
+
+SQL --> http://127.0.0.1:8080/
+API --> localhost:8000 (Postman)
+
+API:DAM-ProjectCore-master (Python) --> app.py: application...
+
+Android Studio --> DAM-Retrofit-master
+
+----------------------------- README -----------------------------------------------
+
+## Legend
+- [A] Indicates that requires Authorization header (token)
+
+## Resources
+
+### Account Resources
+- POST /account/create_token
+- [A] POST /account/delete_token
+- [A] GET /account/profile
+
+### Users Resources
+- POST /users/register
+- [A] GET /users/show/{username:str}
+
+- El Retrofit és una llibreria que fem anar des de Android per fer les peticions (GET,POST,PUT,DELETE…)
+https://square.github.io/retrofit/
+
+- Les taules al MySQL les inicialitza aquest script: /dev/reset_database.py
+
+
+------------------------------ IP -----------------------------------
+
+1- Fitxer de propietats (Crear)
+2- Variable d'entorn
+(Per guardar cada un la seva IP)
+
+IP Emulador --> 10.0.2.2
+
+res/xml/network_security_config.xml --> Canviar on hi ha la IP, posar la teva del Windows. (192.168.x.x)
+RetrofitClientInstance --> Canviar aqui tambe la IP, posar la de Windows. (192.168.x.x:8000)
+
+
+-------------------------------- No inicia el servidor -------------------------------------------
+
+Carpeta API/docker/backend/start --> canviar amb el notepad++ el formato a Unix(LF)
+
+
