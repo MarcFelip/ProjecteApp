@@ -21,6 +21,9 @@ public interface UserService {
     Call<Void> postUserProfile(@HeaderMap Map<String, String> headers, @Body UserModel model);
     //Call<El que hi ha aqui dintre es el que retorna la peticio de la API> ...
 
+    @POST("/account/create_token")
+    Call<Void> postCreateToken(@HeaderMap Map<String, String> headers, @Body UserModel model);
+
     //@TODO: EFHJDSAHFKJAS
 
 }

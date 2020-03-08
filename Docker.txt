@@ -8,6 +8,8 @@ API:DAM-ProjectCore-master (Python) --> app.py: application...
 
 Android Studio --> DAM-Retrofit-master
 
+----------------------------- README -----------------------------------------------
+
 ## Legend
 - [A] Indicates that requires Authorization header (token)
 
@@ -21,8 +23,6 @@ Android Studio --> DAM-Retrofit-master
 ### Users Resources
 - POST /users/register
 - [A] GET /users/show/{username:str}
-
-
 
 - El Retrofit és una llibreria que fem anar des de Android per fer les peticions (GET,POST,PUT,DELETE…)
 https://square.github.io/retrofit/
@@ -40,5 +40,10 @@ IP Emulador --> 10.0.2.2
 
 res/xml/network_security_config.xml --> Canviar on hi ha la IP, posar la teva del Windows. (192.168.x.x)
 RetrofitClientInstance --> Canviar aqui tambe la IP, posar la de Windows. (192.168.x.x:8000)
+
+
+-------------------------------- No inicia el servidor -------------------------------------------
+
+Carpeta API/docker/backend/start --> canviar amb el notepad++ el formato a Unix(LF)
 
 
