@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,45 +49,29 @@ public class Login extends AppCompatActivity {
                 UserService userService = RetrofitClientInstance.
                         getRetrofitInstance().create(UserService.class);
 
-                autoritzacio = Username.toString() + ":" + Password.toString();
-
+                autoritzacio = Username.getText().toString() + ":" + Password.getText().toString();
                 byte[] data = null;
 
-                try {
-                    data = autoritzacio.getBytes("UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-
+                data = autoritzacio.getBytes(StandardCharsets.UTF_8);
 
                 // .trim() --> perque no hi hagin caracaters raros
-
-                String prova1 = Base64.encodeToString(data,Base64.DEFAULT);
-                System.out.println("P1"+prova1);
-
-                String prova2 = "Authentication:" + prova1;
-                System.out.println("P2"+prova2);
-
-                String prova2Trim = prova2.trim();
-                System.out.println("P3"+prova2Trim);
-
-
-                String encoding = ("Authentication:" + Base64.encodeToString(data,Base64.DEFAULT)).trim();
-
-
-                Call<ResponseBody> call = userService.postCreateToken(prova2Trim);
-
-                System.out.println("Encoding"+encoding);
+                String encoding = "Authorization " + Base64.encodeToString(data,Base64.DEFAULT);
+                Call<ResponseBody> call = userService.postCreateToken(encoding.trim());
 
 
                 call.enqueue(new Callback<ResponseBody>() {
                    @Override
                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                       System.out.println(response.body().toString());
+                       try {
+                           System.out.println(response.body().string().split(":")[1]);
+                       } catch (IOException e) {
+                           e.printStackTrace();
+                       }
                    }
 
                    @Override
                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                       System.out.println("Error");
                        System.out.println(t.getMessage());
                    }
                });
