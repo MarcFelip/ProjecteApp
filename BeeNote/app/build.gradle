@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "cat.udl.tidic.amd.beenote"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -15,6 +15,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            def api_url_ENV = System.getenv("API_URL")
+            def api_url = api_url_ENV != null ? api_url_ENV: "\"http://10.0.2.2:8000\""
+            buildConfigField "String", "API_URL", api_url
+        }
+        debug{
+            def api_url_ENV = System.getenv("API_URL")
+            def api_url = api_url_ENV != null ? api_url_ENV: "\"http://10.0.2.2:8000\""
+            buildConfigField "String", "API_URL", api_url
         }
     }
 }
