@@ -7,6 +7,7 @@ import falcon
 from falcon.media.validators import jsonschema
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
+import re
 
 import messages
 from db.models import User, GenereEnum
@@ -40,18 +41,16 @@ class ResourceRegisterUser(DAMCoreResource):
         aux_user = User()
 
         try:
-            try:
-                aux_genere = GenereEnum(req.media["genere"].upper())
-            except ValueError:
-                raise falcon.HTTPBadRequest(description=messages.genere_invalid)
-
-
             aux_user.username = req.media["username"]
             aux_user.password = req.media["password"]
+
+            email_validator = '^\w+([\.-]?\w+)*@gmail.com'
+
             aux_user.email = req.media["email"]
-            aux_user.name = req.media["name"]
-            aux_user.surname = req.media["surname"]
-            aux_user.genere = aux_genere
+            print(re.search(email_validator, aux_user.email))
+
+            if re.search(email_validator, aux_user.email) is None:
+                raise falcon.HTTPBadRequest(messages.invalid_mail)
 
             self.db_session.add(aux_user)
 
