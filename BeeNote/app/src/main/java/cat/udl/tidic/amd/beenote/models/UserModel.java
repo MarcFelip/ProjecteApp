@@ -38,13 +38,10 @@ public class UserModel {
     }
 
 
-    public UserModel(String username, String password, String email, String name, String surname, String genere) {
+    public UserModel(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.name = name;
-        this.surname = surname;
-        this.genere = genere;
     }
 
     public String getCreated_at() {

@@ -31,9 +31,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView Username;
     private TextView Password;
     private TextView Email;
-    private TextView Name;
-    private TextView Surname;
-    private TextView Genere;
+
+    private UserService userService = RetrofitClientInstance.
+            getRetrofitInstance().create(UserService.class);
+
+    //Aqui creem el Head de la peticio (Postman)
+    private Map<String, String> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,33 +50,22 @@ public class MainActivity extends AppCompatActivity {
         Username = findViewById(R.id.Registrar_Username);
         Password = findViewById(R.id.Registrar_password);
         Email = findViewById(R.id.Registarr_email);
-        Name = findViewById(R.id.Registrar_name);
-        Surname = findViewById(R.id.Registar_surname);
-        Genere = findViewById(R.id.Registrar_genere);
 
+        //Aqui omplim el Head de la peticio (Postman)
+        map.put("Content-Type", "application/json");
 
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final String username = Username.getText().toString();
-                final String password = Password.getText().toString();
-                final String email = Email.getText().toString();
-                final String name = Name.getText().toString();
-                final String surname = Surname.getText().toString();
-                final String genere = Genere.getText().toString();
-
-                UserService userService = RetrofitClientInstance.
-                        getRetrofitInstance().create(UserService.class);
-
-                //Aqui creem i omplim el Head de la peticio (Postman)
-                Map<String, String> map = new HashMap<>();
-                map.put("Content-Type", "application/json");
+                String username = Username.getText().toString();
+                String password = Password.getText().toString();
+                String email = Email.getText().toString();
 
                 //Creem un Usermodel amb les variables que demana la API
                 //UserModel model = new UserModel("joan5234","1234","joanrialp@gmail.com","Joan","Rialp","M");
-                UserModel model = new UserModel(username,password,email,name,surname,genere);
+                UserModel model = new UserModel(username,password,email);
 
                 //Fem la crida a la API amb el Head i Body
                 Call<Void> call = userService.postUserProfile(map,model);
