@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,8 +28,13 @@ public class Login extends AppCompatActivity {
     private Button login;
     private TextView Username;
     private TextView Password;
+    private  TextView MissatgeError;
+    private Button registrar;
 
     private String autoritzacio;
+
+    private UserService userService = RetrofitClientInstance.
+            getRetrofitInstance().create(UserService.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +42,16 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         login = findViewById(R.id.Button_Login);
+        registrar = findViewById(R.id.Button_Register);
 
         Username = findViewById(R.id.Login_Username);
         Password = findViewById(R.id.Login_password);
-
+        MissatgeError = findViewById(R.id.Login_Error);
 
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                UserService userService = RetrofitClientInstance.
-                        getRetrofitInstance().create(UserService.class);
 
                 autoritzacio = Username.getText().toString() + ":" + Password.getText().toString();
                 byte[] data = null;
@@ -67,21 +71,25 @@ public class Login extends AppCompatActivity {
                        } catch (IOException e) {
                            e.printStackTrace();
                        }
+                       Intent intent = new Intent(Login.this, Perfil_User.class);
+                       startActivity(intent);
                    }
 
                    @Override
                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                       System.out.println("Error");
-                       System.out.println(t.getMessage());
+                       Log.d("Login ",t.getMessage());
+                       MissatgeError.setText("Invalido nombre de usuario o contraseña");
                    }
                });
 
+            }
+        });
 
-
-               Intent intent = new Intent(Login.this, Perfil_User.class);
+        registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, MainActivity.class);
                 startActivity(intent);
-
-
             }
         });
     }

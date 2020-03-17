@@ -46,4 +46,15 @@ RetrofitClientInstance --> Canviar aqui tambe la IP, posar la de Windows. (192.1
 
 Carpeta API/docker/backend/start --> canviar amb el notepad++ el formato a Unix(LF)
 
+---------------------------------------------------
 
+exprecio regunalr --> API @gamil.com
+
+-----------------------------------
+
+variables dentorn --> export API_URL="http://192.168.43.8:8000"
+
+
+SharedPreferences Android
+
+LiveData MVVM
