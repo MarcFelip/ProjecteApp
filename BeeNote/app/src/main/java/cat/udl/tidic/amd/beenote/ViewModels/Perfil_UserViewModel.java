@@ -1,20 +1,19 @@
-package cat.udl.tidic.amd.beenote.services;
+package cat.udl.tidic.amd.beenote.ViewModels;
 
 import androidx.lifecycle.ViewModel;
 
 import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 
-public class LoginViewModel extends ViewModel {
+public class Perfil_UserViewModel extends ViewModel {
 
     private UserRepository userRepository;
 
-    public LoginViewModel() {
+    public Perfil_UserViewModel() {
         this.userRepository = new UserRepository();
     }
 
-    public void Token(String token)
+    public String getToken()
     {
-        userRepository.setToken(token);
+       return userRepository.getToken();
     }
-
 }

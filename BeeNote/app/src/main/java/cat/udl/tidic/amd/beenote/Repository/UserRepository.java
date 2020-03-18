@@ -2,13 +2,9 @@ package cat.udl.tidic.amd.beenote.Repository;
 
 import android.content.SharedPreferences;
 
-import com.google.gson.Gson;
-
-import cat.udl.tidic.amd.beenote.Repository.TokenRepository;
-import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.preferences.PreferencesProvider;
 
-public class UserRepository implements TokenRepository {
+public class UserRepository implements UserRepository_Interface {
 
     private SharedPreferences mPreferences;
 

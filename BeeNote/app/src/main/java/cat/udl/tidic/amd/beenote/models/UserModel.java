@@ -34,9 +34,6 @@ public class UserModel {
     @SerializedName("photo")
     private String photo;
 
-    private String Token;
-
-
 
     public UserModel() {
     }
@@ -46,15 +43,6 @@ public class UserModel {
         this.username = username;
         this.password = password;
         this.email = email;
-    }
-
-
-    public String getToken() {
-        return Token;
-    }
-
-    public void setToken(String token) {
-        Token = token;
     }
 
     public String getCreated_at() {

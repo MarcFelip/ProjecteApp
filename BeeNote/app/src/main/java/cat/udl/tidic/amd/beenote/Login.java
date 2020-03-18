@@ -14,10 +14,9 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
-import cat.udl.tidic.amd.beenote.services.LoginViewModel;
+import cat.udl.tidic.amd.beenote.ViewModels.LoginViewModel;
 import cat.udl.tidic.amd.beenote.services.UserService;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -34,7 +33,6 @@ public class Login extends AppCompatActivity {
 
     private String autoritzacio;
     private UserService userService;
-    private UserModel userModel;
 
     @NonNull
     private LoginViewModel loginviewmodel = new LoginViewModel();
@@ -46,17 +44,17 @@ public class Login extends AppCompatActivity {
 
         login = findViewById(R.id.Button_Login);
         registrar = findViewById(R.id.Button_Register);
-
         Username = findViewById(R.id.Login_Username);
         Password = findViewById(R.id.Login_password);
         MissatgeError = findViewById(R.id.Login_Error);
 
         userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
-        userModel = new UserModel();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                System.out.println(Username.getText().toString());
 
                 autoritzacio = Username.getText().toString() + ":" + Password.getText().toString();
                 byte[] data = null;
@@ -78,7 +76,7 @@ public class Login extends AppCompatActivity {
                            if (response.body() == null)
                            {
                                MissatgeError.setText("Invalido nombre de usuario o contraseña");
-                               System.out.println("Null "+response.errorBody().string());
+                               //System.out.println("Null "+response.errorBody().string());
                            }
                            else
                            {
@@ -86,18 +84,12 @@ public class Login extends AppCompatActivity {
 
                                String token = response.body().string().split(":")[1];
 
-                               //SuperString de java per treure el primer i ultim caracter
+                               // -----> SuperString de java per treure el primer i ultim caracter
                                token = token.substring(2,token.length()-2);
 
-                               System.out.println("Token"+token);
-
-                               userModel.setToken(token);
-
-                               System.out.println("Pasar setToken");
+                               //System.out.println("Token"+token);
 
                                loginviewmodel.Token(token);
-
-                               System.out.println("Pasar userModel");
 
                                Intent intent = new Intent(Login.this, Perfil_User.class);
                                startActivity(intent);

@@ -39,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView Password;
     private TextView Email;
 
-    private UserService userService = RetrofitClientInstance.
-            getRetrofitInstance().create(UserService.class);
+    private UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 
     //Aqui creem el Head de la peticio (Postman)
     private Map<String, String> map = new HashMap<>();
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         salida = findViewById(R.id.Salida);
         post = findViewById(R.id.Registrar);
         Login = findViewById(R.id.Button_Login);
-
         Password = findViewById(R.id.Registrar_password);
         Email = findViewById(R.id.Registarr_email);
 
@@ -79,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
                 //byte[] hash = factory.generateSecret(spec).getEncoded();
 
-                PBEKeySpec spec = new PBEKeySpec(password,salt,);
+                //PBEKeySpec spec = new PBEKeySpec(password,salt,);
 
-                String passwordEncrypted = bytesToHex(encodedhash);
+                //String passwordEncrypted = bytesToHex(encodedhash);
 
                 // ------> Per agafar la apart del davant del correu, i ficarla com a username
                 String email = Email.getText().toString();
@@ -96,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
 
                 //System.out.println("username " + username);
 
-                // Creem un Usermodel amb les variables que demana la API
-                //UserModel model = new UserModel("joan5234","1234","joanrialp@gmail.com","Joan","Rialp","M");
-                UserModel model = new UserModel(username,passwordEncrypted,email);
+                // ------> Creem un Usermodel amb les variables que demana la API
+                // UserModel model = new UserModel("joan5234","1234","joanrialp@gmail.com","Joan","Rialp","M");
+                UserModel model = new UserModel(username,password,email);
 
                 // Fem la crida a la API amb el Head i Body
                 Call<Void> call = userService.postUserProfile(map,model);

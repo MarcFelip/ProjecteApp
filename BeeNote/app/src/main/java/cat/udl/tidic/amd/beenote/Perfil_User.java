@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cat.udl.tidic.amd.beenote.Repository.UserRepository;
+import cat.udl.tidic.amd.beenote.ViewModels.Perfil_UserViewModel;
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
@@ -26,7 +27,7 @@ public class Perfil_User extends AppCompatActivity {
     private TextView name;
     private TextView email;
 
-    private UserRepository userRepository = new UserRepository();
+    Perfil_UserViewModel perfil_userViewModel = new Perfil_UserViewModel();
 
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 
@@ -39,10 +40,9 @@ public class Perfil_User extends AppCompatActivity {
         name = findViewById(R.id.Perfil_name);
         email = findViewById(R.id.Perfil_email);
 
-        String token = userRepository.getToken();
-        System.out.println("Login - Toke " + token);
+        String token = perfil_userViewModel.getToken();
+        //System.out.println("Login - Toke " + token);
 
-        System.out.println("Login - Toke ");
         Map<String, String> map = new HashMap<>();
         map.put("Authorization", token);
 
@@ -53,6 +53,7 @@ public class Perfil_User extends AppCompatActivity {
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 u = response.body();
                 try {
+                    assert u != null;
                     username.setText(u.getUsername());
                     name.setText(u.getName());
                     email.setText(u.getEmail());
@@ -63,7 +64,6 @@ public class Perfil_User extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserModel> call, Throwable t) {
-
                 Log.d("Perfil User Error",t.toString());
             }
         });
