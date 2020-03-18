@@ -12,8 +12,15 @@ import android.widget.TextView;
 
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.crypto.spec.PBEKeySpec;
 
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
@@ -47,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         post = findViewById(R.id.Registrar);
         Login = findViewById(R.id.Button_Login);
 
-        Username = findViewById(R.id.Registrar_Username);
         Password = findViewById(R.id.Registrar_password);
         Email = findViewById(R.id.Registarr_email);
 
@@ -59,15 +65,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String username = Username.getText().toString();
+
                 String password = Password.getText().toString();
+
+                // ------> Per encriptar la contrasenya
+                SecureRandom random = new SecureRandom();
+                byte[] salt = new byte[16];
+                random.nextBytes(salt);
+
+                //KeySpec spec = new PBEKeySpec(password.toCharArray(), salt,  32, 29000);
+
+                //System.out.println("Spec "+spec);
+
+                //byte[] hash = factory.generateSecret(spec).getEncoded();
+
+                PBEKeySpec spec = new PBEKeySpec(password,salt,);
+
+                String passwordEncrypted = bytesToHex(encodedhash);
+
+                // ------> Per agafar la apart del davant del correu, i ficarla com a username
                 String email = Email.getText().toString();
 
-                //Creem un Usermodel amb les variables que demana la API
-                //UserModel model = new UserModel("joan5234","1234","joanrialp@gmail.com","Joan","Rialp","M");
-                UserModel model = new UserModel(username,password,email);
+                boolean trobat = false;
+                int posicio =  email.indexOf("@");
+                String username = "";
+                for (int i = 0; i < posicio; i++)
+                {
+                    username = username + email.charAt(i);
+                }
 
-                //Fem la crida a la API amb el Head i Body
+                //System.out.println("username " + username);
+
+                // Creem un Usermodel amb les variables que demana la API
+                //UserModel model = new UserModel("joan5234","1234","joanrialp@gmail.com","Joan","Rialp","M");
+                UserModel model = new UserModel(username,passwordEncrypted,email);
+
+                // Fem la crida a la API amb el Head i Body
                 Call<Void> call = userService.postUserProfile(map,model);
 
                 call.enqueue(new Callback<Void>() {
@@ -90,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                         else
                         {
                             salida.setText("OK");
+                            Intent intent = new Intent(MainActivity.this, Login.class);
+                            startActivity(intent);
                         }
 
                     }
@@ -115,5 +150,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private static String bytesToHex(byte[] hash) {
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 }

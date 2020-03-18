@@ -1,5 +1,6 @@
 package cat.udl.tidic.amd.beenote;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,12 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
+import cat.udl.tidic.amd.beenote.Repository.UserRepository;
+import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
+import cat.udl.tidic.amd.beenote.services.LoginViewModel;
 import cat.udl.tidic.amd.beenote.services.UserService;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -32,9 +33,11 @@ public class Login extends AppCompatActivity {
     private Button registrar;
 
     private String autoritzacio;
+    private UserService userService;
+    private UserModel userModel;
 
-    private UserService userService = RetrofitClientInstance.
-            getRetrofitInstance().create(UserService.class);
+    @NonNull
+    private LoginViewModel loginviewmodel = new LoginViewModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,8 @@ public class Login extends AppCompatActivity {
         Password = findViewById(R.id.Login_password);
         MissatgeError = findViewById(R.id.Login_Error);
 
+        userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
+        userModel = new UserModel();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,26 +64,54 @@ public class Login extends AppCompatActivity {
                 data = autoritzacio.getBytes(StandardCharsets.UTF_8);
 
                 // .trim() --> perque no hi hagin caracaters raros
-                String encoding = "Authorization " + Base64.encodeToString(data,Base64.DEFAULT);
+                String encoding = "Authentication: " + Base64.encodeToString(data,Base64.DEFAULT);
                 Call<ResponseBody> call = userService.postCreateToken(encoding.trim());
 
+                System.out.println("Entrar " + encoding.trim());
 
                 call.enqueue(new Callback<ResponseBody>() {
                    @Override
                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                        try {
-                           System.out.println(response.body().string().split(":")[1]);
+                           //assert response.body() != null;
+
+                           if (response.body() == null)
+                           {
+                               MissatgeError.setText("Invalido nombre de usuario o contraseña");
+                               System.out.println("Null "+response.errorBody().string());
+                           }
+                           else
+                           {
+                               //System.out.println(response.body().string().split(":")[1]);
+
+                               String token = response.body().string().split(":")[1];
+
+                               //SuperString de java per treure el primer i ultim caracter
+                               token = token.substring(2,token.length()-2);
+
+                               System.out.println("Token"+token);
+
+                               userModel.setToken(token);
+
+                               System.out.println("Pasar setToken");
+
+                               loginviewmodel.Token(token);
+
+                               System.out.println("Pasar userModel");
+
+                               Intent intent = new Intent(Login.this, Perfil_User.class);
+                               startActivity(intent);
+                           }
+
                        } catch (IOException e) {
                            e.printStackTrace();
                        }
-                       Intent intent = new Intent(Login.this, Perfil_User.class);
-                       startActivity(intent);
                    }
 
                    @Override
                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                        Log.d("Login ",t.getMessage());
-                       MissatgeError.setText("Invalido nombre de usuario o contraseña");
+                       MissatgeError.setText("Conexion fallida");
                    }
                });
 

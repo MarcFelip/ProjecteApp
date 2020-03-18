@@ -2,6 +2,7 @@ package cat.udl.tidic.amd.beenote;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
+import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
@@ -19,27 +21,30 @@ import retrofit2.Response;
 
 public class Perfil_User extends AppCompatActivity {
 
-    UserModel u = new UserModel();
+    private UserModel u = new UserModel();
     private TextView username;
     private TextView name;
     private TextView email;
+
+    private UserRepository userRepository = new UserRepository();
+
+    private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil__user);
 
-        String token = "";
-
         username = findViewById(R.id.Perfil_username);
         name = findViewById(R.id.Perfil_name);
         email = findViewById(R.id.Perfil_email);
 
-        Map<String, String> map = new HashMap<>();
-        map.put("Authorization", "656e50e154865a5dc469b80437ed2f963b8f58c8857b66c9bf");
+        String token = userRepository.getToken();
+        System.out.println("Login - Toke " + token);
 
-        final UserService userService = RetrofitClientInstance.
-                getRetrofitInstance().create(UserService.class);
+        System.out.println("Login - Toke ");
+        Map<String, String> map = new HashMap<>();
+        map.put("Authorization", token);
 
         Call<UserModel> call = userService.getUserProfile(map);
 
