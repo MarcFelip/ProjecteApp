@@ -25,6 +25,7 @@ import javax.crypto.spec.PBEKeySpec;
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
+import cat.udl.tidic.amd.beenote.utils.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,23 +64,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 String password = Password.getText().toString();
 
                 // ------> Per encriptar la contrasenya
-                SecureRandom random = new SecureRandom();
-                byte[] salt = new byte[16];
-                random.nextBytes(salt);
-
-                //KeySpec spec = new PBEKeySpec(password.toCharArray(), salt,  32, 29000);
-
-                //System.out.println("Spec "+spec);
-
-                //byte[] hash = factory.generateSecret(spec).getEncoded();
-
-                //PBEKeySpec spec = new PBEKeySpec(password,salt,);
-
-                //String passwordEncrypted = bytesToHex(encodedhash);
+                // Course API requires passwords in sha-256 in passlib format so:
+                String salt = "16";
+                String encode_hash = Utils.encode(password,salt,29000);
+                System.out.println("PASSWORD_ENCRYPTED " + encode_hash);
 
                 // ------> Per agafar la apart del davant del correu, i ficarla com a username
                 String email = Email.getText().toString();
@@ -91,12 +82,11 @@ public class MainActivity extends AppCompatActivity {
                 {
                     username = username + email.charAt(i);
                 }
-
                 //System.out.println("username " + username);
 
                 // ------> Creem un Usermodel amb les variables que demana la API
                 // UserModel model = new UserModel("joan5234","1234","joanrialp@gmail.com","Joan","Rialp","M");
-                UserModel model = new UserModel(username,password,email);
+                UserModel model = new UserModel(username,encode_hash,email);
 
                 // Fem la crida a la API amb el Head i Body
                 Call<Void> call = userService.postUserProfile(map,model);
@@ -150,13 +140,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private static String bytesToHex(byte[] hash) {
-        StringBuffer hexString = new StringBuffer();
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xff & hash[i]);
-            if(hex.length() == 1) hexString.append('0');
-            hexString.append(hex);
-        }
-        return hexString.toString();
-    }
 }
