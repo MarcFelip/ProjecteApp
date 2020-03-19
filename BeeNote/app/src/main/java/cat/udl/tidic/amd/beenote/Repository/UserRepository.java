@@ -22,4 +22,14 @@ public class UserRepository implements UserRepository_Interface {
         return this.mPreferences.getString("Token", "");
     }
 
+    @Override
+    public void setRegistrado(String i) {
+        this.mPreferences.edit().putString("Registrado",i).apply();
+    }
+
+    @Override
+    public String getRegistrado() {
+        return this.mPreferences.getString("Registrado", "");
+    }
+
 }

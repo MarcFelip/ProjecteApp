@@ -34,6 +34,8 @@ public class UserModel {
     @SerializedName("photo")
     private String photo;
 
+    private String registrado = "";
+
 
     public UserModel() {
     }
@@ -43,6 +45,14 @@ public class UserModel {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public String getRegistrado() {
+        return registrado;
+    }
+
+    public void setRegistrado(String registrado) {
+        this.registrado = registrado;
     }
 
     public String getCreated_at() {

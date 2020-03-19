@@ -6,5 +6,7 @@ public interface UserRepository_Interface {
 
      void setToken(String i);
      String getToken();
+     void setRegistrado(String i);
+     String getRegistrado();
 
 }

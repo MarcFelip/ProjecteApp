@@ -5,16 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.ViewModels.LoginViewModel;
 import cat.udl.tidic.amd.beenote.services.UserService;
@@ -30,6 +31,8 @@ public class Login extends AppCompatActivity {
     private TextView Password;
     private  TextView MissatgeError;
     private Button registrar;
+    private ProgressBar login_progressBar;
+    private TextView login_registrado;
 
     private String autoritzacio;
     private UserService userService;
@@ -42,80 +45,102 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        login = findViewById(R.id.Button_Login);
-        registrar = findViewById(R.id.Button_Register);
-        Username = findViewById(R.id.Login_Username);
-        Password = findViewById(R.id.Login_password);
-        MissatgeError = findViewById(R.id.Login_Error);
+        if (loginviewmodel.getToken().equals("")) {
 
-        userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
+            login = findViewById(R.id.Button_Login);
+            registrar = findViewById(R.id.Button_Register);
+            Username = findViewById(R.id.Login_Username);
+            Password = findViewById(R.id.Login_password);
+            MissatgeError = findViewById(R.id.Login_Error);
+            login_progressBar = findViewById(R.id.Login_ProgressBar);
+            login_registrado = findViewById(R.id.Login_Registrado);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 
-                System.out.println(Username.getText().toString());
+            login_registrado.setText(loginviewmodel.getResgistrado());
 
-                autoritzacio = Username.getText().toString() + ":" + Password.getText().toString();
-                byte[] data = null;
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                data = autoritzacio.getBytes(StandardCharsets.UTF_8);
+                    login_progressBar.setVisibility(View.VISIBLE);
+                    //System.out.println(Username.getText().toString());
 
-                // .trim() --> perque no hi hagin caracaters raros
-                String encoding = "Authentication: " + Base64.encodeToString(data,Base64.DEFAULT);
-                Call<ResponseBody> call = userService.postCreateToken(encoding.trim());
+                    autoritzacio = Username.getText().toString() + ":" + Password.getText().toString();
+                    byte[] data = null;
 
-                System.out.println("Entrar " + encoding.trim());
+                    data = autoritzacio.getBytes(StandardCharsets.UTF_8);
 
-                call.enqueue(new Callback<ResponseBody>() {
-                   @Override
-                   public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                       try {
-                           //assert response.body() != null;
+                    // .trim() --> perque no hi hagin caracaters raros
+                    String encoding = "Authentication: " + Base64.encodeToString(data, Base64.DEFAULT);
+                    final Call<ResponseBody> call = userService.postCreateToken(encoding.trim());
 
-                           if (response.body() == null)
-                           {
-                               MissatgeError.setText("Invalido nombre de usuario o contraseña");
-                               //System.out.println("Null "+response.errorBody().string());
-                           }
-                           else
-                           {
-                               //System.out.println(response.body().string().split(":")[1]);
+                    System.out.println("Entrar " + encoding.trim());
 
-                               String token = response.body().string().split(":")[1];
+                    // ----> Para que l'app se espere 3 segundos con el progressbar mientras espera la peticion a la BD
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            call.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    try {
+                                        //assert response.body() != null;
 
-                               // -----> SuperString de java per treure el primer i ultim caracter
-                               token = token.substring(2,token.length()-2);
+                                        if (response.body() == null) {
+                                            login_progressBar.setVisibility(View.INVISIBLE);
+                                            MissatgeError.setText("Invalido nombre de usuario o contraseña");
+                                            //System.out.println("Null "+response.errorBody().string());
+                                        } else {
+                                            //System.out.println(response.body().string().split(":")[1]);
 
-                               //System.out.println("Token"+token);
+                                            String token = response.body().string().split(":")[1];
 
-                               loginviewmodel.Token(token);
+                                            // -----> SuperString de java per treure el primer i ultim caracter
+                                            token = token.substring(2, token.length() - 2);
 
-                               Intent intent = new Intent(Login.this, Perfil_User.class);
-                               startActivity(intent);
-                           }
+                                            //System.out.println("Token"+token);
 
-                       } catch (IOException e) {
-                           e.printStackTrace();
-                       }
-                   }
+                                            loginviewmodel.Token(token);
 
-                   @Override
-                   public void onFailure(Call<ResponseBody> call, Throwable t) {
-                       Log.d("Login ",t.getMessage());
-                       MissatgeError.setText("Conexion fallida");
-                   }
-               });
+                                            loginviewmodel.setRegistrado("");
+                                            login_progressBar.setVisibility(View.INVISIBLE);
+                                            Intent intent = new Intent(Login.this, MenuPrincipal.class);
+                                            startActivity(intent);
+                                        }
 
-            }
-        });
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
 
-        registrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Login.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Log.d("Login ", t.getMessage());
+                                    login_progressBar.setVisibility(View.INVISIBLE);
+                                    MissatgeError.setText("Conexion fallida");
+                                }
+                            });
+
+                        }
+                    }, 1000);   //1 seconds
+
+                }
+            });
+
+            registrar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Login.this, Registrar.class);
+                    startActivity(intent);
+                }
+            });
+
+        }
+        else
+        {
+            Intent intent = new Intent(Login.this, MenuPrincipal.class);
+            startActivity(intent);
+        }
     }
 }

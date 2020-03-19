@@ -109,7 +109,9 @@ class User(SQLAlchemyBase, JSONModel):
             "surname": self.surname,
             "birthdate": self.birthdate.strftime(
                 settings.DATE_DEFAULT_FORMAT) if self.birthdate is not None else self.birthdate,
-            "genere": self.genere.value,
+
+            #TODO: Comprovar que el valor del genere es null o no, return una cosa o altre
+            #"genere": self.genere.value,
             "phone": self.phone,
             "photo": self.photo,
         }

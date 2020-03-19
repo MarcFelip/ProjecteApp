@@ -3,25 +3,18 @@ package cat.udl.tidic.amd.beenote;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.location.GnssMeasurementsEvent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.KeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.crypto.spec.PBEKeySpec;
-
+import cat.udl.tidic.amd.beenote.ViewModels.Registrar_ViewModel;
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
@@ -31,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivity extends AppCompatActivity {
+public class Registrar extends AppCompatActivity {
 
     private TextView salida;
     private Button post;
@@ -39,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView Username;
     private TextView Password;
     private TextView Email;
+    private ProgressBar registrar_progressbar;
 
     private UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
+    private Registrar_ViewModel registrar_viewModel = new Registrar_ViewModel();
 
     //Aqui creem el Head de la peticio (Postman)
     private Map<String, String> map = new HashMap<>();
@@ -55,15 +50,16 @@ public class MainActivity extends AppCompatActivity {
         Login = findViewById(R.id.Button_Login);
         Password = findViewById(R.id.Registrar_password);
         Email = findViewById(R.id.Registarr_email);
+        registrar_progressbar = findViewById(R.id.Registrar_progressBar);
 
         //Aqui omplim el Head de la peticio (Postman)
         map.put("Content-Type", "application/json");
-
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                registrar_progressbar.setVisibility(View.VISIBLE);
                 String password = Password.getText().toString();
 
                 // ------> Per encriptar la contrasenya
@@ -89,50 +85,61 @@ public class MainActivity extends AppCompatActivity {
                 UserModel model = new UserModel(username,encode_hash,email);
 
                 // Fem la crida a la API amb el Head i Body
-                Call<Void> call = userService.postUserProfile(map,model);
+                final Call<Void> call = userService.postUserProfile(map,model);
 
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        call.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
 
-                        Log.d("MainActivity",response.toString());
-                        Log.d("MainActiviti ok",response.message());
+                                Log.d("MainActivity",response.toString());
+                                Log.d("MainActiviti ok",response.message());
 
-                        System.out.println(response.message());
+                                System.out.println(response.message());
 
-                        if (response.message().equals("Bad Request"))
-                        {
-                            salida.setText("Error el registrarse: Usuari ya existente o campo invalido");
-                        }
-                       else if (response.message().equals("Internal Server Error"))
-                        {
-                            salida.setText("Error del Servidor");
-                        }
-                        else
-                        {
-                            salida.setText("OK");
-                            Intent intent = new Intent(MainActivity.this, Login.class);
-                            startActivity(intent);
-                        }
+                                if (response.message().equals("Bad Request"))
+                                {
+                                    registrar_progressbar.setVisibility(View.INVISIBLE);
+                                    salida.setText("Error el registrarse: Usuari ya existente o campo invalido");
+                                }
+                                else if (response.message().equals("Internal Server Error"))
+                                {
+                                    registrar_progressbar.setVisibility(View.INVISIBLE);
+                                    salida.setText("Error del Servidor");
+                                }
+                                else
+                                {
+                                    registrar_progressbar.setVisibility(View.INVISIBLE);
+                                    //salida.setText("OK");
+                                    registrar_viewModel.setRegistrado("Registrado con exito");
+                                    Intent intent = new Intent(Registrar.this, Login.class);
+                                    startActivity(intent);
+                                }
 
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+
+                                Log.d("MainActivity333",t.getMessage());
+                                Log.d("MainActivity233",t.toString());
+
+                                registrar_progressbar.setVisibility(View.INVISIBLE);
+                                salida.setText("Error Conexion");
+                            }
+                        });
                     }
+                }, 2000);   //2 seconds
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-
-                        Log.d("MainActivity333",t.getMessage());
-                        Log.d("MainActivity233",t.toString());
-
-                        salida.setText("Error Conexion");
-                    }
-                });
             }
         });
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Login.class);
+                Intent intent = new Intent(Registrar.this, Login.class);
                 startActivity(intent);
             }
         });
