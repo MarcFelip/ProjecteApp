@@ -28,6 +28,9 @@ public interface UserService {
     @POST("/account/create_token")
     Call<ResponseBody> postCreateToken(@Header("Authorization") String base64_encoding);
 
+    @POST("/account/delete_token")
+    Call<Void> deleteToken(@HeaderMap Map<String, String> headers);
+
     //@TODO: EFHJDSAHFKJAS
 
 }

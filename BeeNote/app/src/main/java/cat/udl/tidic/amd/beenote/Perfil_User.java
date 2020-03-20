@@ -27,7 +27,7 @@ public class Perfil_User extends AppCompatActivity {
     private TextView name;
     private TextView email;
 
-    Perfil_UserViewModel perfil_userViewModel = new Perfil_UserViewModel();
+    private Perfil_UserViewModel perfil_userViewModel = new Perfil_UserViewModel();
 
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 

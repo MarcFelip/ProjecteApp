@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,8 +32,10 @@ public class Registrar extends AppCompatActivity {
     private Button Login;
     private TextView Username;
     private TextView Password;
+    private TextView PasswordConfirmacio;
     private TextView Email;
     private ProgressBar registrar_progressbar;
+    private CheckBox aceptarTerminos;
 
     private UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
     private Registrar_ViewModel registrar_viewModel = new Registrar_ViewModel();
@@ -51,6 +54,8 @@ public class Registrar extends AppCompatActivity {
         Password = findViewById(R.id.Registrar_password);
         Email = findViewById(R.id.Registarr_email);
         registrar_progressbar = findViewById(R.id.Registrar_progressBar);
+        PasswordConfirmacio = findViewById(R.id.registrar_password_2);
+        aceptarTerminos = findViewById(R.id.Registrar_checkBox);
 
         //Aqui omplim el Head de la peticio (Postman)
         map.put("Content-Type", "application/json");
@@ -59,80 +64,87 @@ public class Registrar extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                registrar_progressbar.setVisibility(View.VISIBLE);
-                String password = Password.getText().toString();
+                if (aceptarTerminos.isChecked()) {
 
-                // ------> Per encriptar la contrasenya
-                // Course API requires passwords in sha-256 in passlib format so:
-                String salt = "16";
-                String encode_hash = Utils.encode(password,salt,29000);
-                System.out.println("PASSWORD_ENCRYPTED " + encode_hash);
+                    registrar_progressbar.setVisibility(View.VISIBLE);
+                    String password = Password.getText().toString();
+                    String password2 = PasswordConfirmacio.getText().toString();
 
-                // ------> Per agafar la apart del davant del correu, i ficarla com a username
-                String email = Email.getText().toString();
+                    if (password.equals(password2)) {
+                        // ------> Per encriptar la contrasenya
+                        // Course API requires passwords in sha-256 in passlib format so:
+                        String salt = "16";
+                        String encode_hash = Utils.encode(password, salt, 29000);
+                        System.out.println("PASSWORD_ENCRYPTED " + encode_hash);
 
-                boolean trobat = false;
-                int posicio =  email.indexOf("@");
-                String username = "";
-                for (int i = 0; i < posicio; i++)
-                {
-                    username = username + email.charAt(i);
-                }
-                //System.out.println("username " + username);
+                        // ------> Per agafar la apart del davant del correu, i ficarla com a username
+                        String email = Email.getText().toString();
 
-                // ------> Creem un Usermodel amb les variables que demana la API
-                // UserModel model = new UserModel("joan5234","1234","joanrialp@gmail.com","Joan","Rialp","M");
-                UserModel model = new UserModel(username,encode_hash,email);
+                        boolean trobat = false;
+                        int posicio = email.indexOf("@");
+                        String username = "";
+                        for (int i = 0; i < posicio; i++) {
+                            username = username + email.charAt(i);
+                        }
+                        //System.out.println("username " + username);
 
-                // Fem la crida a la API amb el Head i Body
-                final Call<Void> call = userService.postUserProfile(map,model);
+                        // ------> Creem un Usermodel amb les variables que demana la API
+                        // UserModel model = new UserModel("joan5234","1234","joanrialp@gmail.com","Joan","Rialp","M");
+                        UserModel model = new UserModel(username, encode_hash, email);
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        call.enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
+                        // Fem la crida a la API amb el Head i Body
+                        final Call<Void> call = userService.postUserProfile(map, model);
 
-                                Log.d("MainActivity",response.toString());
-                                Log.d("MainActiviti ok",response.message());
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                call.enqueue(new Callback<Void>() {
+                                    @Override
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
 
-                                System.out.println(response.message());
+                                        Log.d("MainActivity", response.toString());
+                                        Log.d("MainActiviti ok", response.message());
 
-                                if (response.message().equals("Bad Request"))
-                                {
-                                    registrar_progressbar.setVisibility(View.INVISIBLE);
-                                    salida.setText("Error el registrarse: Usuari ya existente o campo invalido");
-                                }
-                                else if (response.message().equals("Internal Server Error"))
-                                {
-                                    registrar_progressbar.setVisibility(View.INVISIBLE);
-                                    salida.setText("Error del Servidor");
-                                }
-                                else
-                                {
-                                    registrar_progressbar.setVisibility(View.INVISIBLE);
-                                    //salida.setText("OK");
-                                    registrar_viewModel.setRegistrado("Registrado con exito");
-                                    Intent intent = new Intent(Registrar.this, Login.class);
-                                    startActivity(intent);
-                                }
+                                        System.out.println(response.message());
 
+                                        if (response.message().equals("Bad Request")) {
+                                            registrar_progressbar.setVisibility(View.INVISIBLE);
+                                            salida.setText("Error el registrarse: Usuari ya existente o campo invalido");
+                                        } else if (response.message().equals("Internal Server Error")) {
+                                            registrar_progressbar.setVisibility(View.INVISIBLE);
+                                            salida.setText("Error del Servidor");
+                                        } else {
+                                            registrar_progressbar.setVisibility(View.INVISIBLE);
+                                            //salida.setText("OK");
+                                            registrar_viewModel.setRegistrado("Registrado con exito");
+                                            Intent intent = new Intent(Registrar.this, Login.class);
+                                            startActivity(intent);
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Void> call, Throwable t) {
+
+                                        Log.d("MainActivity333", t.getMessage());
+                                        Log.d("MainActivity233", t.toString());
+
+                                        registrar_progressbar.setVisibility(View.INVISIBLE);
+                                        salida.setText("Error Conexion");
+                                    }
+                                });
                             }
+                        }, 1000);   //1 seconds
 
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-
-                                Log.d("MainActivity333",t.getMessage());
-                                Log.d("MainActivity233",t.toString());
-
-                                registrar_progressbar.setVisibility(View.INVISIBLE);
-                                salida.setText("Error Conexion");
-                            }
-                        });
+                    } else {
+                        salida.setText("Las contraseñas no coinciden");
+                        registrar_progressbar.setVisibility(View.INVISIBLE);
                     }
-                }, 1000);   //1 seconds
-
+                }
+                else{
+                    salida.setText("Acepta los terminos");
+                    registrar_progressbar.setVisibility(View.INVISIBLE);
+                }
             }
         });
 

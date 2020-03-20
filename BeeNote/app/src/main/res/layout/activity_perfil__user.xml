@@ -47,7 +47,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/Perfil_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre Usuario"
@@ -61,7 +61,7 @@
         app:layout_constraintVertical_bias="0.252" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/Perfil_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gmail"
@@ -73,5 +73,18 @@
         app:layout_constraintStart_toStartOf="@+id/imageView7"
         app:layout_constraintTop_toBottomOf="@+id/imageView8"
         app:layout_constraintVertical_bias="0.626" />
+
+    <TextView
+        android:id="@+id/Perfil_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre"
+        android:textColor="@color/LOGOTIP_background"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.429" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
