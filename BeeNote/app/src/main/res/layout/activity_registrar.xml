@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Registrar">
 
-
     <ImageView
         android:id="@+id/imageFons"
         android:layout_width="601dp"
@@ -18,37 +17,37 @@
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="335dp"
-        android:layout_height="541dp"
+        android:layout_width="351dp"
+        android:layout_height="486dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.705"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cuadrado_login" />
 
+
     <TextView
         android:id="@+id/Salida"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/imageView10"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="245dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="385dp"
+        android:gravity="center"
+        android:textColor="@color/red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Registrar"
-        android:layout_width="170dp"
+        android:layout_width="240dp"
         android:layout_height="53dp"
-        android:layout_marginTop="504dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="434dp"
         android:background="@drawable/btn_iniciarsesion"
         android:text="Regístrate"
         android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,42 +55,42 @@
         android:id="@+id/Registrar_password"
         android:layout_width="245dp"
         android:layout_height="60dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="230dp"
         android:background="@drawable/btn_redondo_white"
         android:ems="10"
         android:hint="Contraseña"
         android:inputType="textPersonName"
         android:paddingLeft="20dp"
-        android:password="true"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <EditText
         android:id="@+id/registrar_password_2"
         android:layout_width="245dp"
         android:layout_height="60dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="388dp"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="303dp"
         android:background="@drawable/btn_redondo_white"
         android:ems="10"
         android:hint="Repita Contraseña"
         android:inputType="textPersonName"
         android:paddingLeft="20dp"
-        android:password="true"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
         android:id="@+id/Registarr_email"
         android:layout_width="245dp"
         android:layout_height="60dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="236dp"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="155dp"
         android:background="@drawable/btn_redondo_white"
         android:ems="10"
         android:hint="ejemplo@gmail.com"
@@ -102,12 +101,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
         android:id="@+id/registarr_usuario"
         android:layout_width="245dp"
         android:layout_height="60dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/btn_redondo_white"
         android:ems="10"
         android:hint="Nombre de Usuario"
@@ -122,8 +122,8 @@
         android:id="@+id/Button_Login"
         android:layout_width="140dp"
         android:layout_height="51dp"
-        android:layout_marginTop="644dp"
-        android:layout_marginEnd="136dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/btn_registrar"
         android:text="Iniciar sesión"
         android:textColor="#000000"
@@ -136,17 +136,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="180dp"
-        android:layout_marginTop="228dp"
+        android:layout_marginTop="200dp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="604dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="532dp"
         android:text="¿Ya tienes cuenta?"
         android:textColor="#000"
         android:textSize="20dp"
@@ -157,7 +158,7 @@
         android:id="@+id/textView4"
         android:layout_width="200dp"
         android:layout_height="54dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="19dp"
         android:text="Regístrate"
         android:textAlignment="center"
         android:textColor="#FFF"
@@ -169,28 +170,25 @@
 
     <CheckBox
         android:id="@+id/Registrar_checkBox"
-        android:layout_width="82dp"
+        android:layout_width="35dp"
         android:layout_height="33dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="372dp"
         android:buttonTint="@color/LOGOTIP_background"
-        android:text="Acepto"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/LOGOTIP_background"
-        app:layout_constraintBottom_toTopOf="@+id/Registrar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/terminos"
-        app:layout_constraintTop_toBottomOf="@+id/registrar_password_2"
-        app:layout_constraintVertical_bias="0.565" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/terminos"
         android:layout_width="201dp"
         android:layout_height="38dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="He leído y acepto los términos y condiciones de uso"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.438"
+        app:layout_constraintHorizontal_bias="0.604"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrar_password_2" />
 
