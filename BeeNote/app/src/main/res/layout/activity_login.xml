@@ -37,7 +37,7 @@
         android:ems="10"
         android:gravity="center"
         android:paddingLeft="20dp"
-        android:text="              @ gmail.com"
+        android:text="              @gmail.com"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"

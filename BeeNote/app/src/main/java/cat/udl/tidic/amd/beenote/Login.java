@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity {
                 public void onClick(View v) {
 
                     login_progressBar.setVisibility(View.VISIBLE);
-                    //System.out.println(Username.getText().toString());
+                    //System.out.println("Login Username "+ Username.getText().toString());
 
                     autoritzacio = Username.getText().toString() + ":" + Password.getText().toString();
                     byte[] data = null;
@@ -123,7 +123,7 @@ public class Login extends AppCompatActivity {
                             });
 
                         }
-                    }, 1000);   //1 seconds
+                    }, 500);   //0,5 seconds
 
                 }
             });
