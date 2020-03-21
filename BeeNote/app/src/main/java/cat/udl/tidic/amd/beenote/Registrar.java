@@ -36,6 +36,7 @@ public class Registrar extends AppCompatActivity {
     private TextView Email;
     private ProgressBar registrar_progressbar;
     private CheckBox aceptarTerminos;
+    private TextView terminosCondiciones;
 
     private UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
     private Registrar_ViewModel registrar_viewModel = new Registrar_ViewModel();
@@ -56,9 +57,19 @@ public class Registrar extends AppCompatActivity {
         registrar_progressbar = findViewById(R.id.Registrar_progressBar);
         PasswordConfirmacio = findViewById(R.id.registrar_password_2);
         aceptarTerminos = findViewById(R.id.Registrar_checkBox);
+        terminosCondiciones = findViewById(R.id.Registrar_LeerMas);
 
         //Aqui omplim el Head de la peticio (Postman)
         map.put("Content-Type", "application/json");
+
+        terminosCondiciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TerminosCondiciones dialog = TerminosCondiciones.newInstance(Registrar.this);
+                dialog.setCancelable(false);
+                dialog.show(getSupportFragmentManager(),"TerminosCondicionesTag");
+            }
+        });
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override

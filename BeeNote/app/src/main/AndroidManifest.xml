@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MenuPrincipal"></activity>
+        <activity android:name=".TerminosCondiciones"></activity>
+        <activity android:name=".MenuPrincipal" />
         <activity android:name=".Perfil_User" />
         <activity android:name=".Login">
             <intent-filter>
@@ -23,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registrar"></activity>
+        <activity android:name=".Registrar" />
     </application>
 
 </manifest>
