@@ -13,6 +13,7 @@ import java.util.Map;
 
 import cat.udl.tidic.amd.beenote.ViewModels.MenuPrincipal_ViewModel;
 import cat.udl.tidic.amd.beenote.ViewModels.Perfil_UserViewModel;
+import cat.udl.tidic.amd.beenote.models.TokenModel;
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
@@ -41,30 +42,31 @@ public class MenuPrincipal extends AppCompatActivity {
         cerrar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                menuPrincipal_viewModel.setToken("");
-                menuPrincipal_viewModel.setRegistrado("");
-
                 String token = perfil_userViewModel.getToken();
+                TokenModel tokenModel = new TokenModel(token);
 
                 Map<String, String> map = new HashMap<>();
                 map.put("Authorization", token);
 
-                Call<Void> call = userService.deleteToken(map);
+                Call<Void> call = userService.deleteToken(map,tokenModel);
+
+                menuPrincipal_viewModel.setRegistrado("");
 
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        System.out.println("MENU - Token eleiminat bee "+ response.toString());
+                        //System.out.println("MENU - Token eleiminat bee "+ response.toString());
+                        menuPrincipal_viewModel.setToken("");
+                        Intent intent = new Intent(MenuPrincipal.this, Login.class);
+                        startActivity(intent);
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        System.out.println("MENU - ERROR" + t.toString());
+                        //System.out.println("MENU - ERROR" + t.toString());
                     }
                 });
 
-                Intent intent = new Intent(MenuPrincipal.this, Login.class);
-                startActivity(intent);
             }
         });
 

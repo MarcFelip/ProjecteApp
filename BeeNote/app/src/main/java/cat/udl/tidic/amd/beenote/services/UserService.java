@@ -3,6 +3,7 @@ package cat.udl.tidic.amd.beenote.services;
 
 import java.util.Map;
 
+import cat.udl.tidic.amd.beenote.models.TokenModel;
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -29,7 +30,7 @@ public interface UserService {
     Call<ResponseBody> postCreateToken(@Header("Authorization") String base64_encoding);
 
     @POST("/account/delete_token")
-    Call<Void> deleteToken(@HeaderMap Map<String, String> headers);
+    Call<Void> deleteToken(@HeaderMap Map<String, String> headers, @Body TokenModel token);
 
     //@TODO: EFHJDSAHFKJAS
 
