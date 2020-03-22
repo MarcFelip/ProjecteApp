@@ -8,83 +8,142 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="534dp"
-        android:layout_height="760dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:background="@drawable/fonsp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bnotebg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
-        android:text="Editar Perfil"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="298dp"
-        android:layout_height="438dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImageView"
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/avatar"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.218"
-        app:srcCompat="@drawable/cuadrado_login" />
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="82dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/Perfil_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre Usuario"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-        app:layout_constraintEnd_toEndOf="@+id/imageView7"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8"
-        app:layout_constraintVertical_bias="0.252" />
-
-    <TextView
-        android:id="@+id/Perfil_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gmail"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-        app:layout_constraintEnd_toEndOf="@+id/imageView7"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8"
-        app:layout_constraintVertical_bias="0.626" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/Perfil_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre"
-        android:textColor="@color/LOGOTIP_background"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.429" />
+        android:layout_marginTop="8dp"
+        android:text="name"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="@+id/circleImageView"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/circleImageView"
+        app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
 
+    <TextView
+        android:id="@+id/Perfil_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="username"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="@+id/Perfil_name"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/Perfil_name"
+        app:layout_constraintTop_toBottomOf="@+id/Perfil_name" />
+
+    <TextView
+        android:id="@+id/Perfil_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="email"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/Perfil_username"
+        app:layout_constraintStart_toStartOf="@+id/Perfil_username"
+        app:layout_constraintTop_toBottomOf="@+id/Perfil_username" />
+
+    <DatePicker
+        android:id="@+id/perfil_calendario"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="8dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.607"
+        app:layout_constraintStart_toEndOf="@+id/Fecha_nacimiento"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <EditText
+        android:id="@+id/perfil_estudios"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:hint="Estudios"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/perfil_calendario" />
+
+    <EditText
+        android:id="@+id/perfil_telefono"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:hint="Teléfono móvil"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/perfil_estudios" />
+
+    <Button
+        android:id="@+id/Perfil_gu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/btn_registrar"
+        android:text="Guardar cambios"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/perfil_telefono"
+        app:layout_constraintVertical_bias="0.335" />
+
+    <TextView
+        android:id="@+id/Fecha_nacimiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:text="Nacimiento"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/Estudios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:text="Estudios"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Fecha_nacimiento" />
+
+    <TextView
+        android:id="@+id/Telefono_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:text="Teléfono móvil"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Estudios" />
 </androidx.constraintlayout.widget.ConstraintLayout>
