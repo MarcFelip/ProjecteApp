@@ -1,20 +1,23 @@
 package cat.udl.tidic.amd.beenote;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import cat.udl.tidic.amd.beenote.ViewModels.MenuPrincipal_ViewModel;
-import cat.udl.tidic.amd.beenote.ViewModels.Perfil_UserViewModel;
 import cat.udl.tidic.amd.beenote.models.TokenModel;
-import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
 import retrofit2.Call;
@@ -25,11 +28,12 @@ public class MenuPrincipal extends AppCompatActivity {
 
     private Button cerrar_sesion;
     private Button perfil_usuario;
-    private MenuPrincipal_ViewModel menuPrincipal_viewModel = new MenuPrincipal_ViewModel();
+    private Button menu;
 
-    private MenuPrincipal_ViewModel perfil_userViewModel = new MenuPrincipal_ViewModel();
+    private MenuPrincipal_ViewModel menuPrincipal_viewModel = new MenuPrincipal_ViewModel();
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +42,41 @@ public class MenuPrincipal extends AppCompatActivity {
 
         cerrar_sesion =  findViewById(R.id.MenuPrincipal_CerrarSesion);
         perfil_usuario = findViewById(R.id.MenuPrincipal_PerfilUsuario);
+        menu = findViewById(R.id.Toolbar_Menu);
 
+        // El menu deslizante
+        drawerLayout = findViewById(R.id.my_drawer);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                menuItem.setChecked(true);
+                drawerLayout.closeDrawers();
+
+                int id = menuItem.getItemId();
+
+                if (id == R.id.nav_account) {
+                    Intent intent = new Intent(MenuPrincipal.this, Perfil_User.class);
+                    startActivity(intent);
+                }
+                    return true;
+            }
+        });
+
+        // El icono del toolbar per anar el menu
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+
+        // El boto de tancar sessio
         cerrar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String token = perfil_userViewModel.getToken();
+                String token = menuPrincipal_viewModel.getToken();
                 TokenModel tokenModel = new TokenModel(token);
 
                 Map<String, String> map = new HashMap<>();
