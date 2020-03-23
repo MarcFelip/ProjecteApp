@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".Registrar">
 
-    <include layout="@layout/toolbar_inicio"
+    <include
         android:id="@+id/registrar_toolbar"
-        />
+        layout="@layout/toolbar_inicio" />
 
 
     <ImageView
@@ -92,39 +92,37 @@
 
     <TextView
         android:id="@+id/terminos"
-        android:layout_width="201dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="16dp"
-        android:text="He leído y acepto los términos y condiciones de uso"
+        android:layout_width="202dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="414dp"
+        android:text="He leído y acepto los"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.628"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registrar_password_2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/Registrar_checkBox"
         android:layout_width="35dp"
         android:layout_height="33dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="408dp"
+        android:layout_marginTop="414dp"
+        android:layout_marginEnd="288dp"
         android:buttonTint="@color/LOGOTIP_background"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/LOGOTIP_background"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/Registrar_LeerMas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Leer mas"
+        android:layout_width="221dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="414dp"
+        android:text="                                        terminos y condiciones de uso"
         android:textColor="@color/Informacion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/terminos" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Button_Login"
@@ -167,7 +165,7 @@
         android:id="@+id/textView4"
         android:layout_width="200dp"
         android:layout_height="54dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="85dp"
         android:text="Regístrate"
         android:textAlignment="center"
         android:textColor="#FFF"
