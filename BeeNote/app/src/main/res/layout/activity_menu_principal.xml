@@ -12,14 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar"
+        <include
             android:id="@+id/menu_toolbar"
-            />
+            layout="@layout/toolbar"
+            android:background="@color/colorAccent"
+            android:backgroundTint="@android:color/darker_gray" />
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Examen de Matematicas"
@@ -29,7 +32,7 @@
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.395" />
+            app:layout_constraintVertical_bias="0.364" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -39,16 +42,17 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.441" />
+            app:layout_constraintVertical_bias="0.444" />
 
         <Button
             android:id="@+id/MenuPrincipal_PerfilUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Perfil Usuario"
+            android:layout_width="116dp"
+            android:layout_height="52dp"
+            android:background="@android:drawable/divider_horizontal_bright"
+            android:drawableRight="@drawable/account"
+            android:text="Perfil"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.953"
@@ -58,10 +62,12 @@
 
         <Button
             android:id="@+id/MenuPrincipal_CerrarSesion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="122dp"
+            android:layout_height="39dp"
             android:layout_marginStart="48dp"
             android:layout_marginTop="36dp"
+            android:background="@android:drawable/divider_horizontal_bright"
+            android:drawableEnd="@drawable/cs"
             android:text="Cerrar Sesion"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,8 +85,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.266"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/MenuPrincipal_PerfilUsuario"
-            app:layout_constraintVertical_bias="0.075" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.232" />
 
         <Button
             android:id="@+id/MenuPrincipal_Notas"
@@ -89,10 +95,10 @@
             android:text="Notas"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintHorizontal_bias="0.535"
             app:layout_constraintStart_toEndOf="@+id/MenuPrincipal_Grupos"
-            app:layout_constraintTop_toBottomOf="@+id/MenuPrincipal_PerfilUsuario"
-            app:layout_constraintVertical_bias="0.071" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.21" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -109,11 +115,11 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="12dp"
             android:text="Actividades de Hoy, Dia XX/XX"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.088"
+            app:layout_constraintHorizontal_bias="0.165"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/MenuPrincipal_Grupos" />
 
