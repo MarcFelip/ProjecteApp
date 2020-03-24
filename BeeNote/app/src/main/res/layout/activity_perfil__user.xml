@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="270dp"
         android:background="@drawable/fonsp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -20,7 +20,7 @@
         android:id="@+id/circleImageView"
         android:layout_width="200dp"
         android:layout_height="130dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.497"
@@ -31,7 +31,7 @@
         android:id="@+id/Perfil_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:text="name"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="@+id/circleImageView"
@@ -43,7 +43,7 @@
         android:id="@+id/Perfil_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:text="username"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="@+id/Perfil_name"
@@ -55,7 +55,7 @@
         android:id="@+id/Perfil_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:text="email"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="@+id/Perfil_username"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Perfil_username" />
 
     <DatePicker
-        android:id="@+id/perfil_calendario"
+        android:id="@+id/Perfil_calendario"
         android:layout_width="250dp"
         android:layout_height="100dp"
         android:layout_marginTop="15dp"
@@ -75,20 +75,22 @@
         app:layout_constraintStart_toEndOf="@+id/Fecha_nacimiento"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
+
     <EditText
-        android:id="@+id/perfil_estudios"
+        android:id="@+id/Perfil_estudios"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="28dp"
         android:ems="10"
         android:hint="Estudios"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_calendario" />
+        app:layout_constraintTop_toBottomOf="@+id/Perfil_calendario" />
+
 
     <EditText
-        android:id="@+id/perfil_telefono"
+        android:id="@+id/Perfil_telefono"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
@@ -97,22 +99,32 @@
         android:hint="Teléfono móvil"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_estudios" />
+        app:layout_constraintTop_toBottomOf="@+id/Perfil_estudios" />
+
 
     <Button
-        android:id="@+id/Perfil_gu"
+        android:id="@+id/Perfil_editar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/btn_registrar"
-        android:text="Guardar cambios"
+        android:text="Editar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_telefono"
-        app:layout_constraintVertical_bias="0.335" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/Perfil_guardar" />
+
+    <Button
+        android:id="@+id/Perfil_guardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/btn_registrar"
+        android:text="Guardar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Perfil_editar"
+        app:layout_constraintHorizontal_bias="0.553"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/Fecha_nacimiento"
@@ -146,4 +158,6 @@
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Estudios" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

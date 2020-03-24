@@ -3,12 +3,24 @@ package cat.udl.tidic.amd.beenote;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.Editable;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import cat.udl.tidic.amd.beenote.Repository.UserRepository;
@@ -20,12 +32,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.transition.Fade.IN;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 public class Perfil_User extends AppCompatActivity {
 
     private UserModel u = new UserModel();
     private TextView username;
     private TextView name;
     private TextView email;
+    private EditText estudios;
+    private EditText telefono;
+    private DatePicker calendari;
+    private Button editar;
+    private Button guardar;
 
     private Perfil_UserViewModel perfil_userViewModel = new Perfil_UserViewModel();
 
@@ -36,9 +57,17 @@ public class Perfil_User extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil__user);
 
+        estudios = findViewById(R.id.Perfil_estudios);
+        telefono = findViewById(R.id.Perfil_telefono);
+        calendari = findViewById(R.id.Perfil_calendario);
         username = findViewById(R.id.Perfil_username);
         name = findViewById(R.id.Perfil_name);
         email = findViewById(R.id.Perfil_email);
+        editar = findViewById(R.id.Perfil_editar);
+        guardar = findViewById(R.id.Perfil_guardar);
+
+        disableform();
+
 
         String token = perfil_userViewModel.getToken();
         //System.out.println("Login - Toke " + token);
@@ -46,7 +75,7 @@ public class Perfil_User extends AppCompatActivity {
         Map<String, String> map = new HashMap<>();
         map.put("Authorization", token);
 
-        Call<UserModel> call = userService.getUserProfile(map);
+        final Call<UserModel> call = userService.getUserProfile(map);
 
         call.enqueue(new Callback<UserModel>() {
             @Override
@@ -68,6 +97,46 @@ public class Perfil_User extends AppCompatActivity {
             }
         });
 
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               enableform();
+            }
+        });
+
+
+
+        guardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String estudios_string = estudios.getText().toString();
+                String telefono_string = telefono.getText().toString();
+                Calendar c = Calendar.getInstance();
+                c.set(calendari.getYear(), calendari.getMonth(), calendari.getDayOfMonth());
+
+                disableform();
+
+                estudios.setText(estudios_string);
+                telefono.setText(telefono_string);
+
+
+
+            }
+        });
 
     }
+    private void enableform(){
+        estudios.setEnabled(true);
+        telefono.setEnabled(true);
+        calendari.setEnabled(true);
+    }
+
+    private void disableform(){
+        estudios.setEnabled(false);
+        telefono.setEnabled(false);
+        calendari.setEnabled(false);
+    }
+
 }
