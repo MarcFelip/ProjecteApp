@@ -18,3 +18,14 @@ SchemaRegisterUser = {
     },
     "required": ["username", "password", "email"]
 }
+
+SchemaUpdateUser = {
+    "type": "object",
+    "properties": {
+        "name": {"type": "string"},
+        "surname": {"type": "string"},
+        "birthday": {"type": "string"},
+        "phone": {"type": "string"},
+    },
+    "required": []
+}
