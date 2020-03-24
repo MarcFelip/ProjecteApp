@@ -3,7 +3,9 @@
     <color name="colorPrimary">#1ABC9C</color>
     <color name="colorPrimaryDark">#000 </color>
     <color name="colorAccent">#D68910 </color>
-    <color name="white">#fff</color>
+    <color name="red">#FF0000</color>
+    <color name="white">#FFF</color>
     <color name="black">#000</color>
     <color name="colorBeNote">#e69f22</color>
+    <color name="Informacion">#0048FF</color>
 </resources>

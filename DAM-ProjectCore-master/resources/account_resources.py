@@ -54,7 +54,7 @@ class ResourceDeleteUserToken(DAMCoreResource):
         super(ResourceDeleteUserToken, self).on_post(req, resp, *args, **kwargs)
 
         current_user = req.context["auth_user"]
-        selected_token_string = self.json_request["token"]
+        selected_token_string = req.media["token"]
         selected_token = self.db_session.query(UserToken).filter(UserToken.token == selected_token_string).one_or_none()
 
         if selected_token is not None:

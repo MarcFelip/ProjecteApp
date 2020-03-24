@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 import cat.udl.tidic.amd.beenote.services.UserService;
 
 public class UserModel {
@@ -33,6 +34,8 @@ public class UserModel {
     @SerializedName("photo")
     private String photo;
 
+    private String registrado = "";
+
 
     public UserModel() {
     }
@@ -42,6 +45,14 @@ public class UserModel {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public String getRegistrado() {
+        return registrado;
+    }
+
+    public void setRegistrado(String registrado) {
+        this.registrado = registrado;
     }
 
     public String getCreated_at() {
@@ -142,4 +153,6 @@ public class UserModel {
 
         //UserService.
     }
+
+
 }

@@ -41,6 +41,7 @@ class ResourceRegisterUser(DAMCoreResource):
         aux_user = User()
 
         try:
+
             aux_user.username = req.media["username"]
             aux_user.password = req.media["password"]
 
@@ -51,6 +52,10 @@ class ResourceRegisterUser(DAMCoreResource):
 
             if re.search(email_validator, aux_user.email) is None:
                 raise falcon.HTTPBadRequest(messages.invalid_mail)
+
+            #r1 = re.findall(r"^\w+", req.media["email"])
+            #print("Usuario" + r1)
+            #aux_user.username = r1
 
             self.db_session.add(aux_user)
 

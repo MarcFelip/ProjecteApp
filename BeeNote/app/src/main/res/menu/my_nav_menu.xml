@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/account"
+            android:title="Perfil" />
+        <item
+            android:id="@+id/nav_notas"
+            android:icon="@drawable/gallery"
+            android:title="Notas" />
+        <item
+            android:id="@+id/nav_horario"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="Horario" />
+        <item
+            android:id="@+id/nav_calendario"
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="Calendario" />
+        <item
+            android:id="@+id/nav_grupos"
+            android:icon="@android:drawable/stat_notify_chat"
+            android:title="Grupos" />
+    </group>
+</menu>

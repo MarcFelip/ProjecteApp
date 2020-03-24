@@ -1,11 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- .DarkActionBar: para que se vea la bara superior     .NoActionBar: para que no se vea     -->
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorBeNote</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="buttonStyle">@style/CustomButton</item>
+    </style>
+    
+    <style name="CustomButton" parent="Widget.AppCompat.Button">
+
     </style>
 
 </resources>
