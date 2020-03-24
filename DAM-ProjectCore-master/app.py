@@ -32,6 +32,7 @@ app = application = falcon.API(
 application.add_route("/", common_resources.ResourceHome())
 
 application.add_route("/account/profile", account_resources.ResourceAccountUserProfile())
+application.add_route("/account/profile", account_resources.ResourceAccountUpdateProfile())
 application.add_route("/account/create_token", account_resources.ResourceCreateUserToken())
 application.add_route("/account/delete_token", account_resources.ResourceDeleteUserToken())
 

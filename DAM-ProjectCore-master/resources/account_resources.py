@@ -11,7 +11,7 @@ import messages
 from db.models import User, UserToken
 from hooks import requires_auth
 from resources.base_resources import DAMCoreResource
-from resources.schemas import SchemaUserToken
+from resources.schemas import SchemaUserToken, SchemaUpdateUser
 
 mylogger = logging.getLogger(__name__)
 
@@ -81,4 +81,16 @@ class ResourceAccountUserProfile(DAMCoreResource):
         current_user = req.context["auth_user"]
 
         resp.media = current_user.json_model
+        resp.status = falcon.HTTP_200
+
+@falcon.before(requires_auth)
+class ResourceAccountUpdateProfile(DAMCoreResource):
+    @jsonschema.validate(SchemaUpdateUser)
+    def on_put(self, req, resp, *args, **kwargs):
+        super(ResourceAccountUpdateProfile, self).on_put(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+
+        self.db_session.query(User).filter(User.username == current_user.username).update(req.media)
+        self.db_session.commit()
         resp.status = falcon.HTTP_200
