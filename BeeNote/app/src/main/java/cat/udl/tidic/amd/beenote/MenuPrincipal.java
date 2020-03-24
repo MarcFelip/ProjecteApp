@@ -45,8 +45,8 @@ public class MenuPrincipal extends AppCompatActivity {
         menu = findViewById(R.id.Toolbar_Menu);
 
         // El menu deslizante
-        drawerLayout = findViewById(R.id.my_drawer);
-        final NavigationView navigationView = findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.drawer_menu_principal);
+        final NavigationView navigationView = findViewById(R.id.nav_menu_principal);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -77,6 +77,7 @@ public class MenuPrincipal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String token = menuPrincipal_viewModel.getToken();
+                //System.out.println(token);
                 TokenModel tokenModel = new TokenModel(token);
 
                 Map<String, String> map = new HashMap<>();
