@@ -16,21 +16,21 @@
         android:id="@+id/toolbar_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/img"
-        android:text="Nombre usuario" />
+        android:layout_toEndOf="@id/img"
+        android:text="@string/header_text_user" />
     <TextView
         android:id="@+id/toolbar_Nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/img"
+        android:layout_toEndOf="@id/img"
         android:layout_below="@id/toolbar_username"
-        android:text="Nombre" />
+        android:text="@string/header_text_nombre" />
     <TextView
         android:id="@+id/toolbar_estudio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/img"
+        android:layout_toEndOf="@id/img"
         android:layout_below="@id/toolbar_Nombre"
-        android:text="Estudio" />
+        android:text="@string/header_text_estudio" />
 
 </RelativeLayout>

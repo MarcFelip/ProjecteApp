@@ -33,17 +33,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cuadrado_login" />
 
-    <TextView
-        android:id="@+id/Salida"
-        android:layout_width="245dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="444dp"
-        android:gravity="center"
-        android:textColor="@color/red"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/Registrar"
         android:layout_width="240dp"
@@ -51,7 +40,7 @@
         android:layout_marginStart="88dp"
         android:layout_marginTop="488dp"
         android:background="@drawable/btn_iniciarsesion"
-        android:text="Regístrate"
+        android:text="@string/registrar_button_registrar"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,14 +53,15 @@
         android:layout_marginTop="272dp"
         android:background="@drawable/btn_redondo_white"
         android:ems="10"
-        android:hint="Contraseña"
+        android:hint="@string/registrar_hint_password"
         android:inputType="textPersonName"
-        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
         android:password="true"
         android:textColor="#FFFFFF"
         android:textColorHint="@android:color/darker_gray"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/registrar_password_2"
@@ -81,14 +71,15 @@
         android:layout_marginTop="344dp"
         android:background="@drawable/btn_redondo_white"
         android:ems="10"
-        android:hint="Repita contraseña"
+        android:hint="@string/registrar_hint_password2"
         android:inputType="textPersonName"
-        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
         android:password="true"
         android:textColor="#FFFFFF"
         android:textColorHint="@android:color/darker_gray"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/terminos"
@@ -96,7 +87,7 @@
         android:layout_height="42dp"
         android:layout_marginStart="127dp"
         android:layout_marginTop="414dp"
-        android:text="He leído y acepto los"
+        android:text="@string/registrar_text_aceptar_terminos"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -115,11 +106,11 @@
 
     <TextView
         android:id="@+id/Registrar_LeerMas"
-        android:layout_width="221dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="127dp"
-        android:layout_marginTop="414dp"
-        android:text="                                        terminos y condiciones de uso"
+        android:layout_width="91dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="444dp"
+        android:text="@string/registrar_text_terminos"
         android:textColor="@color/Informacion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -131,7 +122,7 @@
         android:layout_marginTop="580dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/btn_registrar"
-        android:text="Iniciar sesión"
+        android:text="@string/registrar_button_iniciar"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -155,9 +146,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="592dp"
-        android:text="¿Ya tienes cuenta?"
+        android:text="@string/registrar_text_pregunta"
         android:textColor="#000"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -166,10 +157,10 @@
         android:layout_width="200dp"
         android:layout_height="54dp"
         android:layout_marginTop="85dp"
-        android:text="Regístrate"
+        android:text="@string/registrar_text_registrar"
         android:textAlignment="center"
         android:textColor="#FFF"
-        android:textSize="40dp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +172,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
         android:layout_marginTop="80dp"
-        android:text="Correo"
+        android:text="@string/registrar_text_correo"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/Registarr_email"
         app:layout_constraintStart_toStartOf="parent"
@@ -193,7 +184,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
-        android:text="Contraseña"
+        android:text="@string/registrar_text_contrsenya"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/Registrar_password"
         app:layout_constraintStart_toStartOf="parent"
@@ -208,13 +199,24 @@
         android:layout_marginTop="176dp"
         android:background="@drawable/btn_redondo_white"
         android:ems="10"
-        android:hint="ejemplo@gmail.com"
+        android:hint="@string/registrar_hint_email"
         android:inputType="textPersonName"
-        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
         android:textColor="#FFFFFF"
         android:textColorHint="@android:color/darker_gray"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry,TextFields" />
+
+    <TextView
+        android:id="@+id/Salida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/red"
+        app:layout_constraintBottom_toTopOf="@+id/Registrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

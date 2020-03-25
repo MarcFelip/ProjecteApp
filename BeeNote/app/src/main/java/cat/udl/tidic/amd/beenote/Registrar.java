@@ -145,7 +145,7 @@ public class Registrar extends AppCompatActivity {
                                     }
                                 });
                             }
-                        }, 1000);   //1 seconds
+                        }, 0);   //0 seconds
 
                     } else {
                         salida.setText("Las contraseñas no coinciden");

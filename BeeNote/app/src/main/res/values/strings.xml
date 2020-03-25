@@ -1,3 +1,56 @@
 <resources>
     <string name="app_name">BeeNote</string>
+    <string name="registrar_button_registrar">Regístrate</string>
+    <string name="registrar_hint_password">Contraseña</string>
+    <string name="registrar_hint_password2">Repita contraseña</string>
+    <string name="registrar_text_aceptar_terminos">He leído y acepto los terminos y condiciones de uso</string>
+    <string name="registrar_text_terminos">Leer mas</string>
+    <string name="registrar_button_iniciar">Iniciar sesión</string>
+    <string name="registrar_text_pregunta">¿Ya tienes cuenta?</string>
+    <string name="registrar_text_registrar">Regístrate</string>
+    <string name="registrar_text_correo">Correo</string>
+    <string name="registrar_text_contrsenya">Contraseña</string>
+    <string name="registrar_hint_email">ejemplo@gmail.com</string>
+
+    <string name="login_text_email"> .@gmail.com</string>
+    <string name="login_hint_user">Usuario</string>
+    <string name="login_hint_password">Contraseña</string>
+    <string name="login_button_iniciar">Iniciar sesión</string>
+    <string name="login_button_registrar">Regístrate</string>
+    <string name="login_text_cuenta">¿No tienes cuenta?</string>
+
+    <string name="perfil_text_name">name</string>
+    <string name="perfil_text_username">username</string>
+    <string name="perfil_text_email">email</string>
+    <string name="perfil_hint_estudios">Estudios</string>
+    <string name="perfil_hint_telefono">Teléfono móvil</string>
+    <string name="perfil_button_guardar">Guardar</string>
+    <string name="perfil_button_editar">Editar</string>
+    <string name="perfil_text_nacimiento">Nacimiento</string>
+    <string name="perfil_text_estudios">Estudios</string>
+    <string name="perfil_text_telefon">Teléfono móvil</string>
+
+    <string name="menuPrincipal_text_examen">Examen de Matematicas</string>
+    <string name="menuPrincipal_button_perfil">Perfil</string>
+    <string name="menuPrincipal_button_cerrar">Cerrar Sesion</string>
+    <string name="menuPrincipal_button_grupos">grupos</string>
+    <string name="menuPrincipal_button_notas">Notas</string>
+    <string name="menuPrincipal_text_actividades">Actividades de Hoy, Dia XX/XX</string>
+
+    <string name="terminos_text_condiciones">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+
+    <string name="toolbar_text_beenote">BeeNote</string>
+
+    <string name="toolbarInicio_text_beenote">BeeNote</string>
+
+    <string name="header_text_user">Nombre usuario</string>
+    <string name="header_text_nombre">Nombre</string>
+    <string name="header_text_estudio">Estudio</string>
+
+    <string name="navmenu_text_perfil">Perfil</string>
+    <string name="navmenu_text_notas">Notas</string>
+    <string name="navmenu_text_horario">Horario</string>
+    <string name="navmenu_text_calendario">Calendario</string>
+    <string name="navmenu_text_grupos">Grupos</string>
+
 </resources>
