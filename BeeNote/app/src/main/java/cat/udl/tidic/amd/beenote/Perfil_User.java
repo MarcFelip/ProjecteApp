@@ -4,13 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -19,18 +13,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 import cat.udl.tidic.amd.beenote.ViewModels.Perfil_UserViewModel;
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
@@ -38,10 +27,6 @@ import cat.udl.tidic.amd.beenote.services.UserService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.transition.Fade.IN;
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
 
 public class Perfil_User extends AppCompatActivity {
 
@@ -78,7 +63,7 @@ public class Perfil_User extends AppCompatActivity {
         menu = findViewById(R.id.Toolbar_Menu);
 
         // Desabilitar tots els edittext del layout
-        disableform();
+        disableForm(false);
 
         // El menu deslizante
         drawerLayout = findViewById(R.id.drawer_perfil_usuari);
@@ -140,7 +125,7 @@ public class Perfil_User extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               enableform();
+               enableForm(true);
             }
         });
 
@@ -153,7 +138,7 @@ public class Perfil_User extends AppCompatActivity {
                 Calendar c = Calendar.getInstance();
                 c.set(calendari.getYear(), calendari.getMonth(), calendari.getDayOfMonth());
 
-                disableform();
+                disableForm(false);
 
                 estudios.setText(estudios_string);
                 telefono.setText(telefono_string);
@@ -162,16 +147,16 @@ public class Perfil_User extends AppCompatActivity {
         });
 
     }
-    private void enableform(){
-        estudios.setEnabled(true);
-        telefono.setEnabled(true);
-        calendari.setEnabled(true);
+    private void enableForm(boolean enable){
+        estudios.setEnabled(enable);
+        telefono.setEnabled(enable);
+        calendari.setEnabled(enable);
     }
 
-    private void disableform(){
-        estudios.setEnabled(false);
-        telefono.setEnabled(false);
-        calendari.setEnabled(false);
+    private void disableForm(boolean enable){
+        estudios.setEnabled(enable);
+        telefono.setEnabled(enable);
+        calendari.setEnabled(enable);
     }
 
 }
