@@ -16,7 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import cat.udl.tidic.amd.beenote.ViewModels.LoginViewModel;
+
+import cat.udl.tidic.amd.beenote.ViewModels.loginViewModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
 import okhttp3.ResponseBody;
@@ -27,18 +28,19 @@ import retrofit2.Response;
 public class Login extends AppCompatActivity {
 
     private Button login;
-    private TextView Username;
-    private TextView Password;
-    private  TextView MissatgeError;
+    private TextView username;
+    private TextView password;
+    private  TextView missatgeError;
     private Button registrar;
     private ProgressBar login_progressBar;
     private TextView login_registrado;
+    private String output_name = "";
 
     private String autoritzacio;
     private UserService userService;
 
     @NonNull
-    private LoginViewModel loginviewmodel = new LoginViewModel();
+    private loginViewModel loginviewmodel = new loginViewModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +54,24 @@ public class Login extends AppCompatActivity {
 
             login = findViewById(R.id.Button_Login);
             registrar = findViewById(R.id.Button_Register);
-            Username = findViewById(R.id.Login_Username);
-            Password = findViewById(R.id.Login_password);
-            MissatgeError = findViewById(R.id.Login_Error);
+            username = findViewById(R.id.Login_Username);
+            password = findViewById(R.id.Login_password);
+            missatgeError = findViewById(R.id.Login_Error);
             login_progressBar = findViewById(R.id.Login_ProgressBar);
             login_registrado = findViewById(R.id.Login_Registrado);
 
+            enableForm(true);
+
             userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 
-            login_registrado.setText(loginviewmodel.getResgistrado());
+            Bundle extras = getIntent().getExtras();
+
+            if(extras != null)
+            {
+                output_name = extras.getString("registrar");
+            }
+
+            login_registrado.setText(output_name);
 
             login.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,7 +80,7 @@ public class Login extends AppCompatActivity {
                     login_progressBar.setVisibility(View.VISIBLE);
                     //System.out.println("Login Username "+ Username.getText().toString());
 
-                    autoritzacio = Username.getText().toString() + ":" + Password.getText().toString();
+                    autoritzacio = username.getText().toString() + ":" + password.getText().toString();
                     byte[] data = null;
 
                     data = autoritzacio.getBytes(StandardCharsets.UTF_8);
@@ -92,7 +103,7 @@ public class Login extends AppCompatActivity {
 
                                         if (response.body() == null) {
                                             login_progressBar.setVisibility(View.INVISIBLE);
-                                            MissatgeError.setText("Invalido nombre de usuario o contraseña");
+                                            missatgeError.setText("Invalido nombre de usuario o contraseña");
                                             //System.out.println("Null "+response.errorBody().string());
                                         } else {
                                             //System.out.println(response.body().string().split(":")[1]);
@@ -106,7 +117,6 @@ public class Login extends AppCompatActivity {
 
                                             loginviewmodel.Token(token);
 
-                                            loginviewmodel.setRegistrado("");
                                             login_progressBar.setVisibility(View.INVISIBLE);
                                             Intent intent = new Intent(Login.this, MenuPrincipal.class);
                                             startActivity(intent);
@@ -121,7 +131,7 @@ public class Login extends AppCompatActivity {
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                                     Log.d("Login ", t.getMessage());
                                     login_progressBar.setVisibility(View.INVISIBLE);
-                                    MissatgeError.setText("Conexion fallida");
+                                    missatgeError.setText("Conexion fallida");
                                 }
                             });
 
@@ -145,5 +155,15 @@ public class Login extends AppCompatActivity {
             Intent intent = new Intent(Login.this, MenuPrincipal.class);
             startActivity(intent);
         }
+    }
+
+    private void enableForm(boolean enable){
+        login.setEnabled(enable);
+        username.setEnabled(enable);
+        password.setEnabled(enable);
+        missatgeError.setEnabled(enable);
+        registrar.setEnabled(enable);
+        login_progressBar.setEnabled(enable);
+        login_registrado.setEnabled(enable);
     }
 }

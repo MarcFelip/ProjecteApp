@@ -3,6 +3,8 @@ package cat.udl.tidic.amd.beenote;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +18,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.HashMap;
 import java.util.Map;
 
-import cat.udl.tidic.amd.beenote.ViewModels.MenuPrincipal_ViewModel;
+import cat.udl.tidic.amd.beenote.ViewModels.menuPrincipal_ViewModel;
 import cat.udl.tidic.amd.beenote.models.TokenModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
@@ -30,7 +32,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private Button perfil_usuario;
     private Button menu;
 
-    private MenuPrincipal_ViewModel menuPrincipal_viewModel = new MenuPrincipal_ViewModel();
+    private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 
     private DrawerLayout drawerLayout;
@@ -43,6 +45,8 @@ public class MenuPrincipal extends AppCompatActivity {
         cerrar_sesion =  findViewById(R.id.MenuPrincipal_CerrarSesion);
         perfil_usuario = findViewById(R.id.MenuPrincipal_PerfilUsuario);
         menu = findViewById(R.id.Toolbar_Menu);
+
+        enableForm(true);
 
         // El menu deslizante
         drawerLayout = findViewById(R.id.drawer_menu_principal);
@@ -85,8 +89,6 @@ public class MenuPrincipal extends AppCompatActivity {
 
                 Call<Void> call = userService.deleteToken(map,tokenModel);
 
-                menuPrincipal_viewModel.setRegistrado("");
-
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
@@ -113,4 +115,11 @@ public class MenuPrincipal extends AppCompatActivity {
             }
         });
     }
+
+    private void enableForm(boolean enable){
+        cerrar_sesion.setEnabled(enable);
+        perfil_usuario.setEnabled(enable);
+        menu.setEnabled(enable);
+    }
+
 }

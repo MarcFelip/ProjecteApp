@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_group">
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_menu"
+            android:icon="@drawable/menu"
+            android:title="@string/navmenu_text_menu" />
         <item
             android:id="@+id/nav_account"
             android:icon="@drawable/account"

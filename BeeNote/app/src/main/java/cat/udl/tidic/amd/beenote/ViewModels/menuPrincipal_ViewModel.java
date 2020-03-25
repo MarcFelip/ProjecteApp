@@ -4,15 +4,15 @@ import androidx.lifecycle.ViewModel;
 
 import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 
-public class LoginViewModel extends ViewModel {
+public class menuPrincipal_ViewModel extends ViewModel {
 
     private UserRepository userRepository;
 
-    public LoginViewModel() {
+    public menuPrincipal_ViewModel() {
         this.userRepository = new UserRepository();
     }
 
-    public void Token(String token)
+    public void setToken(String token)
     {
         userRepository.setToken(token);
     }
@@ -21,15 +21,4 @@ public class LoginViewModel extends ViewModel {
     {
         return userRepository.getToken();
     }
-
-    public void setRegistrado(String token)
-    {
-        userRepository.setRegistrado(token);
-    }
-
-    public String getResgistrado()
-    {
-        return userRepository.getRegistrado();
-    }
-
 }

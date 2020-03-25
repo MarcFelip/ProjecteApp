@@ -144,8 +144,6 @@ public class Perfil_User extends AppCompatActivity {
             }
         });
 
-
-
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,8 +157,6 @@ public class Perfil_User extends AppCompatActivity {
 
                 estudios.setText(estudios_string);
                 telefono.setText(telefono_string);
-
-
 
             }
         });

@@ -47,6 +47,7 @@
     <string name="header_text_nombre">Nombre</string>
     <string name="header_text_estudio">Estudio</string>
 
+    <string name="navmenu_text_menu">Menu Principal</string>
     <string name="navmenu_text_perfil">Perfil</string>
     <string name="navmenu_text_notas">Notas</string>
     <string name="navmenu_text_horario">Horario</string>

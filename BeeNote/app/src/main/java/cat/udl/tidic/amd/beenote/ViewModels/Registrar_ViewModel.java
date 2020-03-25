@@ -12,13 +12,4 @@ public class Registrar_ViewModel extends ViewModel {
         this.userRepository = new UserRepository();
     }
 
-    public void setRegistrado(String token)
-    {
-        userRepository.setRegistrado(token);
-    }
-
-    public String getResgistrado()
-    {
-        return userRepository.getRegistrado();
-    }
 }
