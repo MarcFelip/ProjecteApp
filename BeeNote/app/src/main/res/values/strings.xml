@@ -3,8 +3,8 @@
     <string name="registrar_button_registrar">Regístrate</string>
     <string name="registrar_hint_password">Contraseña</string>
     <string name="registrar_hint_password2">Repita contraseña</string>
-    <string name="registrar_text_aceptar_terminos">He leído y acepto los terminos y condiciones de uso</string>
-    <string name="registrar_text_terminos">Leer mas</string>
+    <string name="registrar_text_aceptar_terminos">He leído y acepto los</string>
+    <string name="registrar_text_terminos">terminos y condiciones de uso</string>
     <string name="registrar_button_iniciar">Iniciar sesión</string>
     <string name="registrar_text_pregunta">¿Ya tienes cuenta?</string>
     <string name="registrar_text_registrar">Regístrate</string>
