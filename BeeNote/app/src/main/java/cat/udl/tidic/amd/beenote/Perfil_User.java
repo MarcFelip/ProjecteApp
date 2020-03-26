@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -83,7 +85,11 @@ public class Perfil_User extends AppCompatActivity {
                 int id = menuItem.getItemId();
 
                 if (id == R.id.nav_account) {
-
+                    drawerLayout.closeDrawers();
+                }
+                else if(id == R.id.nav_menu){
+                    Intent intent = new Intent(Perfil_User.this, MenuPrincipal.class);
+                    startActivity(intent);
                 }
                 return true;
             }

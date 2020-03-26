@@ -2,8 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nav_ajustes">
     <group android:checkableBehavior="single">
-    <item
-        android:id="@+id/nav_cerrar_sesion"
-        android:title="@string/ajustesMenu_text_cerrarSesion" />
+        <item
+            android:id="@+id/nav_cerrar_sesion"
+            android:icon="@drawable/cs"
+            android:title="@string/ajustesMenu_text_cerrarSesion" />
     </group>
 </menu>
