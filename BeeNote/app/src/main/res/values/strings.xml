@@ -33,7 +33,7 @@
     <string name="menuPrincipal_text_examen">Examen de Matematicas</string>
     <string name="menuPrincipal_button_perfil">Perfil</string>
     <string name="menuPrincipal_button_cerrar">Cerrar Sesion</string>
-    <string name="menuPrincipal_button_grupos">grupos</string>
+    <string name="menuPrincipal_button_grupos">Grupos</string>
     <string name="menuPrincipal_button_notas">Notas</string>
     <string name="menuPrincipal_text_actividades">Actividades de Hoy, Dia XX/XX</string>
 
