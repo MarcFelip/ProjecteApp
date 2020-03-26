@@ -109,6 +109,14 @@ public class UserModel {
         this.genere = genere;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @NonNull
     @Override
     public String toString(){

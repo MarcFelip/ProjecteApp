@@ -1,6 +1,10 @@
 package cat.udl.tidic.amd.beenote.services;
 
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
 import java.util.Map;
 
 import cat.udl.tidic.amd.beenote.models.TokenModel;
@@ -13,12 +17,13 @@ import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface UserService {
 
     //@Headers("Authorization:656e50e154865a5dc469b80437ed2f963b8f58c8857b66c9bf")
     @Headers("Content-Type:application/json; charset=UTF-8")
-    @GET("/account/profile")
+    @GET("/account/profile/show")
     Call<UserModel> getUserProfile(@HeaderMap Map<String, String> headers);
     //Call<UserModel> getUserProfile();
 
@@ -31,6 +36,9 @@ public interface UserService {
 
     @POST("/account/delete_token")
     Call<Void> deleteToken(@HeaderMap Map<String, String> headers, @Body TokenModel token);
+
+    @PUT("/account/profile/update")
+        Call<Void> updateUserProfile(@HeaderMap Map<String, String> headers, @Body JsonObject json);
 
     //@TODO: EFHJDSAHFKJAS
 

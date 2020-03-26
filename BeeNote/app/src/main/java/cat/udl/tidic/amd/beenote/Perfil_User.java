@@ -15,6 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -46,6 +50,7 @@ public class Perfil_User extends AppCompatActivity {
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 
     private DrawerLayout drawerLayout;
+    private Map<String, String> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,24 +97,26 @@ public class Perfil_User extends AppCompatActivity {
             }
         });
 
-        //-----------------------------------
+        //-----------------------------------------------------------------------------
         String token = perfil_userViewModel.getToken();
-        //System.out.println("Login - Toke " + token);
+        System.out.println("Login - Toke " + token);
 
-        Map<String, String> map = new HashMap<>();
         map.put("Authorization", token);
 
-        final Call<UserModel> call = userService.getUserProfile(map);
+        Call<UserModel> call = userService.getUserProfile(map);
 
         call.enqueue(new Callback<UserModel>() {
             @Override
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 u = response.body();
+                System.out.println("Login - Toke " + response.body());
                 try {
                     assert u != null;
+                    System.out.println("Login - Toke " + u.getUsername());
                     username.setText(u.getUsername());
                     name.setText(u.getName());
                     email.setText(u.getEmail());
+                    telefono.setText(u.getPhone());
                 }catch (Exception e){
                     Log.e("Perfil user OK", response.message());
                 }
@@ -124,7 +131,6 @@ public class Perfil_User extends AppCompatActivity {
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                enableForm(true);
             }
         });
@@ -138,11 +144,30 @@ public class Perfil_User extends AppCompatActivity {
                 Calendar c = Calendar.getInstance();
                 c.set(calendari.getYear(), calendari.getMonth(), calendari.getDayOfMonth());
 
+                //JsonObeject per fer el body del PUT
+                JsonObject userJson = new JsonObject();
+                userJson.addProperty("phone",telefono_string);
+
+                // Crida el service del PUT
+                Call<Void> call = userService.updateUserProfile(map,userJson);
+
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        Log.e("Perfil PUT OK", response.message());
+                        Log.e("Perfil PUT OK CODI", String.valueOf(response.code()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d("Perfil User Error PUT",t.toString());
+                    }
+                });
+
                 disableForm(false);
 
                 estudios.setText(estudios_string);
                 telefono.setText(telefono_string);
-
             }
         });
 
