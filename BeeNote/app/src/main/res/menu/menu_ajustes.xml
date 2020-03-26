@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_cerrar_sesion"
-            android:icon="@drawable/cs"
+            android:icon="@drawable/icono_salida"
             android:title="@string/ajustesMenu_text_cerrarSesion" />
     </group>
 </menu>

@@ -22,7 +22,7 @@
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_marginTop="48dp"
-            android:background="@drawable/fonsp"
+            android:background="@drawable/beenote_fons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,8 +102,8 @@
             android:id="@+id/Perfil_guardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="102dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginBottom="36dp"
             android:background="@drawable/btn_registrar"
             android:text="@string/perfil_button_guardar"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -114,12 +114,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="52dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="36dp"
             android:background="@drawable/btn_registrar"
             android:text="@string/perfil_button_editar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toEndOf="@+id/Perfil_guardar" />
 
         <TextView
@@ -127,12 +127,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="52dp"
             android:layout_marginEnd="50dp"
             android:text="@string/perfil_text_nacimiento"
             android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@+id/Perfil_calendario"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.402"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
@@ -141,11 +141,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="80dp"
             android:text="@string/perfil_text_estudios"
             android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@+id/Perfil_estudios"
+            app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/Fecha_nacimiento" />
 
@@ -154,11 +155,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="40dp"
             android:text="@string/perfil_text_telefon"
             android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@+id/Perfil_telefono"
+            app:layout_constraintHorizontal_bias="0.403"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/Estudios" />
 

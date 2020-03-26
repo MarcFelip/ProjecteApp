@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e69f22"
     tools:context=".Login">
 
-    <include layout="@layout/toolbar_inicio"
+    <include
         android:id="@+id/login_toolbar"
-        />
+        layout="@layout/toolbar_inicio" />
 
     <ProgressBar
         android:id="@+id/Login_ProgressBar"
@@ -24,15 +25,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageFons"
-        android:layout_width="601dp"
-        android:layout_height="1480dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.464"
-        app:srcCompat="@drawable/fonsp" />
 
     <ImageView
         android:id="@+id/imageView10"
@@ -40,6 +32,8 @@
         android:layout_height="395dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="132dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cuadrado_login" />
@@ -48,17 +42,17 @@
         android:id="@+id/textView2"
         android:layout_width="245dp"
         android:layout_height="60dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="249dp"
         android:background="@drawable/btn_redondo_white"
         android:ems="10"
         android:gravity="center"
         android:paddingStart="20dp"
+        android:paddingEnd="10dp"
         android:text="@string/login_text_email"
         android:textAlignment="textEnd"
-        android:paddingEnd="10dp"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlCompat,RtlSymmetry" />
@@ -67,8 +61,8 @@
         android:id="@+id/Login_Username"
         android:layout_width="108dp"
         android:layout_height="65dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="248dp"
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="@string/login_hint_user"
@@ -96,7 +90,7 @@
         android:textColor="#FFFFFF"
         android:textColorHint="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry" />
@@ -105,12 +99,14 @@
         android:id="@+id/Button_Login"
         android:layout_width="240dp"
         android:layout_height="53dp"
+        android:layout_marginStart="83dp"
         android:layout_marginTop="428dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginEnd="83dp"
         android:background="@drawable/btn_iniciarsesion"
         android:text="@string/login_button_iniciar"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -118,7 +114,7 @@
         android:layout_width="140dp"
         android:layout_height="51dp"
         android:layout_marginTop="544dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="44dp"
         android:background="@drawable/btn_registrar"
         android:text="@string/login_button_registrar"
         android:textColor="#000000"
@@ -129,18 +125,18 @@
         android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="149dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/benote" />
+        app:srcCompat="@drawable/benote_login" />
 
     <TextView
         android:id="@+id/Registrar_TextPregunta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="556dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="552dp"
         android:text="@string/login_text_cuenta"
         android:textColor="#000000"
         android:textSize="20sp"

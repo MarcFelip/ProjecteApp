@@ -73,26 +73,24 @@
             android:id="@+id/MenuPrincipal_CerrarSesion"
             android:layout_width="122dp"
             android:layout_height="39dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="18dp"
             android:background="@android:drawable/divider_horizontal_bright"
-            android:drawableEnd="@drawable/cs"
+            android:drawableEnd="@drawable/icono_salida"
             android:text="@string/menuPrincipal_button_cerrar"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.944"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.975" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="316dp"
-            android:layout_height="224dp"
-            android:layout_marginBottom="4dp"
+            android:layout_height="220dp"
+            android:layout_marginStart="204dp"
+            android:layout_marginEnd="211dp"
+            android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.436"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
