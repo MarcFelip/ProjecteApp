@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private Button cerrar_sesion;
     private Button perfil_usuario;
     private Button menu;
+    private Button ajustes;
 
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
@@ -45,8 +47,31 @@ public class MenuPrincipal extends AppCompatActivity {
         cerrar_sesion =  findViewById(R.id.MenuPrincipal_CerrarSesion);
         perfil_usuario = findViewById(R.id.MenuPrincipal_PerfilUsuario);
         menu = findViewById(R.id.Toolbar_Menu);
+        ajustes = findViewById(R.id.Toolbar_Ajustes);
 
         enableForm(true);
+
+        //Popup ajustes
+        ajustes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(MenuPrincipal.this, ajustes);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_ajustes, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int id = item.getItemId();
+
+                        if (id == R.id.nav_cerrar_sesion) {
+                            cerrarSesion();
+                        }
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
 
         // El menu deslizante
         drawerLayout = findViewById(R.id.drawer_menu_principal);
@@ -64,7 +89,7 @@ public class MenuPrincipal extends AppCompatActivity {
                     Intent intent = new Intent(MenuPrincipal.this, Perfil_User.class);
                     startActivity(intent);
                 }
-                    return true;
+                return true;
             }
         });
 
@@ -76,42 +101,40 @@ public class MenuPrincipal extends AppCompatActivity {
             }
         });
 
-        // El boto de tancar sessio
-        cerrar_sesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String token = menuPrincipal_viewModel.getToken();
-                //System.out.println(token);
-                TokenModel tokenModel = new TokenModel(token);
-
-                Map<String, String> map = new HashMap<>();
-                map.put("Authorization", token);
-
-                Call<Void> call = userService.deleteToken(map,tokenModel);
-
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        //System.out.println("MENU - Token eleiminat bee "+ response.toString());
-                        menuPrincipal_viewModel.setToken("");
-                        Intent intent = new Intent(MenuPrincipal.this, Login.class);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        //System.out.println("MENU - ERROR" + t.toString());
-                    }
-                });
-
-            }
-        });
-
+        //Anar al perfil d'usuari
         perfil_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuPrincipal.this, Perfil_User.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+
+    // Funció del cerrar sesion del menú d'ajustes
+    private void cerrarSesion(){
+        String token = menuPrincipal_viewModel.getToken();
+        //System.out.println(token);
+        TokenModel tokenModel = new TokenModel(token);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("Authorization", token);
+
+        Call<Void> call = userService.deleteToken(map,tokenModel);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                //System.out.println("MENU - Token eleiminat bee "+ response.toString());
+                menuPrincipal_viewModel.setToken("");
+                Intent intent = new Intent(MenuPrincipal.this, Login.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                //System.out.println("MENU - ERROR" + t.toString());
             }
         });
     }

@@ -54,4 +54,6 @@
     <string name="navmenu_text_calendario">Calendario</string>
     <string name="navmenu_text_grupos">Grupos</string>
 
+    <string name="ajustesMenu_text_cerrarSesion">Cerrar Sesión</string>
+
 </resources>
