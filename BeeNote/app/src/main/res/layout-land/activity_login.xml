@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorFons"
+    tools:context=".Login">
+
+    <include
+        android:id="@+id/login_toolbar"
+        layout="@layout/toolbar_inicio" />
+
+    <ProgressBar
+        android:id="@+id/Login_ProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="452dp"
+        android:layout_marginTop="160dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="346dp"
+        android:layout_height="307dp"
+        android:layout_marginStart="316dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cuadrado_login" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="245dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="364dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/btn_redondo_white"
+        android:ems="10"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"
+        android:text="@string/login_text_email"
+        android:textAlignment="textEnd"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlCompat,RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/Login_Username"
+        android:layout_width="108dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="364dp"
+        android:layout_marginTop="100dp"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="@string/login_hint_user"
+        android:inputType="textPersonName"
+        android:paddingStart="20dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/Login_password"
+        android:layout_width="245dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="364dp"
+        android:layout_marginTop="190dp"
+        android:background="@drawable/btn_redondo_white"
+        android:ems="10"
+        android:hint="@string/login_hint_password"
+        android:inputType="textPersonName"
+        android:paddingStart="20dp"
+        android:password="true"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
+
+    <Button
+        android:id="@+id/Button_Login"
+        android:layout_width="240dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="371dp"
+        android:layout_marginTop="290dp"
+        android:background="@drawable/btn_iniciarsesion"
+        android:text="@string/login_button_iniciar"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Button_Register"
+        android:layout_width="135dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/btn_registrar"
+        android:text="@string/login_button_registrar"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="169dp"
+        android:layout_height="161dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/beenote_logo" />
+
+    <TextView
+        android:id="@+id/Registrar_TextPregunta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="270dp"
+        android:text="@string/login_text_cuenta"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Login_Error"
+        android:layout_width="140dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="416dp"
+        android:layout_marginTop="250dp"
+        android:ems="10"
+        android:gravity="center"
+        android:textColor="@color/red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Login_Registrado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_green_dark"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.437" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

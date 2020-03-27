@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBeNote"
+    android:elevation="4dp">
+
+    <Button
+        android:id="@+id/Toolbar_Menu"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="left"
+        android:background="@drawable/menu"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/toolbar_text_beenote"
+        android:textColor="@color/black"
+        android:textSize="26sp" />
+
+    <Button
+        android:id="@+id/Toolbar_Ajustes"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/settings"
+        tools:ignore="RtlHardcoded"/>
+
+</androidx.appcompat.widget.Toolbar>
