@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_group">
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_menu"
+            android:icon="@drawable/menu"
+            android:title="@string/navmenu_text_menu" />
         <item
             android:id="@+id/nav_account"
             android:icon="@drawable/account"
-            android:title="Perfil" />
+            android:title="@string/navmenu_text_perfil" />
         <item
             android:id="@+id/nav_notas"
             android:icon="@drawable/gallery"
-            android:title="Notas" />
+            android:title="@string/navmenu_text_notas" />
         <item
             android:id="@+id/nav_horario"
             android:icon="@android:drawable/ic_lock_idle_alarm"
-            android:title="Horario" />
+            android:title="@string/navmenu_text_horario" />
         <item
             android:id="@+id/nav_calendario"
             android:icon="@android:drawable/ic_menu_my_calendar"
-            android:title="Calendario" />
+            android:title="@string/navmenu_text_calendario" />
         <item
             android:id="@+id/nav_grupos"
             android:icon="@android:drawable/stat_notify_chat"
-            android:title="Grupos" />
+            android:title="@string/navmenu_text_grupos" />
     </group>
 </menu>

@@ -4,13 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -19,18 +15,17 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.JsonObject;
 
-import java.time.format.DateTimeFormatter;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 import cat.udl.tidic.amd.beenote.ViewModels.Perfil_UserViewModel;
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
@@ -38,10 +33,6 @@ import cat.udl.tidic.amd.beenote.services.UserService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.transition.Fade.IN;
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
 
 public class Perfil_User extends AppCompatActivity {
 
@@ -61,6 +52,7 @@ public class Perfil_User extends AppCompatActivity {
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 
     private DrawerLayout drawerLayout;
+    private Map<String, String> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +70,7 @@ public class Perfil_User extends AppCompatActivity {
         menu = findViewById(R.id.Toolbar_Menu);
 
         // Desabilitar tots els edittext del layout
-        disableform();
+        disableForm(false);
 
         // El menu deslizante
         drawerLayout = findViewById(R.id.drawer_perfil_usuari);
@@ -93,7 +85,11 @@ public class Perfil_User extends AppCompatActivity {
                 int id = menuItem.getItemId();
 
                 if (id == R.id.nav_account) {
-
+                    drawerLayout.closeDrawers();
+                }
+                else if(id == R.id.nav_menu){
+                    Intent intent = new Intent(Perfil_User.this, MenuPrincipal.class);
+                    startActivity(intent);
                 }
                 return true;
             }
@@ -107,24 +103,26 @@ public class Perfil_User extends AppCompatActivity {
             }
         });
 
-        //-----------------------------------
+        //-----------------------------------------------------------------------------
         String token = perfil_userViewModel.getToken();
-        //System.out.println("Login - Toke " + token);
+        System.out.println("Login - Toke " + token);
 
-        Map<String, String> map = new HashMap<>();
         map.put("Authorization", token);
 
-        final Call<UserModel> call = userService.getUserProfile(map);
+        Call<UserModel> call = userService.getUserProfile(map);
 
         call.enqueue(new Callback<UserModel>() {
             @Override
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 u = response.body();
+                System.out.println("Login - Toke " + response.body());
                 try {
                     assert u != null;
+                    System.out.println("Login - Toke " + u.getUsername());
                     username.setText(u.getUsername());
                     name.setText(u.getName());
                     email.setText(u.getEmail());
+                    telefono.setText(u.getPhone());
                 }catch (Exception e){
                     Log.e("Perfil user OK", response.message());
                 }
@@ -139,12 +137,9 @@ public class Perfil_User extends AppCompatActivity {
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-               enableform();
+               enableForm(true);
             }
         });
-
-
 
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,27 +150,44 @@ public class Perfil_User extends AppCompatActivity {
                 Calendar c = Calendar.getInstance();
                 c.set(calendari.getYear(), calendari.getMonth(), calendari.getDayOfMonth());
 
-                disableform();
+                //JsonObeject per fer el body del PUT
+                JsonObject userJson = new JsonObject();
+                userJson.addProperty("phone",telefono_string);
+
+                // Crida el service del PUT
+                Call<Void> call = userService.updateUserProfile(map,userJson);
+
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        Log.e("Perfil PUT OK", response.message());
+                        Log.e("Perfil PUT OK CODI", String.valueOf(response.code()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d("Perfil User Error PUT",t.toString());
+                    }
+                });
+
+                disableForm(false);
 
                 estudios.setText(estudios_string);
                 telefono.setText(telefono_string);
-
-
-
             }
         });
 
     }
-    private void enableform(){
-        estudios.setEnabled(true);
-        telefono.setEnabled(true);
-        calendari.setEnabled(true);
+    private void enableForm(boolean enable){
+        estudios.setEnabled(enable);
+        telefono.setEnabled(enable);
+        calendari.setEnabled(enable);
     }
 
-    private void disableform(){
-        estudios.setEnabled(false);
-        telefono.setEnabled(false);
-        calendari.setEnabled(false);
+    private void disableForm(boolean enable){
+        estudios.setEnabled(enable);
+        telefono.setEnabled(enable);
+        calendari.setEnabled(enable);
     }
 
 }
