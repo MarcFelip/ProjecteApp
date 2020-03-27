@@ -7,5 +7,6 @@
     <color name="white">#FFF</color>
     <color name="black">#000</color>
     <color name="colorBeNote">#e69f22</color>
-    <color name="Informacion">#0048FF</color>
+    <color name="colorFons">#F9E79F</color>
+    <color name="Informacion">#2F46E6</color>
 </resources>
