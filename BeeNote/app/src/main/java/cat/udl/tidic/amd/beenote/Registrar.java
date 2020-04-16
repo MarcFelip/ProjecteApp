@@ -39,7 +39,7 @@ public class Registrar extends AppCompatActivity {
     private TextView terminosCondiciones;
 
     private UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
-
+    private Registrar_ViewModel registrar_viewModel = new Registrar_ViewModel();
     //Aqui creem el Head de la peticio (Postman)
     private Map<String, String> map = new HashMap<>();
 
@@ -84,11 +84,12 @@ public class Registrar extends AppCompatActivity {
                     String password2 = passwordConfirmacio.getText().toString();
 
                     if (password.equals(password2)) {
-                        if(password.length()>=8) {
+                        if(password.length()>=8 && !password.equals("12345678")) {
                             // ------> Per encriptar la contrasenya
                             // Course API requires passwords in sha-256 in passlib format so:
-                            String salt = "16";
-                            String encode_hash = Utils.encode(password, salt, 29000);
+                            String salt = registrar_viewModel.getSalt();
+                            int numero = registrar_viewModel.getNumero();
+                            String encode_hash = Utils.encode(password, salt, numero);
                             System.out.println("PASSWORD_ENCRYPTED " + encode_hash);
 
                             // ------> Per agafar la apart del davant del correu, i ficarla com a username
@@ -154,7 +155,7 @@ public class Registrar extends AppCompatActivity {
                             }, 0);   //0 seconds
 
                         } else{
-                            salida.setText("Las contraseñas debe tener al menos 8 caracteres");
+                            salida.setText("Las contraseñas es poco segura");
                             registrar_progressbar.setVisibility(View.INVISIBLE);
                         }
                     } else {

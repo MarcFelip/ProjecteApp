@@ -11,5 +11,13 @@ public class Registrar_ViewModel extends ViewModel {
     public Registrar_ViewModel() {
         this.userRepository = new UserRepository();
     }
+    public String getSalt()
+    {
+        return userRepository.getSalt();
+    }
 
+    public int getNumero()
+    {
+        return userRepository.getNumero();
+    }
 }

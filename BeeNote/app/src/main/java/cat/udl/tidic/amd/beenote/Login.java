@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -64,6 +65,7 @@ public class Login extends AppCompatActivity {
 
             userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
 
+            //Agafem el string que ens pasa per Intent la classe registrar
             Bundle extras = getIntent().getExtras();
 
             if(extras != null)
@@ -91,7 +93,7 @@ public class Login extends AppCompatActivity {
 
                     System.out.println("Entrar " + encoding.trim());
 
-                    // ----> Para que l'app se espere 3 segundos con el progressbar mientras espera la peticion a la BD
+                    // ----> Para que l'app se espere 0 segundos con el progressbar mientras espera la peticion a la BD
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
