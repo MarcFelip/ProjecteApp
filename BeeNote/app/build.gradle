@@ -49,4 +49,9 @@ dependencies {
 
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0-rc01'
+
+    //Google Calendar
+    implementation 'com.google.api-client:google-api-client:1.23.0'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    implementation 'com.google.apis:google-api-services-calendar:v3-rev305-1.23.0'
 }

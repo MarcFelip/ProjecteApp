@@ -93,3 +93,11 @@ calendari.setEnabled(enable);
 Less Priority:
 @Todo: Guardar el salt i les iteracions al buildConfig i llegir-los de l'entorn com a constants.
 @Todo: Mirar com fer un interceptor perquè m'injecti el token d'autenticació de forma automàtica sense haver de passar.
+
+
+--------------------------------------- Google Calender API -----------------------------------------------------------
+https://developers.google.com/calendar
+
+Client ID API credentials --> 553611724130-t1iku5etoka092220o2cs1j69i4df315.apps.googleusercontent.com
+
+Install the Google Client Library --> pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
