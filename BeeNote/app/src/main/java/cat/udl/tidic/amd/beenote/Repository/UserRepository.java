@@ -42,4 +42,24 @@ public class UserRepository implements UserRepository_Interface {
         return this.mPreferences.getInt("numero", 0);
     }
 
+    @Override
+    public void setCalendarID(String i) {
+        this.mPreferences.edit().putString("CalendarID",i).apply();
+    }
+
+    @Override
+    public String getCalendarID() {
+        return this.mPreferences.getString("CalendarID", "");
+    }
+
+    @Override
+    public void setDateCalendar(long i) {
+        this.mPreferences.edit().putLong("DateCalendar",i).apply();
+    }
+
+    @Override
+    public long getDateCalendar() {
+        return this.mPreferences.getLong("DateCalendar", 0);
+    }
+
 }

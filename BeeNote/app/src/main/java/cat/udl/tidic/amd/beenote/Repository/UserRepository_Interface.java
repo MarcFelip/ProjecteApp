@@ -10,4 +10,8 @@ public interface UserRepository_Interface {
      String getSalt();
      void setNumero(int i);
      int getNumero();
+     void setCalendarID(String i);
+     String getCalendarID();
+     void setDateCalendar(long i);
+     long getDateCalendar();
 }
