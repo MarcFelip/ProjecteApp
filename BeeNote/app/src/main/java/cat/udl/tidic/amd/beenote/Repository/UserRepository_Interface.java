@@ -12,6 +12,4 @@ public interface UserRepository_Interface {
      int getNumero();
      void setCalendarID(String i);
      String getCalendarID();
-     void setDateCalendar(long i);
-     long getDateCalendar();
 }

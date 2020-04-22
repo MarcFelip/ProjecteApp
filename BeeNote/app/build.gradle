@@ -64,5 +64,5 @@ dependencies {
 
     //Material-Calendar
     implementation 'com.applandeo:material-calendar-view:1.7.0'
-    implementation 'com.applandeo:material-calendar-view:1.8.0-rc01'
+
 }

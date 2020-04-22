@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -17,7 +16,6 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,12 +26,11 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +38,6 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 import cat.udl.tidic.amd.beenote.Dialog.NewEventCalendar;
-import cat.udl.tidic.amd.beenote.Dialog.TerminosCondiciones;
 import cat.udl.tidic.amd.beenote.ViewModels.menuPrincipal_ViewModel;
 import cat.udl.tidic.amd.beenote.models.TokenModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
@@ -60,8 +56,9 @@ public class MenuPrincipal extends AppCompatActivity {
     private Button perfil_usuario;
     private Button menu;
     private Button ajustes;
-    private Button editarCalendar;
+    private FloatingActionButton editarCalendar;
     private List<EventDay> events = new ArrayList<>();
+    private TextView error;
 
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
@@ -76,13 +73,14 @@ public class MenuPrincipal extends AppCompatActivity {
         perfil_usuario = findViewById(R.id.MenuPrincipal_PerfilUsuario);
         menu = findViewById(R.id.Toolbar_Menu);
         ajustes = findViewById(R.id.Toolbar_Ajustes);
-        editarCalendar = findViewById(R.id.scrolling_editar_button);
+        editarCalendar = findViewById(R.id.menu_editar_button);
+        error = findViewById(R.id.menu_scrolling_text_error);
 
         enableForm(true);
 
         query_calendar();
 
-        //Popup editarCalendar
+        //Popup editarCalendar amb les 3 opcions
         editarCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,36 +88,45 @@ public class MenuPrincipal extends AppCompatActivity {
                 popupMenu.getMenuInflater().inflate(R.menu.menu_calendar_editar, popupMenu.getMenu());
 
                 //menuPrincipal_viewModel.setDateToRepository(menuPrincipal_viewModel.getDate());
-                int year = Integer.parseInt(DateFormat.format("yyyy", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
-                int month = Integer.parseInt(DateFormat.format("MM", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
-                int data = Integer.parseInt(DateFormat.format("dd", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
-                int hour = Integer.parseInt(DateFormat.format("hh", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
-                int minute = Integer.parseInt(DateFormat.format("mm", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
-                int seconds = Integer.parseInt(DateFormat.format("ss", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
+                error.setText("");
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         int id = item.getItemId();
 
+                        // TODO Fer un pop amb per actulizar informacio
                         if (id == R.id.nav_editarEvento) {
-                            //update_event();
+                            String eventid = menuPrincipal_viewModel.getEventID();
+                            if(eventid.equals("0"))
+                            {
+                                error.setText("Selecciona una fecha que tenga Evento");
+                            }
+                            else
+                            {
+                                update_event(eventid,"Canviat");
+                                // TODO Que es canvii tambe el Title en el calendarView (MyEventDay)
+                            }
                         }
                         else if (id == R.id.nav_ElimimarEvento) {
-                            //String targetEventId = "427";
-                            //delete_event(targetEventId);
+                            String targetEventId = menuPrincipal_viewModel.getEventID();
+                            //System.out.println(targetEventId);
+                            // Comprovem que ha seleccionar una data que te Events
+                            if(targetEventId.equals("0"))
+                            {
+                                error.setText("Selecciona una fecha que tenga Evento");
+                            }
+                            else
+                            {
+                                delete_event(targetEventId);
+                                elimateEventCalendar(targetEventId);
+                            }
                         }
                         else if (id == R.id.nav_NuevoEvento) {
-                            //NewEventCalendar dialog = NewEventCalendar.newInstance(MenuPrincipal.this);
-                            //dialog.setCancelable(false);
-                            //dialog.show(getSupportFragmentManager(),"TerminosCondicionesTag");
-
-                            //EditText title = findViewById(R.id.dialog_Event_Titulo);
-                            //String titulo = title.getText().toString();
-                            addEventCalendar(year,month,data,hour,minute,seconds);
-                            String calendarID = menuPrincipal_viewModel.getCalendarID();
-                            System.out.println("Guardar ");
-                            insert_event(calendarID,menuPrincipal_viewModel.getDate(),menuPrincipal_viewModel.getDate()+100,"prova");
+                            NewEventCalendar dialog = NewEventCalendar.newInstance(MenuPrincipal.this);
+                            dialog.setCancelable(false);
+                            dialog.show(getSupportFragmentManager(),"Insertar_Evento_Calendar");
+                            popUp_InsertEvent("prova 22/04/2020");
                         }
                         return true;
                     }
@@ -225,22 +232,43 @@ public class MenuPrincipal extends AppCompatActivity {
         editarCalendar.setEnabled(enable);
     }
 
-    // ------------------- Material Calendar View --------------------------
-    public void addEventCalendar(int year, int month, int date, int hourOfDay, int minute, int seconds)
+    // (TODO) Insertar Event a partir del popUp del NewEventCalendar.java
+    public void popUp_InsertEvent(String title){
+        // Agafem les variables a partir de la data selecionada el calendarView
+        int year = Integer.parseInt(DateFormat.format("yyyy", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
+        int month = Integer.parseInt(DateFormat.format("MM", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
+        int data = Integer.parseInt(DateFormat.format("dd", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
+        int hour = Integer.parseInt(DateFormat.format("hh", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
+        int minute = Integer.parseInt(DateFormat.format("mm", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
+        int seconds = Integer.parseInt(DateFormat.format("ss", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
+
+        String eventid = menuPrincipal_viewModel.getEventID();
+        String calendarid = menuPrincipal_viewModel.getCalendarID();
+        insert_event(calendarid,menuPrincipal_viewModel.getDate(),menuPrincipal_viewModel.getDate()+100,"prova");
+        addEventCalendar(year,month,data,hour,minute,seconds,title,eventid);
+
+        //System.out.println("Guardar");
+    }
+
+        // ------------------- Material Calendar View --------------------------
+    public void addEventCalendar(int year, int month, int date, int hourOfDay, int minute, int seconds, String title, String ID)
     {
         //events.add(new EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M")));
+        //events.add(new EventDay(calendar, R.drawable.account,Color.parseColor("#228B22")));
+        // Indiquem a quin dia volem posar el event
         Calendar calendar = Calendar.getInstance();
         calendar.set(year,month-1,date,hourOfDay,minute,seconds);
 
-        //events.add(new EventDay(calendar, R.drawable.account,Color.parseColor("#228B22")));
+        // Omplim la llista de EventDay amb MyEventDay (custom class)
+        events.add(new MyEventDay(calendar, R.drawable.boton_circulo,title,ID));
 
-        events.add(new EventDay(calendar, R.drawable.boton_circulo,Color.parseColor("#228B22")));
+        //System.out.println(events);
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
+        // Paramentres per definir quants mesos es veuen el calendari
         Calendar min = Calendar.getInstance();
         min.add(Calendar.MONTH, -12);
-
         Calendar max = Calendar.getInstance();
         max.add(Calendar.MONTH, 12);
 
@@ -251,22 +279,50 @@ public class MenuPrincipal extends AppCompatActivity {
 
         //calendarView.setDisabledDays(getDisabledDays());
 
+        //  Aqui la inicialitzo perque si l'usuari vol crear un Event el mateix dia que estem
         if(menuPrincipal_viewModel.getDate() == null)
         {
             long date2 = calendar.getTimeInMillis();
             menuPrincipal_viewModel.setDate(date2);
         }
 
+        // Listener per veure quina data i Event esta seleccionan del CalendarView
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(EventDay eventDay) {
                 long date = eventDay.getCalendar().getTimeInMillis();
+                // Guardem la data seleccionada el viewModel
                 menuPrincipal_viewModel.setDate(date);
-                Toast.makeText(getApplicationContext(), eventDay.getCalendar().getTime().toString() + " " + eventDay.isEnabled(), Toast.LENGTH_SHORT).show();
+
+                // Try catch per comprovar que la data del calendari que selecciona el usuari hi ha o no Events creats
+                try {
+                    if(((MyEventDay) eventDay).getID() != null)
+                    {
+                        Log.e("Event",((MyEventDay) eventDay).getID()+" <--");
+                        menuPrincipal_viewModel.setEventID(Long.parseLong(((MyEventDay) eventDay).getID()));
+                    }
+                    if(((MyEventDay) eventDay).getNote() != null)
+                    {
+                        Toast.makeText(getApplicationContext(), eventDay.getCalendar().getTime().toString() + " " + ((MyEventDay) eventDay).getNote(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch(Exception e) {
+                    Log.e("Event","Error no eventID <--");
+                    menuPrincipal_viewModel.setEventID(0);
+                    Toast.makeText(getApplicationContext(), eventDay.getCalendar().getTime().toString() + " " + "No Evento", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
+    // (TODO) Per eliminar els Events del CalendarView
+    public void elimateEventCalendar(String ID)
+    {
+        //events.remove(Integer.parseInt(ID));
+
+    }
+
+    // Desabilitas el poder seleccionar un dia en el CalendarView
     private List<Calendar> getDisabledDays() {
         Calendar firstDisabled = DateUtils.getCalendar();
         firstDisabled.add(Calendar.DAY_OF_MONTH, 2);
@@ -325,7 +381,6 @@ public class MenuPrincipal extends AppCompatActivity {
                         CalendarContract.Events.RDATE
                 };
 
-        // Obtenga el nombre de la cuenta en EditText
         // Calendario de consulta
         Cursor cur = null;
         Cursor cur2 = null;
@@ -336,24 +391,26 @@ public class MenuPrincipal extends AppCompatActivity {
         String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("
                 + CalendarContract.Calendars.ACCOUNT_TYPE + " = ?) AND ("
                 + CalendarContract.Calendars.OWNER_ACCOUNT + " = ?))";
+       // Posem el correu que volem controlar
         String[] selectionArgs = new String[]{"beenote00@gmail.com",
                 "com.google","beenote00@gmail.com"
         };
         // Debido a que el SDK de destino = 25, verifique los permisos cuando se ejecutan las aplicaciones
         int permissionCheck = ContextCompat.checkSelfPermission(MenuPrincipal.this, Manifest.permission.READ_CALENDAR);
-        System.out.println("Permisos:"+ permissionCheck);
-        System.out.println("Permisos2."+ PackageManager.PERMISSION_GRANTED);
+        //System.out.println("Permisos:"+ permissionCheck);
+        //System.out.println("Permisos2."+ PackageManager.PERMISSION_GRANTED);
 
         // Cree una lista para almacenar temporalmente los resultados de la consulta.
         //final List<String> accountNameList = new ArrayList<>();
         //final List<Integer> calendarIdList = new ArrayList<>();
+
         // Si el usuario tiene permiso para comenzar a consultar el calendario
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             cur = cr.query(uri_events, eventmProjection, selection, selectionArgs, null);
            // System.out.println("Cur: "+ cur);
             if (cur != null) {
                 while (cur.moveToNext()) {
-                    // Obtenga la información requerida
+                    // Obtenga la información dels Events
                     String eventTitle = cur.getString(cur.getColumnIndex(CalendarContract.Events.TITLE));
                     String eventId = cur.getString(cur.getColumnIndex(CalendarContract.Events._ID));
                     String startDate = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
@@ -370,10 +427,11 @@ public class MenuPrincipal extends AppCompatActivity {
                     int minute = Integer.parseInt(DateFormat.format("mm", Long.parseLong(startDate)).toString());
                     int seconds = Integer.parseInt(DateFormat.format("ss", Long.parseLong(startDate)).toString());
 
-                    addEventCalendar(year,month,date,hour,minute,seconds);
+                    addEventCalendar(year,month,date,hour,minute,seconds,eventTitle,eventId);
                 }
                 cur.close();
             }
+            // Per poder agafar la informacio del Calenadi (uri_cal)
             cur2 = cr.query(uri_cal, EVENT_PROJECTION, selection, selectionArgs, null);
             if (cur2 != null) {
                 while (cur2.moveToNext()) {
@@ -383,7 +441,7 @@ public class MenuPrincipal extends AppCompatActivity {
                     //String ownerAccount = null;
                     //int accessLevel = 0;
 
-                    // Obtenga la información requerida
+                    // Obtenga la información del Calendari
                     calendarId = cur2.getLong(PROJECTION_ID_INDEX);
                     Log.i("CalendarId", String.format("CalendarId=%s", calendarId));
                     menuPrincipal_viewModel.setCalendarID(calendarId);
@@ -398,6 +456,7 @@ public class MenuPrincipal extends AppCompatActivity {
                 }
                 cur2.close();
             }
+            // Dialog perque el usuari pugui triar quin calendari utilizar
             /*if (calendarIdList.size() != 0) {
                 // Cree un cuadro de diálogo para que los usuarios elijan un calendario
                 AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -420,6 +479,7 @@ public class MenuPrincipal extends AppCompatActivity {
              */
         }
         else {
+            //Comprovar que tenim els permisos de read/write Calendar
             if(shouldShowRequestPermissionRationale(Manifest.permission.READ_CALENDAR)) {
                 Toast toast = Toast.makeText(this, "\n" +
                         "Se requieren permisos", Toast.LENGTH_LONG);
@@ -429,6 +489,7 @@ public class MenuPrincipal extends AppCompatActivity {
         }
     }
 
+    // Insertar els nous Events el google Calendar
     public void insert_event(String targetCalendarId, long StartTimeMillis,long EndTimeMillis, String Title) {
         // Obteniu l'ID del calendari a EditText
         long calendarId = Long.parseLong(targetCalendarId);
@@ -452,10 +513,14 @@ public class MenuPrincipal extends AppCompatActivity {
                 long eventID = Long.parseLong(Objects.requireNonNull(uri.getLastPathSegment()));
                 //EditText targetEventId = (EditText) findViewById(R.id.event_id);
                 System.out.println(String.format("InsertEvent %s ", eventID));
+                Toast toast = Toast.makeText(this, "Evento creado con exito", Toast.LENGTH_LONG);
+                toast.show();
+                menuPrincipal_viewModel.setEventID(eventID);
             }
         }
     }
 
+    // Actualizar els Events ja existents el google Calendar
     public void update_event(String targetEventId,String targetTitle) {
         // Obteniu l'ID d'esdeveniment a EditText
         long eventId = Long.parseLong(targetEventId);
@@ -470,11 +535,14 @@ public class MenuPrincipal extends AppCompatActivity {
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId);
             cr.update(uri, values, null, null);
+            Toast toast = Toast.makeText(this, "Evento actualizado con exito", Toast.LENGTH_LONG);
+            toast.show();
         }
     }
 
+    // Eliminar els Events ja existents el google Calendar
     public void delete_event(String targetEventId) {
-        // Obteniu l'ID d'esdeveniment a EditText
+        // Obteniu l'ID d'esdeveniment
         long eventId = Long.parseLong(targetEventId);
         // Suprimeix l'esdeveniment
         ContentResolver cr = getContentResolver();
@@ -484,6 +552,9 @@ public class MenuPrincipal extends AppCompatActivity {
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId);
             cr.delete(uri, null, null);
+            Toast toast = Toast.makeText(this, "Eliminado Correctamente", Toast.LENGTH_LONG);
+            toast.show();
+
         }
     }
 

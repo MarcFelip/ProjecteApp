@@ -24,6 +24,17 @@
             android:background="@color/colorAccent"
             android:backgroundTint="@android:color/darker_gray" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/menu_editar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/menu_scroll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

@@ -8,6 +8,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -26,7 +27,6 @@ public class NewEventCalendar extends DialogFragment {
     private MenuPrincipal activity;
     private EditText titulo;
     private MenuPrincipal menuPrincipal;
-   private UserRepository userRepository;
 
     public static NewEventCalendar newInstance(MenuPrincipal activity) {
         NewEventCalendar dialog = new NewEventCalendar();
@@ -51,14 +51,18 @@ public class NewEventCalendar extends DialogFragment {
                 .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        String titulo2 = titulo.getText().toString();
+                        dismiss();
+                        System.out.println("Titulo popup"+titulo2);
+                        //menuPrincipal.popUp_InsertEvent(titulo2);
                     }
                 })
-                .setTitle("Titulo del nuevo Evento")
+                .setTitle("Carcateristicas del nuevo Evento")
                 .setCancelable(false)
                 .create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.setCancelable(false);
+        titulo = view.findViewById(R.id.dialog_Event_Titulo);
 
         return alertDialog;
     }
