@@ -37,6 +37,10 @@
     <string name="menuPrincipal_button_notas">Notas</string>
     <string name="menuPrincipal_button_horario">Horario</string>
 
+    <string name="Calendar_menu_Editar">Editar Evento</string>
+    <string name="Calendar_menu_Nuevo">Nuevo Evento</string>
+    <string name="Calendar_menu_Eliminar">Eliminar Evento</string>
+
     <string name="terminos_text_condiciones">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 
     <string name="toolbar_text_beenote">BeeNote</string>

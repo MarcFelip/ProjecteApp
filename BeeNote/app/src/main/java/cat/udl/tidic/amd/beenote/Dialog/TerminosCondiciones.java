@@ -1,7 +1,6 @@
-package cat.udl.tidic.amd.beenote;
+package cat.udl.tidic.amd.beenote.Dialog;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.AlertDialog;
@@ -9,8 +8,9 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+
+import cat.udl.tidic.amd.beenote.R;
+import cat.udl.tidic.amd.beenote.Registrar;
 
 public class TerminosCondiciones extends DialogFragment {
 

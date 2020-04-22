@@ -5,14 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Dialog.TerminosCondiciones">
+    tools:context=".Dialog."
+    tools:ignore="MissingDefaultResource">
 
-    <TextView
-        android:id="@+id/Terminos_Terminos"
-        android:layout_width="351dp"
-        android:layout_height="186dp"
+    <EditText
+        android:id="@+id/dialog_Event_Titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="@string/terminos_text_condiciones"
+        android:ems="10"
+        android:hint="Titulo Evento"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Map;
 
+import cat.udl.tidic.amd.beenote.Dialog.TerminosCondiciones;
 import cat.udl.tidic.amd.beenote.ViewModels.Registrar_ViewModel;
 import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;

@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TerminosCondiciones" />
+        <activity android:name=".Dialog.TerminosCondiciones" />
         <activity android:name=".MenuPrincipal" />
         <activity android:name=".Perfil_User" />
         <activity android:name=".Registrar" />
