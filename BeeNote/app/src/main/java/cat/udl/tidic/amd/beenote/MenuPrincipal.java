@@ -54,7 +54,6 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.utils.DateUtils;
-import com.google.api.services.calendar.model.Event;
 
 public class MenuPrincipal extends AppCompatActivity {
 
@@ -62,7 +61,6 @@ public class MenuPrincipal extends AppCompatActivity {
     private Button menu;
     private Button ajustes;
     private Button editarCalendar;
-    private Button guardarTitleEventNou;
     private List<EventDay> events = new ArrayList<>();
 
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
@@ -79,7 +77,6 @@ public class MenuPrincipal extends AppCompatActivity {
         menu = findViewById(R.id.Toolbar_Menu);
         ajustes = findViewById(R.id.Toolbar_Ajustes);
         editarCalendar = findViewById(R.id.scrolling_editar_button);
-        guardarTitleEventNou = (Button) findViewById(R.id.dialog_Event_guardar);
 
         enableForm(true);
 
@@ -106,7 +103,7 @@ public class MenuPrincipal extends AppCompatActivity {
                         int id = item.getItemId();
 
                         if (id == R.id.nav_editarEvento) {
-                            update_event();
+                            //update_event();
                         }
                         else if (id == R.id.nav_ElimimarEvento) {
                             //String targetEventId = "427";
@@ -459,12 +456,9 @@ public class MenuPrincipal extends AppCompatActivity {
         }
     }
 
-    public void update_event() {
+    public void update_event(String targetEventId,String targetTitle) {
         // Obteniu l'ID d'esdeveniment a EditText
-        String targetEventId = "EventID";
         long eventId = Long.parseLong(targetEventId);
-        // Obteniu el títol a EditText
-        String targetTitle = "Title";
         // Actualitzar l’activitat
         ContentResolver cr = getContentResolver();
         ContentValues values = new ContentValues();
@@ -479,7 +473,7 @@ public class MenuPrincipal extends AppCompatActivity {
         }
     }
 
-    public void delete_event( String targetEventId) {
+    public void delete_event(String targetEventId) {
         // Obteniu l'ID d'esdeveniment a EditText
         long eventId = Long.parseLong(targetEventId);
         // Suprimeix l'esdeveniment
