@@ -11,12 +11,17 @@ import java.util.Objects;
 
 public class MyEventDay extends EventDay implements Parcelable {
     private String mNote;
-    public MyEventDay(Calendar day, int imageResource, String note) {
+    private String mId;
+    public MyEventDay(Calendar day, int imageResource, String note, String id) {
         super(day, imageResource);
         mNote = note;
+        mId = id;
     }
     public  String getNote() {
         return mNote;
+    }
+    public  String getID() {
+        return mId;
     }
     private MyEventDay(Parcel in) {
         super((Calendar) Objects.requireNonNull(in.readSerializable()), in.readInt());
@@ -35,7 +40,8 @@ public class MyEventDay extends EventDay implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeSerializable(getCalendar());
-        parcel.writeInt(getImageResource());
+        //parcel.writeInt(getImageResource());
+        parcel.writeInt(i);
         parcel.writeString(mNote);
     }
     @Override
