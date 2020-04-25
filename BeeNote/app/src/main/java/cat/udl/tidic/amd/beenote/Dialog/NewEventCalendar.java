@@ -53,8 +53,7 @@ public class NewEventCalendar extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String titulo2 = titulo.getText().toString();
                         dismiss();
-                        System.out.println("Titulo popup"+titulo2);
-                        //menuPrincipal.popUp_InsertEvent(titulo2);
+                        activity.popUp_InsertEvent(titulo2);
                     }
                 })
                 .setTitle("Carcateristicas del nuevo Evento")
@@ -62,7 +61,6 @@ public class NewEventCalendar extends DialogFragment {
                 .create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.setCancelable(false);
-        titulo = view.findViewById(R.id.dialog_Event_Titulo);
 
         return alertDialog;
     }
@@ -70,5 +68,6 @@ public class NewEventCalendar extends DialogFragment {
     private void initViews() {
         rootView = LayoutInflater.from(getContext())
                 .inflate(R.layout.activity_neweventcalendar, null, false);
+        titulo = rootView.findViewById(R.id.dialog_Event_Titulo);
     }
 }
