@@ -56,6 +56,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private Button perfil_usuario;
     private Button menu;
     private Button ajustes;
+    private Button notes;
     private FloatingActionButton editarCalendar;
     private List<EventDay> events = new ArrayList<>();
     private TextView error;
@@ -77,14 +78,23 @@ public class MenuPrincipal extends AppCompatActivity {
         ajustes = findViewById(R.id.Toolbar_Ajustes);
         editarCalendar = findViewById(R.id.menu_editar_button);
         error = findViewById(R.id.menu_scrolling_text_error);
+        notes = findViewById(R.id.MenuScrolling_Notes);
 
         enableForm(true);
 
         checkCalendarPermission();
 
 
-
         query_calendar();
+
+        // Per anar el layout de assignatures
+        notes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuPrincipal.this, Assignatures.class);
+                startActivity(intent);
+            }
+        });
 
         //Popup editarCalendar amb les 3 opcions
         editarCalendar.setOnClickListener(new View.OnClickListener() {

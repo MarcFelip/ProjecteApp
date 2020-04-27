@@ -42,11 +42,11 @@
             android:foreground="@drawable/xat"
             app:layout_constraintEnd_toStartOf="@+id/MenuPrincipal_Horari"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/MenuPrincipal_Notes"
+            app:layout_constraintStart_toEndOf="@+id/MenuScrolling_Notes"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/MenuPrincipal_Notes"
+            android:id="@+id/MenuScrolling_Notes"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="52dp"
@@ -130,7 +130,7 @@
             app:layout_constraintEnd_toStartOf="@+id/textView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/MenuPrincipal_Notes" />
+            app:layout_constraintTop_toBottomOf="@+id/MenuScrolling_Notes" />
 
         <TextView
             android:id="@+id/textView3"
