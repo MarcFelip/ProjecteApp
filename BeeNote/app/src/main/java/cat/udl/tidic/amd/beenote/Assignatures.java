@@ -119,4 +119,49 @@ public class Assignatures extends AppCompatActivity {
         }).attachToRecyclerView(recyclerView);
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == INSERT_EVENT && resultCode == RESULT_OK) {
+            String title = data.getStringExtra(Add_Assignatures_List.EXTRA_TITLE);
+            String description = data.getStringExtra(Add_Assignatures_List.EXTRA_DESCRIPTION);
+            String start = data.getStringExtra(Add_Assignatures_List.EXTRA_START);
+            String end = data.getStringExtra(Add_Assignatures_List.EXTRA_END);
+            String tema = data.getStringExtra(Add_Assignatures_List.EXTRA_TEMA);
+            float avaluation = data.getIntExtra(Add_Assignatures_List.EXTRA_AVALUATION, 1);
+
+            String current_user = this.mPreferences.getString("current_user", "");
+            Assignatures_Model event = new Assignatures_Model(Integer.parseInt(current_user),start,end,title,description,tema,avaluation);
+            viewModel.insert(event);
+
+            Toast.makeText(this, "Event saved", Toast.LENGTH_SHORT).show();
+        } else if (requestCode == EDIT_EVENT && resultCode == RESULT_OK) {
+            int id = data.getIntExtra(Add_Assignatures_List.EXTRA_ID, -1);
+
+            if (id == -1) {
+                Toast.makeText(this, "Event can't be updated", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String title = data.getStringExtra(Add_Assignatures_List.EXTRA_TITLE);
+            String description = data.getStringExtra(Add_Assignatures_List.EXTRA_DESCRIPTION);
+            String start = data.getStringExtra(Add_Assignatures_List.EXTRA_START);
+            String end = data.getStringExtra(Add_Assignatures_List.EXTRA_END);
+            String tema = data.getStringExtra(Add_Assignatures_List.EXTRA_TEMA);
+            float avaluation = data.getFloatExtra(Add_Assignatures_List.EXTRA_AVALUATION, 1);
+
+
+            String current_user = this.mPreferences.getString("current_user", "");
+            Assignatures_Model event = new Assignatures_Model(Integer.parseInt(current_user),start,end,title,description,tema,avaluation);
+
+            event.setId(id);
+            viewModel.update(event);
+
+            Toast.makeText(this, "Event updated", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Event not saved", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
