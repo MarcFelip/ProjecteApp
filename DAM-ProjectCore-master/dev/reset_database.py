@@ -9,7 +9,7 @@ from sqlalchemy.sql import text
 
 import db
 import settings
-from db.models import SQLAlchemyBase, User, GenereEnum, UserToken
+from db.models import SQLAlchemyBase, User, GenereEnum, UserToken, Subject
 from settings import DEFAULT_LANGUAGE
 
 # LOGGING
@@ -81,5 +81,23 @@ if __name__ == "__main__":
     db_session.add(user_admin)
     db_session.add(user_1)
     db_session.add(user_2)
+
+
+
+ # -------------------- CREATE EVENTS --------------------
+
+    day_period = datetime.timedelta(days=1)
+
+    event_hackatoon = Subject(
+        classe="Mates",
+        description="event1",
+        start=datetime.datetime.now(),
+        end=datetime.datetime.now(),
+        teacher="Jose",
+        progress=5,
+        registered=[user_1, user_2]
+    )
+
+    db_session.add(event_hackatoon)
     db_session.commit()
     db_session.close()

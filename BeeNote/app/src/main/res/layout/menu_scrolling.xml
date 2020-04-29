@@ -71,7 +71,7 @@
             android:textColor="@android:color/black"
             android:textSize="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/MenuPrincipal_Notes" />
+            app:layout_constraintTop_toBottomOf="@+id/MenuScrolling_Notes" />
 
         <TextView
             android:id="@+id/textView"
@@ -97,11 +97,11 @@
             android:foreground="@drawable/horari"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toEndOf="@+id/MenuPrincipal_Notes"
+            app:layout_constraintStart_toEndOf="@+id/MenuScrolling_Notes"
             app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
         <Button
-            android:id="@+id/MenuPrincipal_Notes"
+            android:id="@+id/MenuScrolling_Notes"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="84dp"
