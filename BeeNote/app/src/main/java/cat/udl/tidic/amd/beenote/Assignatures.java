@@ -3,6 +3,7 @@ package cat.udl.tidic.amd.beenote;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,9 +13,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
@@ -29,10 +35,13 @@ public class Assignatures extends AppCompatActivity {
 
     public static final int INSERT_EVENT = 1;
     public static final int EDIT_EVENT = 2;
-    public static final String TAG = "EventListActivity";
+    public static final String TAG = "Assignatures";
     private SharedPreferences mPreferences;
 
    // private ImageButton searchButton;
+
+    private DrawerLayout drawerLayout;
+    private Button menu;
     private ImageButton addButton;
 
     private AssiganturesViewModel viewModel;
@@ -41,10 +50,43 @@ public class Assignatures extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignatures);
+
+        menu = findViewById(R.id.Toolbar_Menu);
+
+        // El menu deslizante
+        drawerLayout = findViewById(R.id.drawer_assignatures);
+        final NavigationView navigationView = findViewById(R.id.nav__assignatures);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                menuItem.setChecked(true);
+                drawerLayout.closeDrawers();
+
+                int id = menuItem.getItemId();
+
+                if (id == R.id.nav_account) {
+                    drawerLayout.closeDrawers();
+                }
+                else if(id == R.id.nav_menu){
+                    Intent intent = new Intent(Assignatures.this, MenuPrincipal.class);
+                    startActivity(intent);
+                }
+                return true;
+            }
+        });
+
+        // El icono del toolbar per anar el menu
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+
         this.mPreferences = PreferencesProvider.providePreferences();
         initViews();
     }
-
     private void initViews() {
 
         addButton = findViewById(R.id.createEvent);
@@ -63,45 +105,36 @@ public class Assignatures extends AppCompatActivity {
         final Assignatura_Adapter adapter = new Assignatura_Adapter(new AssignaturesDiffCallback());
         recyclerView.setAdapter(adapter);
 
-
-        adapter.setOnItemClickListener(new Assignatura_Adapter.OnItemClickListener() {
+       /* adapter.setOnItemClickListener(new Assignatura_Adapter.OnItemClickListener() {
             @Override
             public void onItemClick(Assignatures_Model event) {
-                Log.d(TAG, event.getTittle());
+                Log.d(TAG, event.getTitle());
                 Intent intent = new Intent(Assignatures.this, Add_Assignatures_List.class);
                 intent.putExtra(Add_Assignatures_List.EXTRA_ID, event.getId());
-                intent.putExtra(Add_Assignatures_List.EXTRA_TITLE, event.getTittle());
-                intent.putExtra(Add_Assignatures_List.EXTRA_TEMA, event.getTema());
-                intent.putExtra(Add_Assignatures_List.EXTRA_DESCRIPTION, event.getDescription());
-                intent.putExtra(Add_Assignatures_List.EXTRA_START, event.getStart());
-                intent.putExtra(Add_Assignatures_List.EXTRA_END, event.getEnd());
-                intent.putExtra(Add_Assignatures_List.EXTRA_AVALUATION, event.getAvaluation());
+                intent.putExtra(Add_Assignatures_List.EXTRA_TITLE, event.getTitle());
                 startActivityForResult(intent, EDIT_EVENT);
             }
-        });
+        });*/
 
-        viewModel = new AssiganturesViewModel(this.getApplication());
+
+       /* viewModel = new AssiganturesViewModel(this.getApplication());
         viewModel.setUserId("");
         viewModel.getEvents().observe(this, new Observer<List<Assignatures_Model>>() {
             @Override
             public void onChanged(@Nullable List<Assignatures_Model> events) {
                 adapter.submitList(events);
             }
-        });
+        });*/
 
         //searchButton = findViewById(R.id.searchButton);
 
-
-       /* searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView textView = findViewById(R.id.activityMainAtcEventUserId);
-                viewModel.setUserId(textView.getText().toString());
-            }
-        });
-
-        */
-
+        /* searchButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             TextView textView = findViewById(R.id.activityMainAtcEventUserId);
+             viewModel.setUserId(textView.getText().toString());
+         }
+     });*/
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -126,14 +159,10 @@ public class Assignatures extends AppCompatActivity {
 
         if (requestCode == INSERT_EVENT && resultCode == RESULT_OK) {
             String title = data.getStringExtra(Add_Assignatures_List.EXTRA_TITLE);
-            String description = data.getStringExtra(Add_Assignatures_List.EXTRA_DESCRIPTION);
-            String start = data.getStringExtra(Add_Assignatures_List.EXTRA_START);
-            String end = data.getStringExtra(Add_Assignatures_List.EXTRA_END);
-            String tema = data.getStringExtra(Add_Assignatures_List.EXTRA_TEMA);
-            float avaluation = data.getIntExtra(Add_Assignatures_List.EXTRA_AVALUATION, 1);
+
 
             String current_user = this.mPreferences.getString("current_user", "");
-            Assignatures_Model event = new Assignatures_Model(Integer.parseInt(current_user),start,end,title,description,tema,avaluation);
+            Assignatures_Model event = new Assignatures_Model(Integer.parseInt(current_user),title);
             viewModel.insert(event);
 
             Toast.makeText(this, "Event saved", Toast.LENGTH_SHORT).show();
@@ -146,15 +175,11 @@ public class Assignatures extends AppCompatActivity {
             }
 
             String title = data.getStringExtra(Add_Assignatures_List.EXTRA_TITLE);
-            String description = data.getStringExtra(Add_Assignatures_List.EXTRA_DESCRIPTION);
-            String start = data.getStringExtra(Add_Assignatures_List.EXTRA_START);
-            String end = data.getStringExtra(Add_Assignatures_List.EXTRA_END);
-            String tema = data.getStringExtra(Add_Assignatures_List.EXTRA_TEMA);
-            float avaluation = data.getFloatExtra(Add_Assignatures_List.EXTRA_AVALUATION, 1);
+
 
 
             String current_user = this.mPreferences.getString("current_user", "");
-            Assignatures_Model event = new Assignatures_Model(Integer.parseInt(current_user),start,end,title,description,tema,avaluation);
+            Assignatures_Model event = new Assignatures_Model(Integer.parseInt(current_user),title);
 
             event.setId(id);
             viewModel.update(event);

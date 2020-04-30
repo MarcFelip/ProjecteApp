@@ -14,29 +14,15 @@ public class Assignatures_Model {
     private int id;
     @SerializedName("userId")
     private int userId;
-    @SerializedName("start")
-    private String start;
-    @SerializedName("end")
-    private String end;
-    @SerializedName("tittle")
-    private String tittle;
-    @SerializedName("description")
-    private String description;
-    @SerializedName("avaluation")
-    private float avaluation;
-    @SerializedName("tema")
-    private String tema;
+    @SerializedName("title")
+    private String title;
 
 
-    public Assignatures_Model(int userId, String start, String end, String tittle, String description, String tema,
-                              float avaluation) {
+
+    public Assignatures_Model(int userId, String title) {
         this.userId = userId;
-        this.start = start;
-        this.end = end;
-        this.tittle = tittle;
-        this.description = description;
-        this.avaluation = avaluation;
-        this.tema = tema;
+        this.title = title;
+
     }
 
     public int getUserId() {
@@ -48,38 +34,15 @@ public class Assignatures_Model {
         return id;
     }
 
-    public String getStart() {
-        return start;
-    }
-
-
-    public String getEnd() {
-        return end;
-    }
 
     public void setId(int id) {
         this.id = id;
     }
 
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
-
-
-    public String getDescription() {
-        return description;
-    }
-
-
-    public float getAvaluation() {
-        return avaluation;
-    }
-
-    public String getTema() {
-        return tema;
-    }
-
 
 
     @Override
@@ -102,12 +65,8 @@ public class Assignatures_Model {
         // Compare the data members and return accordingly
         return this.id == e.getId()
                 && this.userId == e.getUserId()
-                && this.start.equals(e.getStart())
-                && this.end.equals(e.getEnd())
-                && this.avaluation == e. getAvaluation()
-                && this.tittle.equals(e.getTittle())
-                && this.description.equals(e.getDescription())
-                && this.tema.equals(e.getTema());
+                && this.title.equals(e.getTitle());
+
     }
 
 }
