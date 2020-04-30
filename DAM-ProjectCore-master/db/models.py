@@ -12,7 +12,7 @@ from urllib.parse import urljoin
 import falcon
 from passlib.hash import pbkdf2_sha256
 from sqlalchemy import Column, Date, DateTime, Enum, ForeignKey, Integer, Unicode, \
-    UnicodeText
+    UnicodeText, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from sqlalchemy.orm import relationship
@@ -48,6 +48,16 @@ class GenereEnum(enum.Enum):
     female = "F"
 
 
+EventParticipantsAssociation = Table("event_subjects_association", SQLAlchemyBase.metadata,
+                                     Column("subject_id", Integer,
+                                            ForeignKey("subjects.id", onupdate="CASCADE", ondelete="CASCADE"),
+                                            nullable=False),
+                                     Column("user_id", Integer,
+                                            ForeignKey("users.id", onupdate="CASCADE", ondelete="CASCADE"),
+                                            nullable=False),
+                                     )
+
+
 class UserToken(SQLAlchemyBase):
     __tablename__ = "users_tokens"
 
@@ -72,6 +82,7 @@ class User(SQLAlchemyBase, JSONModel):
     genere = Column(Enum(GenereEnum))
     phone = Column(Unicode(50))
     photo = Column(Unicode(255))
+    subjects_enrolled = relationship("Subject", back_populates="registered")
 
     @hybrid_property
     def public_profile(self):
@@ -114,4 +125,33 @@ class User(SQLAlchemyBase, JSONModel):
             #"genere": self.genere.value,
             "phone": self.phone,
             "photo": self.photo,
+        }
+
+
+class ClassSubject(SQLAlchemyBase):
+    __tablename__ = "class_subject"
+
+    id = Column(Integer, primary_key=True)
+    subject = Column(Unicode(50), nullable=False, unique=True)
+    class_id = Column(Integer, ForeignKey("subjects.id", onupdate="CASCADE", ondelete="CASCADE"), nullable=False)
+    classe = relationship("Subject", back_populates="subjects")
+
+
+class Subject(SQLAlchemyBase, JSONModel):
+    __tablename__ = "subjects"
+
+    id = Column(Integer, primary_key=True)
+    classe = Column(Unicode(50), nullable=False, unique=True)
+    subjects = relationship("ClassSubject", back_populates="classe", cascade="all, delete-orphan")
+    description = Column(Unicode(100))
+    start = Column(Date)
+    end = Column(Date)
+    teacher = Column(Unicode(50))
+    progress = Column(Integer)
+    registered = relationship("User", secondary=EventParticipantsAssociation, back_populates="subjects_enrolled")
+
+    @hybrid_property
+    def public_subjects(self):
+        return {
+            "classe": self.classe,
         }
