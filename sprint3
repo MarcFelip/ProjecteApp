@@ -1,0 +1,11 @@
+Objectius
+Modificar la API per a poder guardar i fer peticions a la base de dades i fer els layouts de les assignatures, juntament amb els de crear, editar i eliminar events del calendari.
+
+Joan
+Ha fet part del recycler view que no està ben implementat i la part de la API per fer la base de dades i peticions de les assignatures que no està acabat.
+
+Laura
+Ha modificat la recycler view I ha fet el layout de les assignatures.
+
+Marc
+Ha creat els tres layouts de crear, editar i eliminar events, afegint algun diàleg per als timepickers. Falta fer que depenent del tipus de tasca es mostrin unes opcions o unes altres.
