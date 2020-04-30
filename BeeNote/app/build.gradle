@@ -65,4 +65,8 @@ dependencies {
     //Material-Calendar
     implementation 'com.applandeo:material-calendar-view:1.7.0'
 
+    //Recycler View Assigantures
+    implementation 'androidx.room:room-runtime:2.2.4'
+    annotationProcessor 'androidx.room:room-compiler:2.2.4'p
+
 }

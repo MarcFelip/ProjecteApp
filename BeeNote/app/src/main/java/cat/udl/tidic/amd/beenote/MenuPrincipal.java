@@ -54,9 +54,12 @@ public class MenuPrincipal extends AppCompatActivity {
     private Button perfil_usuario;
     private Button menu;
     private Button ajustes;
+    private Button notes;
     private FloatingActionButton editarCalendar;
     private List<EventDay> events = new ArrayList<>();
     private TextView error;
+
+    private String TAG="MenuPrincipal";
 
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
@@ -73,10 +76,23 @@ public class MenuPrincipal extends AppCompatActivity {
         ajustes = findViewById(R.id.Toolbar_Ajustes);
         editarCalendar = findViewById(R.id.menu_editar_button);
         error = findViewById(R.id.menu_scrolling_text_error);
+        notes = findViewById(R.id.MenuScrolling_Notes);
 
         enableForm(true);
 
+        checkCalendarPermission();
+
+
         query_calendar();
+
+        // Per anar el layout de assignatures
+        notes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuPrincipal.this, Assignatures.class);
+                startActivity(intent);
+            }
+        });
 
         //Popup editarCalendar amb les 3 opcions
         editarCalendar.setOnClickListener(new View.OnClickListener() {
@@ -196,6 +212,24 @@ public class MenuPrincipal extends AppCompatActivity {
         });
     }
 
+    private void checkCalendarPermission() {
+
+        if(shouldShowRequestPermissionRationale(Manifest.permission.READ_CALENDAR)) {
+            Toast toast = Toast.makeText(this, "\n" +
+                    "Se requieren permisos", Toast.LENGTH_LONG);
+            toast.show();
+        }
+        requestPermissions(new String[]{Manifest.permission.READ_CALENDAR},4);
+
+        if(shouldShowRequestPermissionRationale(Manifest.permission.WRITE_CALENDAR)) {
+            Toast toast = Toast.makeText(this, "\n" +
+                    "Se requieren permisos", Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+        requestPermissions(new String[]{Manifest.permission.WRITE_CALENDAR},4);
+    }
+
     // Funció del cerrar sesion del menú d'ajustes
     private void cerrarSesion(){
         String token = menuPrincipal_viewModel.getToken();
@@ -238,6 +272,7 @@ public class MenuPrincipal extends AppCompatActivity {
     // (TODO) Insertar Event a partir del popUp del NewEventCalendar.java
     public void popUp_InsertEvent(String title){
         // Agafem les variables a partir de la data selecionada el calendarView
+        Log.d(TAG, "Date: " + menuPrincipal_viewModel.getDate());
         int year = Integer.parseInt(DateFormat.format("yyyy", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
         int month = Integer.parseInt(DateFormat.format("MM", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
         int data = Integer.parseInt(DateFormat.format("dd", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getDate()))).toString());
@@ -247,7 +282,7 @@ public class MenuPrincipal extends AppCompatActivity {
 
         String eventid = menuPrincipal_viewModel.getEventID();
         String calendarid = menuPrincipal_viewModel.getCalendarID();
-        insert_event(calendarid,menuPrincipal_viewModel.getDate(),menuPrincipal_viewModel.getDate()+100,"prova");
+        insert_event(calendarid,menuPrincipal_viewModel.getDate(),menuPrincipal_viewModel.getDate()+100,title);
         addEventCalendar(year,month,data,hour,minute,seconds,title,eventid);
 
         //System.out.println("Guardar");
@@ -286,6 +321,7 @@ public class MenuPrincipal extends AppCompatActivity {
         if(menuPrincipal_viewModel.getDate() == null)
         {
             long date2 = calendar.getTimeInMillis();
+            Log.d(TAG, "Date (init): " + date2);
             menuPrincipal_viewModel.setDate(date2);
         }
 
@@ -294,6 +330,7 @@ public class MenuPrincipal extends AppCompatActivity {
             @Override
             public void onDayClick(EventDay eventDay) {
                 long date = eventDay.getCalendar().getTimeInMillis();
+                Log.d(TAG, "Date (onDayClick): " + date);
                 // Guardem la data seleccionada el viewModel
                 menuPrincipal_viewModel.setDate(date);
 
@@ -395,8 +432,10 @@ public class MenuPrincipal extends AppCompatActivity {
                 + CalendarContract.Calendars.ACCOUNT_TYPE + " = ?) AND ("
                 + CalendarContract.Calendars.OWNER_ACCOUNT + " = ?))";
        // Posem el correu que volem controlar
-        String[] selectionArgs = new String[]{"beenote00@gmail.com",
-                "com.google","beenote00@gmail.com"
+
+        //@JordiMateoUdL: Això s'ha de llegir del account
+        String[] selectionArgs = new String[]{"XXXXXX@gmail.com",
+                "com.google","XXXXXXX@gmail.com"
         };
         // Debido a que el SDK de destino = 25, verifique los permisos cuando se ejecutan las aplicaciones
         int permissionCheck = ContextCompat.checkSelfPermission(MenuPrincipal.this, Manifest.permission.READ_CALENDAR);
@@ -482,13 +521,16 @@ public class MenuPrincipal extends AppCompatActivity {
              */
         }
         else {
+            Log.d(TAG,"No HAURIA d'entrar mai!");
             //Comprovar que tenim els permisos de read/write Calendar
-            if(shouldShowRequestPermissionRationale(Manifest.permission.READ_CALENDAR)) {
-                Toast toast = Toast.makeText(this, "\n" +
-                        "Se requieren permisos", Toast.LENGTH_LONG);
-                toast.show();
-            }
-            requestPermissions(new String[]{Manifest.permission.READ_CALENDAR},4);
+//            if(shouldShowRequestPermissionRationale(Manifest.permission.READ_CALENDAR)) {
+//                Toast toast = Toast.makeText(this, "\n" +
+//                        "Se requieren permisos", Toast.LENGTH_LONG);
+//                toast.show();
+//            }
+//            requestPermissions(new String[]{Manifest.permission.READ_CALENDAR},4);
+
+
         }
     }
 
@@ -506,20 +548,26 @@ public class MenuPrincipal extends AppCompatActivity {
         values.put(CalendarContract.Events.CALENDAR_ID, calendarId);
         values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getDisplayName());
         // Com que targetSDK = 25, comproveu els permisos quan s'executen aplicacions
+
+
         int permissionCheck = ContextCompat.checkSelfPermission(MenuPrincipal.this,
                 Manifest.permission.WRITE_CALENDAR);
         // Si l’usuari té permís per començar a afegir calendari
+        Log.d(TAG, "Permission: " + permissionCheck);
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
             // Retorna l'ID de l'esdeveniment de nova creació
+            Log.d(TAG, "Uri: " + uri);
             if (uri != null) {
                 long eventID = Long.parseLong(Objects.requireNonNull(uri.getLastPathSegment()));
                 //EditText targetEventId = (EditText) findViewById(R.id.event_id);
-                System.out.println(String.format("InsertEvent %s ", eventID));
+                Log.d(TAG, "InsertEVENT: " + String.format("InsertEvent %s ", eventID));
                 Toast toast = Toast.makeText(this, "Evento creado con exito", Toast.LENGTH_LONG);
                 toast.show();
                 menuPrincipal_viewModel.setEventID(eventID);
             }
+        }else{
+            //requestPermissions(new String[]{Manifest.permission.WRITE_CALENDAR},4);
         }
     }
 
