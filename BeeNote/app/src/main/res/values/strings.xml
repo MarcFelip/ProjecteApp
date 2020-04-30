@@ -59,5 +59,25 @@
     <string name="navmenu_text_grupos">Grupos</string>
 
     <string name="ajustesMenu_text_cerrarSesion">Cerrar Sesión</string>
+    
+    <string name="confirmacio_borrar_event">¿Estas seguro de eliminar el evento?</string>
+    <string name="porcentage_nota">Porcentage de la nota</string>
+    <string name="tarea_grupo">Tarea en grupo</string>
+    <string name="tipo_tarea">Tipo de tarea</string>
+    <string name="escoger_asignatura">Escoger asignatura</string>
+    <string name="titulo_evento">Titulo del evento</string>
+    <string name="hora_evento">Seleccionar hora</string>
+    <string name="data_event">Fecha del Evento</string>
+    <string name="_si">SI</string>
+    <string name="_no">NO</string>
+    <string name="aula_evento">Aula de la prueba</string>
+    <string name="descripcion_evento">Descripción del evento</string>
+    <string name="hora_">Hora</string>
+    <string name="evento_nuevo">Nuevo Evento</string>
+    <string name="evento_editar">Editar Evento</string>
+    <string name="evento_guardar">Guardar Evento</string>
+    <string name="evento_borrar">Eliminar Evento</string>
+    <string name="texto_estas_Seguro">¿Estás seguro de eliminar el evento seleccionado?</string>
+
 
 </resources>

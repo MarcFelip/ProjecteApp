@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Asignaturas">
+        <item>Escoge la asignatura</item>
+        <item>Lengua castellana</item>
+        <item>Lengua inglesa</item>
+        <item>Matemáticas</item>
+        <item>Biología</item>
+        <item>Física</item>
+        <item>Química</item>
+        <item>Tecnología</item>
+        <item>Diseño</item>
+    </string-array>
+</resources>
