@@ -18,6 +18,7 @@
             layout="@layout/toolbar"
             android:background="@color/colorAccent"
             android:backgroundTint="@android:color/darker_gray" />
+
         <include
             android:id="@+id/menu_scroll"
             layout="@layout/menu_scrolling"
