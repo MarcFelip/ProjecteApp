@@ -19,7 +19,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:text="@string/evento_nuevo"
+                    android:text="@string/evento_editar"
                     android:textSize="30sp"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -219,18 +219,18 @@
                     app:layout_constraintTop_toBottomOf="@+id/et_nota" />
 
                 <Button
-                    android:layout_width="250dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginBottom="40dp"
-                    android:text="@string/evento_guardar"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="105dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/et_descripción" />
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:text="@string/evento_guardar"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="105dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_descripción" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

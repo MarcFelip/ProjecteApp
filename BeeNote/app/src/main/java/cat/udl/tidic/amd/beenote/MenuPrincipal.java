@@ -37,7 +37,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TimeZone;
 
-import cat.udl.tidic.amd.beenote.Dialog.NewEventCalendar;
 import cat.udl.tidic.amd.beenote.ViewModels.menuPrincipal_ViewModel;
 import cat.udl.tidic.amd.beenote.models.TokenModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
@@ -48,7 +47,6 @@ import retrofit2.Response;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
 public class MenuPrincipal extends AppCompatActivity {
@@ -120,11 +118,12 @@ public class MenuPrincipal extends AppCompatActivity {
                             }
                             else
                             {
-                                update_event(eventid,"Canviat");
-                                // TODO Que es canvii tambe el Title en el calendarView (MyEventDay)
+                                Intent intent = new Intent(MenuPrincipal.this, EditEventCalendar.class);
+                                startActivity(intent);
                             }
                         }
                         else if (id == R.id.nav_ElimimarEvento) {
+
                             String targetEventId = menuPrincipal_viewModel.getEventID();
                             //System.out.println(targetEventId);
                             // Comprovem que ha seleccionar una data que te Events
@@ -134,15 +133,14 @@ public class MenuPrincipal extends AppCompatActivity {
                             }
                             else
                             {
-                                delete_event(targetEventId);
-                                elimateEventCalendar(targetEventId);
+                                Intent intent = new Intent(MenuPrincipal.this, DeleteEventCalendar.class);
+                                startActivity(intent);
                             }
                         }
                         else if (id == R.id.nav_NuevoEvento) {
-                            NewEventCalendar dialog = NewEventCalendar.newInstance(MenuPrincipal.this);
-                            dialog.setCancelable(false);
-                            dialog.show(getSupportFragmentManager(),"Insertar_Evento_Calendar");
-                            //popUp_InsertEvent("prova 22/04/2020");
+                            Intent intent = new Intent(MenuPrincipal.this, NewEventCalendar.class);
+                            startActivity(intent);
+                            popUp_InsertEvent("prova 22/04/2020");
                         }
                         return true;
                     }
@@ -257,6 +255,11 @@ public class MenuPrincipal extends AppCompatActivity {
                 //System.out.println("MENU - ERROR" + t.toString());
             }
         });
+    }
+
+    public void popupEliminarEvent_(){
+        String targetEventId = menuPrincipal_viewModel.getEventID();
+        elimateEventCalendar(targetEventId);
     }
 
     private void enableForm(boolean enable){

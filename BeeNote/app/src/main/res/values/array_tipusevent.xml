@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Tipo">
+        <item>Tipo de tarea</item>
+        <item>Examen</item>
+        <item>Trabajo</item>
+        <item>Deberes</item>
+        <item>Reunión</item>
+    </string-array>
+</resources>

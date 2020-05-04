@@ -48,14 +48,10 @@ public abstract class AssignaturaDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            Assignatures_Model e1 = new Assignatures_Model (1, "20/01/2020", "22/01/2020",
-                    "Event 0", "Wow this is event 0","tema 1", (float) 3.0);
-            Assignatures_Model e2 = new Assignatures_Model(1, "21/01/2020", "22/01/2020",
-                    "Event 1", "Wow this is event 1","tema 2",(float) 4.0);
-            Assignatures_Model e3 = new Assignatures_Model( 1, "22/01/2020", "24/01/2020",
-                    "Event 2", "Wow this is event 2","tema 3",(float) 1.0);
-            Assignatures_Model e4 = new Assignatures_Model(1, "23/01/2020", "25/01/2020",
-                    "Event 3", "Wow this is event 3","tema 4",(float) 2.0);
+            Assignatures_Model e1 = new Assignatures_Model (1, "Asignatura0");
+            Assignatures_Model e2 = new Assignatures_Model(2, "Asignatura1");
+            Assignatures_Model e3 = new Assignatures_Model(3, "Asignatura2");
+            Assignatures_Model e4 = new Assignatures_Model(4, "Asignatura3");
 
             eventDAO.insert(e1);
             eventDAO.insert(e2);
