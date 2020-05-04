@@ -1,7 +1,6 @@
 package cat.udl.tidic.amd.beenote;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
@@ -28,17 +27,17 @@ import cat.udl.tidic.amd.beenote.RecyclerView.Add_Assignatures_List;
 import cat.udl.tidic.amd.beenote.RecyclerView.Assignatura_Adapter;
 import cat.udl.tidic.amd.beenote.RecyclerView.AssignaturesDiffCallback;
 import cat.udl.tidic.amd.beenote.ViewModels.AssiganturesViewModel;
-import cat.udl.tidic.amd.beenote.models.Assignatures_Model;
+import cat.udl.tidic.amd.beenote.models.CourseModel;
 import cat.udl.tidic.amd.beenote.preferences.PreferencesProvider;
 
-public class Assignatures extends AppCompatActivity {
+public class Assignatures extends ActivityWithNavView {
 
     public static final int INSERT_EVENT = 1;
     public static final int EDIT_EVENT = 2;
     public static final String TAG = "Assignatures";
     private SharedPreferences mPreferences;
 
-   // private ImageButton searchButton;
+    // private ImageButton searchButton;
 
     private DrawerLayout drawerLayout;
     private Button menu;
@@ -51,142 +50,33 @@ public class Assignatures extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignatures);
 
-        menu = findViewById(R.id.Toolbar_Menu);
-
-        // El menu deslizante
-        drawerLayout = findViewById(R.id.drawer_assignatures);
-        final NavigationView navigationView = findViewById(R.id.nav__assignatures);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                menuItem.setChecked(true);
-                drawerLayout.closeDrawers();
-
-                int id = menuItem.getItemId();
-
-                if (id == R.id.nav_account) {
-                    drawerLayout.closeDrawers();
-                }
-                else if(id == R.id.nav_menu){
-                    Intent intent = new Intent(Assignatures.this, MenuPrincipal.class);
-                    startActivity(intent);
-                }
-                return true;
-            }
-        });
-
-        // El icono del toolbar per anar el menu
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.LEFT);
-            }
-        });
-
-        this.mPreferences = PreferencesProvider.providePreferences();
-        initViews();
+        this.initViews();
     }
+
     private void initViews() {
 
-        addButton = findViewById(R.id.createEvent);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Assignatures.this,
-                        Add_Assignatures_List.class); // TODO Add_assigantures_List implementar
-                startActivityForResult(intent, INSERT_EVENT);
-            }
-        });
+        // @JordiMateoUdl: Creem la part del menu (Pare)
+        super.initView(R.layout.activity_assignatures,
+                R.id.drawer_assignatures,
+                R.id.nav__assignatures);
 
+        // @JordiMateoUdl: Creem la part no comuna de l'activity
         RecyclerView recyclerView = findViewById(R.id.activityMainRcyMain);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         final Assignatura_Adapter adapter = new Assignatura_Adapter(new AssignaturesDiffCallback());
         recyclerView.setAdapter(adapter);
 
-       /* adapter.setOnItemClickListener(new Assignatura_Adapter.OnItemClickListener() {
+        viewModel = new AssiganturesViewModel(getApplication());
+        viewModel.obtainStudentCourses();
+
+        viewModel.getStudentCourses().observe(this, new Observer<List<CourseModel>>() {
             @Override
-            public void onItemClick(Assignatures_Model event) {
-                Log.d(TAG, event.getTitle());
-                Intent intent = new Intent(Assignatures.this, Add_Assignatures_List.class);
-                intent.putExtra(Add_Assignatures_List.EXTRA_ID, event.getId());
-                intent.putExtra(Add_Assignatures_List.EXTRA_TITLE, event.getTitle());
-                startActivityForResult(intent, EDIT_EVENT);
+            public void onChanged(List<CourseModel> courseModels) {
+                adapter.submitList(courseModels);
             }
-        });*/
+        });
 
 
-       /* viewModel = new AssiganturesViewModel(this.getApplication());
-        viewModel.setUserId("");
-        viewModel.getEvents().observe(this, new Observer<List<Assignatures_Model>>() {
-            @Override
-            public void onChanged(@Nullable List<Assignatures_Model> events) {
-                adapter.submitList(events);
-            }
-        });*/
-
-        //searchButton = findViewById(R.id.searchButton);
-
-        /* searchButton.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-             TextView textView = findViewById(R.id.activityMainAtcEventUserId);
-             viewModel.setUserId(textView.getText().toString());
-         }
-     });*/
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView,
-                                  @NonNull RecyclerView.ViewHolder viewHolder,
-                                  @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                viewModel.removeEvent(adapter.getEventAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(getApplicationContext(), "Deleted event", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(recyclerView);
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == INSERT_EVENT && resultCode == RESULT_OK) {
-            String title = data.getStringExtra(Add_Assignatures_List.EXTRA_TITLE);
-
-
-            String current_user = this.mPreferences.getString("current_user", "");
-            Assignatures_Model event = new Assignatures_Model(Integer.parseInt(current_user),title);
-            viewModel.insert(event);
-
-            Toast.makeText(this, "Event saved", Toast.LENGTH_SHORT).show();
-        } else if (requestCode == EDIT_EVENT && resultCode == RESULT_OK) {
-            int id = data.getIntExtra(Add_Assignatures_List.EXTRA_ID, -1);
-
-            if (id == -1) {
-                Toast.makeText(this, "Event can't be updated", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            String title = data.getStringExtra(Add_Assignatures_List.EXTRA_TITLE);
-
-
-
-            String current_user = this.mPreferences.getString("current_user", "");
-            Assignatures_Model event = new Assignatures_Model(Integer.parseInt(current_user),title);
-
-            event.setId(id);
-            viewModel.update(event);
-
-            Toast.makeText(this, "Event updated", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Event not saved", Toast.LENGTH_SHORT).show();
-        }
     }
 }

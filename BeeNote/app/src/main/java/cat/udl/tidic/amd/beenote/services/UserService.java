@@ -21,15 +21,12 @@ import retrofit2.http.PUT;
 
 public interface UserService {
 
-    //@Headers("Authorization:656e50e154865a5dc469b80437ed2f963b8f58c8857b66c9bf")
     @Headers("Content-Type:application/json; charset=UTF-8")
     @GET("/account/profile/show")
     Call<UserModel> getUserProfile(@HeaderMap Map<String, String> headers);
-    //Call<UserModel> getUserProfile();
 
     @POST("/users/register")
     Call<Void> postUserProfile(@HeaderMap Map<String, String> headers, @Body UserModel model);
-    //Call<El que hi ha aqui dintre es el que retorna la peticio de la API> ...
 
     @POST("/account/create_token")
     Call<ResponseBody> postCreateToken(@Header("Authorization") String base64_encoding);
@@ -40,6 +37,5 @@ public interface UserService {
     @PUT("/account/profile/update")
         Call<Void> updateUserProfile(@HeaderMap Map<String, String> headers, @Body JsonObject json);
 
-    //@TODO: EFHJDSAHFKJAS
 
 }

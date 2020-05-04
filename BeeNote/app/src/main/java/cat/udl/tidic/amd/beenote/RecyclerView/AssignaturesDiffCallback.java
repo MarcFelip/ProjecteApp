@@ -3,19 +3,19 @@ package cat.udl.tidic.amd.beenote.RecyclerView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import cat.udl.tidic.amd.beenote.models.Assignatures_Model;
+import cat.udl.tidic.amd.beenote.models.CourseModel;
 
 
-public class AssignaturesDiffCallback extends DiffUtil.ItemCallback<Assignatures_Model> {
+public class AssignaturesDiffCallback extends DiffUtil.ItemCallback<CourseModel> {
 
 
     @Override
-    public boolean areItemsTheSame(@NonNull Assignatures_Model oldItem, @NonNull Assignatures_Model newItem) {
-        return oldItem.getUserId() == newItem.getUserId();
+    public boolean areItemsTheSame(@NonNull CourseModel oldItem, @NonNull CourseModel newItem) {
+        return oldItem.getId() == newItem.getId();
     }
 
     @Override
-    public boolean areContentsTheSame(@NonNull Assignatures_Model oldItem, @NonNull Assignatures_Model newItem) {
+    public boolean areContentsTheSame(@NonNull CourseModel oldItem, @NonNull CourseModel newItem) {
         return oldItem.equals(newItem);
     }
 }

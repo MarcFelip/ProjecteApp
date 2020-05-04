@@ -9,7 +9,7 @@ from sqlalchemy.sql import text
 
 import db
 import settings
-from db.models import SQLAlchemyBase, User, GenereEnum, UserToken, Subject
+from db.models import SQLAlchemyBase, User, GenereEnum, UserToken, Course, Schedule, Task, Exam, Enrollment, Assigment
 from settings import DEFAULT_LANGUAGE
 
 # LOGGING
@@ -48,7 +48,7 @@ if __name__ == "__main__":
         email="admin@damcore.com",
         name="Administrator",
         surname="DamCore",
-        genere=GenereEnum.male,
+        genere=GenereEnum.male
     )
     user_admin.set_password("DAMCoure")
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
         name="user",
         surname="2",
         birthdate=datetime.datetime(2017, 1, 1),
-        genere=GenereEnum.male,
+        genere=GenereEnum.male
     )
     user_2.set_password("r45tgt")
     user_2.tokens.append(UserToken(token="0a821f8ce58965eadc5ef884cf6f7ad99e0e7f58f429f584b2"))
@@ -81,23 +81,138 @@ if __name__ == "__main__":
     db_session.add(user_admin)
     db_session.add(user_1)
     db_session.add(user_2)
+    db_session.commit()
 
-
-
- # -------------------- CREATE EVENTS --------------------
-
-    day_period = datetime.timedelta(days=1)
-
-    event_hackatoon = Subject(
-        classe="Mates",
-        description="event1",
-        start=datetime.datetime.now(),
-        end=datetime.datetime.now(),
-        teacher="Jose",
-        progress=5,
-        registered=[user_1, user_2]
+ # -------------------- CREATE COURSES --------------------
+    mylogger.info("Creating default course...")
+    course_dam = Course(
+        name = "Desenvolupament d'Apliacions per a dispositius mòvils",
+        description="Aquesta es la descripció de DAM...",
     )
 
-    db_session.add(event_hackatoon)
+    course_intic = Course(
+        name="Innovació a les TIC",
+        description="Aquesta es la descripció de INTIC...",
+    )
+
+    db_session.add(course_dam)
+    db_session.add(course_intic)
+    db_session.commit()
+
+    # -------------------- CREATE ENROLLMENTS --------------------
+    mylogger.info("Creating default enrollments...")
+    user1DAM = Enrollment(
+        course_id=1,
+        user_id=2,
+    )
+
+    user1NTIC = Enrollment(
+        course_id=2,
+        user_id=2,
+    )
+
+    user2NTIC = Enrollment(
+        course_id=2,
+        user_id=3,
+    )
+
+    db_session.add(user1DAM)
+    db_session.add(user1NTIC)
+    db_session.add(user2NTIC)
+    db_session.commit()
+
+# -------------------- CREATE TASKS --------------------
+    mylogger.info("Creating default tasks...")
+    t1 = Task(
+        tittle="Task 1 DAM",
+        details = "Details Task 1 DAM",
+        deadline = datetime.datetime(2017, 1, 1),
+        total_points = 10,
+        join_secret="1234"
+    )
+
+    t2 = Task(
+        tittle="Task 1 INTIC",
+        details="Details Task 1 INTIC",
+        deadline=datetime.datetime(2017, 1, 1),
+        total_points=10,
+        join_secret="1234"
+    )
+
+    t3 = Task(
+        tittle="Task 1 INTIC",
+        details="Details Task 1 INTIC",
+        deadline=datetime.datetime(2017, 1, 1),
+        total_points=10,
+        join_secret="1234"
+    )
+
+    db_session.add(t1)
+    db_session.add(t2)
+    db_session.add(t3)
+    db_session.commit()
+
+    user1task1INTIC = Assigment(
+        task_id=1,
+        user_id=2,
+        course_id=1
+    )
+
+    user1task2INTIC = Assigment(
+        task_id=2,
+        user_id=2,
+        course_id=1
+    )
+
+    db_session.add(user1task1INTIC)
+    db_session.add(user1task2INTIC)
+    db_session.commit()
+
+
+    # -------------------- CREATE EXAMNS --------------------
+    mylogger.info("Creating default exams...")
+    user1exam1DAM = Exam(
+        course_id=1,
+        user_id=2,
+        tittle="Exam 1 DAM",
+        details="Details Exam 1 DAM",
+        deadline=datetime.datetime(2017, 1, 1),
+        total_points=10,
+        mark=8
+    )
+
+    db_session.add(user1exam1DAM)
+    db_session.commit()
+
+ # -------------------- CREATE SCHEDULES --------------------
+    mylogger.info("Creating default schedules...")
+    schedule1INTIC = Schedule(
+        day="Monday",
+        start="15:00",
+        end="17:00",
+        place="Videoconferencia",
+        course_id=2
+    )
+
+    schedule2INTIC = Schedule(
+        day="Tuesday",
+        start="15:00",
+        end="17:00",
+        place="Videoconferencia",
+        course_id=2
+    )
+
+    schedule1DAM = Schedule(
+        day="Tuesday",
+        start="17:00",
+        end="19:00",
+        place="Videoconferencia",
+        course_id=1
+    )
+
+
+    db_session.add(schedule1INTIC)
+    db_session.add(schedule2INTIC)
+    db_session.add(schedule1DAM)
     db_session.commit()
     db_session.close()
