@@ -10,7 +10,7 @@ from sqlalchemy.orm.exc import NoResultFound
 import re
 
 import messages
-from db.models import User, GenereEnum, Subject
+from db.models import User, GenereEnum
 from hooks import requires_auth
 from resources.base_resources import DAMCoreResource
 from resources.schemas import SchemaRegisterUser, SchemaPostClass
@@ -70,40 +70,40 @@ class ResourceRegisterUser(DAMCoreResource):
         resp.status = falcon.HTTP_200
 
 
-@falcon.before(requires_auth)
-class ResourcePostSubject(DAMCoreResource):
-    @jsonschema.validate(SchemaPostClass)
-    def on_post(self, req, resp, *args, **kwargs):
-        super(ResourcePostSubject, self).on_post(req, resp, *args, **kwargs)
-
-        aux_subjects = Subject()
-
-        try:
-
-            current_user = req.context["auth_user"]
-            print(current_user.name)
-
-            aux_subjects.classe = req.media["classe"]
-            aux_subjects.description = req.media["description"]
-
-            print(re.search("Prova Classe ", aux_subjects.classe))
-
-            query = self.db_session.query(Subject).filter(Subject.classe == aux_subjects.classe)
-            print(query)
-            result = query.all()
-            print(result)
-            if not result:
-                self.db_session.add(aux_subjects)
-
-            try:
-                self.db_session.commit()
-            except IntegrityError:
-                raise falcon.HTTPBadRequest(description=messages.user_exists)
-
-        except KeyError:
-            raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
-
-        resp.status = falcon.HTTP_200
+# @falcon.before(requires_auth)
+# class ResourcePostSubject(DAMCoreResource):
+#     @jsonschema.validate(SchemaPostClass)
+#     def on_post(self, req, resp, *args, **kwargs):
+#         super(ResourcePostSubject, self).on_post(req, resp, *args, **kwargs)
+#
+#         aux_subjects = Subject()
+#
+#         try:
+#
+#             current_user = req.context["auth_user"]
+#             print(current_user.name)
+#
+#             aux_subjects.classe = req.media["classe"]
+#             aux_subjects.description = req.media["description"]
+#
+#             print(re.search("Prova Classe ", aux_subjects.classe))
+#
+#             query = self.db_session.query(Subject).filter(Subject.classe == aux_subjects.classe)
+#             print(query)
+#             result = query.all()
+#             print(result)
+#             if not result:
+#                 self.db_session.add(aux_subjects)
+#
+#             try:
+#                 self.db_session.commit()
+#             except IntegrityError:
+#                 raise falcon.HTTPBadRequest(description=messages.user_exists)
+#
+#         except KeyError:
+#             raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+#
+#         resp.status = falcon.HTTP_200
 
 
 #@falcon.before(requires_auth)

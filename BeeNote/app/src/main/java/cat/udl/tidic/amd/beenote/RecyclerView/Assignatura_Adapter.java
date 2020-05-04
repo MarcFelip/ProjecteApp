@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,16 +13,16 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import cat.udl.tidic.amd.beenote.R;
-import cat.udl.tidic.amd.beenote.models.Assignatures_Model;
+import cat.udl.tidic.amd.beenote.models.CourseModel;
 
 
-public class Assignatura_Adapter extends ListAdapter<Assignatures_Model, Assignatura_Adapter.EventHolder> {
+public class Assignatura_Adapter extends ListAdapter<CourseModel, Assignatura_Adapter.EventHolder> {
 
     private OnItemClickListener eventItemListener;
     private final static String TAG = "Assignatura_Adapter";
 
 
-    public Assignatura_Adapter(@NonNull DiffUtil.ItemCallback<Assignatures_Model> diffCallback) {
+    public Assignatura_Adapter(@NonNull DiffUtil.ItemCallback<CourseModel> diffCallback) {
         super(diffCallback);
     }
 
@@ -38,14 +37,14 @@ public class Assignatura_Adapter extends ListAdapter<Assignatures_Model, Assigna
     @Override
     public void onBindViewHolder(@NonNull EventHolder holder, int position) {
 
-        Assignatures_Model currentEvent = getItem(position);
+        CourseModel currentEvent = getItem(position);
         holder.textViewTitle.setText(currentEvent.getTitle());
 
     }
 
 
 
-    public Assignatures_Model getEventAt(int position) {
+    public CourseModel getEventAt(int position) {
         Log.d(TAG, "Position: "+ position);
         Log.d(TAG, "Asignatura: "+ getItem(position).getTitle());
         return getItem(position);
@@ -56,7 +55,7 @@ public class Assignatura_Adapter extends ListAdapter<Assignatures_Model, Assigna
     class EventHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         //private TextView textViewDescription;
-       // private RatingBar ratingAvaluation;
+        // private RatingBar ratingAvaluation;
 
         public EventHolder(View itemView) {
             super(itemView);
@@ -78,7 +77,7 @@ public class Assignatura_Adapter extends ListAdapter<Assignatures_Model, Assigna
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Assignatures_Model event);
+        void onItemClick(CourseModel event);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
