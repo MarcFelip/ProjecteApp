@@ -49,11 +49,10 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
-public class MenuPrincipal extends AppCompatActivity {
+public class MenuPrincipal extends ActivityWithNavView {
 
     private Button perfil_usuario;
     private Button menu;
-    private Button ajustes;
     private Button notes;
     private FloatingActionButton editarCalendar;
     private List<EventDay> events = new ArrayList<>();
@@ -73,7 +72,6 @@ public class MenuPrincipal extends AppCompatActivity {
 
         perfil_usuario = findViewById(R.id.MenuPrincipal_PerfilUsuario);
         menu = findViewById(R.id.Toolbar_Menu);
-        ajustes = findViewById(R.id.Toolbar_Ajustes);
         editarCalendar = findViewById(R.id.menu_editar_button);
         error = findViewById(R.id.menu_scrolling_text_error);
         notes = findViewById(R.id.MenuScrolling_Notes);
@@ -81,7 +79,6 @@ public class MenuPrincipal extends AppCompatActivity {
         enableForm(true);
 
         checkCalendarPermission();
-
 
         query_calendar();
 
@@ -149,58 +146,11 @@ public class MenuPrincipal extends AppCompatActivity {
             }
         });
 
-        //Popup ajustes
-        ajustes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(MenuPrincipal.this, ajustes);
-                popupMenu.getMenuInflater().inflate(R.menu.menu_ajustes, popupMenu.getMenu());
-
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int id = item.getItemId();
-
-                        if (id == R.id.nav_cerrar_sesion) {
-                            cerrarSesion();
-                        }
-                        return true;
-                    }
-                });
-                popupMenu.show();
-            }
-        });
-
         // El menu deslizante
-        drawerLayout = findViewById(R.id.drawer_menu_principal);
-        final NavigationView navigationView = findViewById(R.id.nav_menu_principal);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                menuItem.setChecked(true);
-                drawerLayout.closeDrawers();
-
-                int id = menuItem.getItemId();
-
-                if (id == R.id.nav_account) {
-                    Intent intent = new Intent(MenuPrincipal.this, Perfil_User.class);
-                    startActivity(intent);
-                }
-                else if(id == R.id.nav_menu){
-                    drawerLayout.closeDrawers();
-                }
-                return true;
-            }
-        });
-
-        // El icono del toolbar per anar el menu
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.LEFT);
-            }
-        });
+        // Creem la part del menu (Pare)
+        super.initView(R.layout.activity_menu_principal,
+                R.id.drawer_menu_principal,
+                R.id.nav_menu_principal);
 
         // Anar al perfil d'usuari
         perfil_usuario.setOnClickListener(new View.OnClickListener() {
@@ -230,32 +180,6 @@ public class MenuPrincipal extends AppCompatActivity {
         requestPermissions(new String[]{Manifest.permission.WRITE_CALENDAR},4);
     }
 
-    // Funció del cerrar sesion del menú d'ajustes
-    private void cerrarSesion(){
-        String token = menuPrincipal_viewModel.getToken();
-        //System.out.println(token);
-        TokenModel tokenModel = new TokenModel(token);
-
-        Map<String, String> map = new HashMap<>();
-        map.put("Authorization", token);
-
-        Call<Void> call = userService.deleteToken(map,tokenModel);
-
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                //System.out.println("MENU - Token eleiminat bee "+ response.toString());
-                menuPrincipal_viewModel.setToken("");
-                Intent intent = new Intent(MenuPrincipal.this, Login.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                //System.out.println("MENU - ERROR" + t.toString());
-            }
-        });
-    }
 
     public void popupEliminarEvent_(){
         String targetEventId = menuPrincipal_viewModel.getEventID();
@@ -265,7 +189,6 @@ public class MenuPrincipal extends AppCompatActivity {
     private void enableForm(boolean enable){
         perfil_usuario.setEnabled(enable);
         menu.setEnabled(enable);
-        ajustes.setEnabled(enable);
         editarCalendar.setEnabled(enable);
     }
 
@@ -434,9 +357,17 @@ public class MenuPrincipal extends AppCompatActivity {
        // Posem el correu que volem controlar
 
         //@JordiMateoUdL: Això s'ha de llegir del account
-        String[] selectionArgs = new String[]{"XXXXXX@gmail.com",
-                "com.google","XXXXXXX@gmail.com"
-        };
+        String mail = menuPrincipal_viewModel.getMail();
+        String[] selectionArgs =  new String[]{};
+        if (mail != null) {
+            selectionArgs = new String[]{mail,
+                    "com.google", mail
+            };
+        }
+        else
+        {
+            Log.i("MailCalendar","Error correo Calendar");
+        }
         // Debido a que el SDK de destino = 25, verifique los permisos cuando se ejecutan las aplicaciones
         int permissionCheck = ContextCompat.checkSelfPermission(MenuPrincipal.this, Manifest.permission.READ_CALENDAR);
         //System.out.println("Permisos:"+ permissionCheck);

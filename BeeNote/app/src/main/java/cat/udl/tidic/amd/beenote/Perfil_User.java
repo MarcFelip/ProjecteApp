@@ -34,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Perfil_User extends AppCompatActivity {
+public class Perfil_User extends ActivityWithNavView {
 
     private UserModel u = new UserModel();
     private TextView username;
@@ -73,35 +73,11 @@ public class Perfil_User extends AppCompatActivity {
         disableForm(false);
 
         // El menu deslizante
-        drawerLayout = findViewById(R.id.drawer_perfil_usuari);
-        final NavigationView navigationView = findViewById(R.id.nav__perfil_usuari);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                menuItem.setChecked(true);
-                drawerLayout.closeDrawers();
-
-                int id = menuItem.getItemId();
-
-                if (id == R.id.nav_account) {
-                    drawerLayout.closeDrawers();
-                }
-                else if(id == R.id.nav_menu){
-                    Intent intent = new Intent(Perfil_User.this, MenuPrincipal.class);
-                    startActivity(intent);
-                }
-                return true;
-            }
-        });
-
-        // El icono del toolbar per anar el menu
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.LEFT);
-            }
-        });
+        // El menu deslizante
+        // Creem la part del menu (Pare)
+        super.initView(R.layout.activity_perfil__user,
+                R.id.drawer_perfil_usuari,
+                R.id.nav__perfil_usuari);
 
         //-----------------------------------------------------------------------------
         String token = perfil_userViewModel.getToken();

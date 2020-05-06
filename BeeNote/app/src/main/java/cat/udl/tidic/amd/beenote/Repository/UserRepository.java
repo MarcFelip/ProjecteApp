@@ -52,4 +52,16 @@ public class UserRepository implements UserRepository_Interface {
         return this.mPreferences.getString("CalendarID", "");
     }
 
+    @Override
+    public String getMail() {
+        return this.mPreferences.getString("Mail", "beenote00@gmail.com");
+    }
+
+    @Override
+    public void setMail(String i) {
+        this.mPreferences.edit().putString("Mail",i).apply();
+    }
+
+
+
 }

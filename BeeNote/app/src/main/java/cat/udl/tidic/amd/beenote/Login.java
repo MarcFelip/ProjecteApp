@@ -118,6 +118,7 @@ public class Login extends AppCompatActivity {
                                             //System.out.println("Token"+token);
 
                                             loginviewmodel.Token(token);
+                                            loginviewmodel.setMail(username.getText().toString());
 
                                             login_progressBar.setVisibility(View.INVISIBLE);
                                             Intent intent = new Intent(Login.this, MenuPrincipal.class);

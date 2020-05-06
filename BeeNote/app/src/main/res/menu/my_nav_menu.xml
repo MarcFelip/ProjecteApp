@@ -19,10 +19,6 @@
             android:icon="@android:drawable/ic_lock_idle_alarm"
             android:title="@string/navmenu_text_horario" />
         <item
-            android:id="@+id/nav_calendario"
-            android:icon="@android:drawable/ic_menu_my_calendar"
-            android:title="@string/navmenu_text_calendario" />
-        <item
             android:id="@+id/nav_grupos"
             android:icon="@android:drawable/stat_notify_chat"
             android:title="@string/navmenu_text_grupos" />

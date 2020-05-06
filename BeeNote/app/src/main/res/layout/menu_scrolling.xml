@@ -25,12 +25,13 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="161dp"
+            android:layout_marginStart="328dp"
+            android:layout_marginTop="160dp"
             android:text="@string/menuPrincipal_button_perfil"
             android:textColor="@android:color/black"
             android:textSize="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="328dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/MenuPrincipal_PerfilUsuario"
