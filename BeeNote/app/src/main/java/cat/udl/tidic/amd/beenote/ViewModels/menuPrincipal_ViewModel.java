@@ -54,4 +54,9 @@ public class menuPrincipal_ViewModel extends ViewModel {
     public String getMail (){
         return userRepository.getMail();
     }
+
+    public void setMail(String mail)
+    {
+        userRepository.setMail(mail);
+    }
 }

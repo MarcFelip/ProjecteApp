@@ -34,7 +34,7 @@
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="@+id/menu_scroll"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
+            app:srcCompat="@drawable/edit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

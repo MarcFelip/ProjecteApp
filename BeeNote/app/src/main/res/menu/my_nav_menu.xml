@@ -8,19 +8,19 @@
             android:title="@string/navmenu_text_menu" />
         <item
             android:id="@+id/nav_account"
-            android:icon="@drawable/account"
+            android:icon="@drawable/user_nav"
             android:title="@string/navmenu_text_perfil" />
         <item
             android:id="@+id/nav_notas"
-            android:icon="@drawable/gallery"
+            android:icon="@drawable/briefcase_nav"
             android:title="@string/navmenu_text_notas" />
         <item
             android:id="@+id/nav_horario"
-            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:icon="@drawable/time_nav"
             android:title="@string/navmenu_text_horario" />
         <item
             android:id="@+id/nav_grupos"
-            android:icon="@android:drawable/stat_notify_chat"
+            android:icon="@drawable/briefcase_nav"
             android:title="@string/navmenu_text_grupos" />
     </group>
 </menu>

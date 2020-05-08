@@ -72,22 +72,23 @@
             android:layout_marginEnd="8dp"
             android:calendarViewShown="false"
             android:datePickerMode="spinner"
+            app:layout_constraintBottom_toBottomOf="@+id/Fecha_nacimiento"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.616"
             app:layout_constraintStart_toEndOf="@+id/Fecha_nacimiento"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="@+id/Fecha_nacimiento" />
 
         <EditText
             android:id="@+id/Perfil_estudios"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
             android:hint="@string/perfil_hint_estudios"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="@+id/Estudios"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Perfil_calendario" />
+            app:layout_constraintTop_toTopOf="@+id/Estudios" />
 
         <EditText
             android:id="@+id/Perfil_telefono"
@@ -130,8 +131,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="48dp"
             android:text="@string/perfil_text_nacimiento"
+            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -141,8 +143,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="64dp"
             android:text="@string/perfil_text_estudios"
+            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Fecha_nacimiento" />
@@ -152,11 +155,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
             android:text="@string/perfil_text_telefon"
+            android:textColor="@color/black"
             android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/Perfil_telefono"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Estudios" />
+            app:layout_constraintTop_toTopOf="@+id/Perfil_telefono" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageView"

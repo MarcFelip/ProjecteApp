@@ -70,6 +70,12 @@ public class MenuPrincipal extends ActivityWithNavView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
+        // El menu deslizante
+        // Creem la part del menu (Pare)
+        super.initView(R.layout.activity_menu_principal,
+                R.id.drawer_menu_principal,
+                R.id.nav_menu_principal);
+
         perfil_usuario = findViewById(R.id.MenuPrincipal_PerfilUsuario);
         menu = findViewById(R.id.Toolbar_Menu);
         editarCalendar = findViewById(R.id.menu_editar_button);
@@ -146,11 +152,7 @@ public class MenuPrincipal extends ActivityWithNavView {
             }
         });
 
-        // El menu deslizante
-        // Creem la part del menu (Pare)
-        super.initView(R.layout.activity_menu_principal,
-                R.id.drawer_menu_principal,
-                R.id.nav_menu_principal);
+
 
         // Anar al perfil d'usuari
         perfil_usuario.setOnClickListener(new View.OnClickListener() {
@@ -221,7 +223,7 @@ public class MenuPrincipal extends ActivityWithNavView {
         calendar.set(year,month-1,date,hourOfDay,minute,seconds);
 
         // Omplim la llista de EventDay amb MyEventDay (custom class)
-        events.add(new MyEventDay(calendar, R.drawable.boton_circulo,title,ID));
+        events.add(new MyEventDay(calendar, R.drawable.evento_calendar,title,ID));
 
         //System.out.println(events);
 

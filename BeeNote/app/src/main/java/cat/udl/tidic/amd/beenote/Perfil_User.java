@@ -59,6 +59,12 @@ public class Perfil_User extends ActivityWithNavView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil__user);
 
+        // El menu deslizante
+        // Creem la part del menu (Pare)
+        super.initView(R.layout.activity_perfil__user,
+                R.id.drawer_perfil_usuari,
+                R.id.nav__perfil_usuari);
+
         estudios = findViewById(R.id.Perfil_estudios);
         telefono = findViewById(R.id.Perfil_telefono);
         calendari = findViewById(R.id.Perfil_calendario);
@@ -71,13 +77,6 @@ public class Perfil_User extends ActivityWithNavView {
 
         // Desabilitar tots els edittext del layout
         disableForm(false);
-
-        // El menu deslizante
-        // El menu deslizante
-        // Creem la part del menu (Pare)
-        super.initView(R.layout.activity_perfil__user,
-                R.id.drawer_perfil_usuari,
-                R.id.nav__perfil_usuari);
 
         //-----------------------------------------------------------------------------
         String token = perfil_userViewModel.getToken();

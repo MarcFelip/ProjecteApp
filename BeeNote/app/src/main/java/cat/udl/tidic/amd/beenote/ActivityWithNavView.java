@@ -117,6 +117,7 @@ public class ActivityWithNavView extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 //System.out.println("MENU - Token eleiminat bee "+ response.toString());
                 menuPrincipal_viewModel.setToken("");
+                menuPrincipal_viewModel.setMail("");
                 navigateToLogin();
             }
 
