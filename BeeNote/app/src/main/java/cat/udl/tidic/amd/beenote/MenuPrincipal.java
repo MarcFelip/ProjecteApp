@@ -54,6 +54,7 @@ public class MenuPrincipal extends ActivityWithNavView {
     private Button perfil_usuario;
     private Button menu;
     private Button notes;
+    private Button grups;
     private FloatingActionButton editarCalendar;
     private List<EventDay> events = new ArrayList<>();
     private TextView error;
@@ -81,6 +82,7 @@ public class MenuPrincipal extends ActivityWithNavView {
         editarCalendar = findViewById(R.id.menu_editar_button);
         error = findViewById(R.id.menu_scrolling_text_error);
         notes = findViewById(R.id.MenuScrolling_Notes);
+        grups = findViewById(R.id.MenuPrincipal_Grupos);
 
         enableForm(true);
 
@@ -93,6 +95,24 @@ public class MenuPrincipal extends ActivityWithNavView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuPrincipal.this, Assignatures.class);
+                startActivity(intent);
+            }
+        });
+
+        // Per anar el layout de grups
+        grups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuPrincipal.this, Grups.class);
+                startActivity(intent);
+            }
+        });
+
+        // Anar al perfil d'usuari
+        perfil_usuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuPrincipal.this, Perfil_User.class);
                 startActivity(intent);
             }
         });
@@ -152,16 +172,6 @@ public class MenuPrincipal extends ActivityWithNavView {
             }
         });
 
-
-
-        // Anar al perfil d'usuari
-        perfil_usuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuPrincipal.this, Perfil_User.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void checkCalendarPermission() {
