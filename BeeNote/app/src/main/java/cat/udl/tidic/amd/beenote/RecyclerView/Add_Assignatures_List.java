@@ -3,11 +3,11 @@ package cat.udl.tidic.amd.beenote.RecyclerView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LifecycleOwner;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +19,10 @@ import com.google.android.material.navigation.NavigationView;
 
 import cat.udl.tidic.amd.beenote.Assignatures;
 import cat.udl.tidic.amd.beenote.MenuPrincipal;
+import cat.udl.tidic.amd.beenote.Perfil_User;
 import cat.udl.tidic.amd.beenote.R;
 
-import static android.nfc.NfcAdapter.EXTRA_ID;
-
-public class Add_Assignatures_List extends AppCompatActivity {
+public class Add_Assignatures_List extends AppCompatActivity implements LifecycleOwner {
 
     public static final String EXTRA_ID =
             "cat.udl.tidic.amd.beenote.EXTRA_ID";
@@ -89,10 +88,15 @@ public class Add_Assignatures_List extends AppCompatActivity {
                 int id = menuItem.getItemId();
 
                 if (id == R.id.nav_account) {
-                    drawerLayout.closeDrawers();
+                    Intent intent = new Intent(Add_Assignatures_List.this, Perfil_User.class);
+                    startActivity(intent);
                 }
                 else if(id == R.id.nav_menu){
                     Intent intent = new Intent(Add_Assignatures_List.this, MenuPrincipal.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_notas){
+                    Intent intent = new Intent(Add_Assignatures_List.this, Assignatures.class);
                     startActivity(intent);
                 }
                 return true;
@@ -118,12 +122,12 @@ public class Add_Assignatures_List extends AppCompatActivity {
 
         if (title.trim().isEmpty()) {
             Toast.makeText(this,
-                    "Please insert a title ", Toast.LENGTH_SHORT).show();
+                    "Porfavor, inserte un nombre ", Toast.LENGTH_SHORT).show();
             return;
         }
+
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, title);
-
 
        int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id != -1) {

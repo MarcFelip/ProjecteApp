@@ -5,11 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/calendariEvents"
+    android:background="@color/colorFons"
     android:orientation="vertical"
     tools:context=".Dialog."
     tools:ignore="MissingDefaultResource">
 
+
+        <ImageView
+            android:layout_width="391dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="145dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_redondo_black" />
 
         <TextView
             android:id="@+id/textView5"

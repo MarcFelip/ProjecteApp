@@ -59,6 +59,7 @@ public class MenuPrincipal extends ActivityWithNavView {
     private List<EventDay> events = new ArrayList<>();
     private TextView error;
 
+
     private String TAG="MenuPrincipal";
 
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();

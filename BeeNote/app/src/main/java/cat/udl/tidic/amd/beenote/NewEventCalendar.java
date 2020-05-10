@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,8 +44,10 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
     private Button grup_si;
     private Button grup_no;
     private EditText nota;
+    private Button guardar;
 
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
+    private MenuPrincipal menuPrincipal = new MenuPrincipal();
 
 
     @SuppressLint("WrongViewCast")
@@ -63,6 +66,7 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
         grup_no = findViewById(R.id.btn_no_grup);
         grup_si = findViewById(R.id.btn_si_grup);
         nota = findViewById(R.id.et_nota);
+        guardar = findViewById(R.id.boto_guardar);
 
 
         //Guardem la descripcció, la aula, la nota i el títol
@@ -105,8 +109,25 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
         adapter_tipus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tasca.setAdapter(adapter_tipus);
 
+        /*
+        tasca.setOnItemClickListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        }){
+
+        };
+
+         */
     }
+
+
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {

@@ -22,7 +22,7 @@
             android:id="@+id/createEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="180dp"
+            android:layout_marginStart="36dp"
             android:layout_marginTop="128dp"
             android:src="@drawable/ic_add"
             app:layout_constraintStart_toStartOf="parent"

@@ -33,6 +33,7 @@
         <activity android:name=".NewEventCalendar" />
         <activity android:name=".EditEventCalendar" />
         <activity android:name=".DeleteEventCalendar" />
+
     </application>
 
 </manifest>
