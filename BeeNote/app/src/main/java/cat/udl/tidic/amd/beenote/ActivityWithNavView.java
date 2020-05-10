@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class ActivityWithNavView extends AppCompatActivity {
 
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
+    private Menu SubMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +50,13 @@ public class ActivityWithNavView extends AppCompatActivity {
         drawerLayout = findViewById(drawer);
         final NavigationView navigationView = findViewById(nav_view);
 
+
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 menuItem.setChecked(true);
-                drawerLayout.closeDrawers();
+                //drawerLayout.closeDrawers();
 
                 int id = menuItem.getItemId();
 
@@ -68,8 +72,21 @@ public class ActivityWithNavView extends AppCompatActivity {
                     drawerLayout.closeDrawers();
                     navigateToAssignatures();
                 }
+                else if (id == R.id.nav_grupos) {
+
+                    SubMenu = navigationView.getMenu();
+                    MenuItem submenu= SubMenu.findItem(R.id.nav_añadirgrupo);
+                    submenu.setVisible(true);
+
+                }
+                else if (id == R.id.nav_añadirgrupo) {
+                    drawerLayout.closeDrawers();
+                    navigateToAñadirGrupo();
+                }
+
                 return true;
             }
+
         });
 
         ajustes.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +118,7 @@ public class ActivityWithNavView extends AppCompatActivity {
         });
     }
 
+
     // Funció del cerrar sesion del menú d'ajustes
     private void cerrarSesion(){
         String token = menuPrincipal_viewModel.getToken();
@@ -115,7 +133,7 @@ public class ActivityWithNavView extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                //System.out.println("MENU - Token eleiminat bee "+ response.toString());
+                //System.out.println("MENU - Token eliminat bee "+ response.toString());
                 menuPrincipal_viewModel.setToken("");
                 menuPrincipal_viewModel.setMail("");
                 navigateToLogin();
@@ -149,5 +167,11 @@ public class ActivityWithNavView extends AppCompatActivity {
     public void navigateToAccount(){
         Intent intent = new Intent(this, Perfil_User.class);
         startActivity(intent);
+    }
+
+    private void navigateToAñadirGrupo(){
+        Intent intent = new Intent(this, CrearGrupo.class);
+        startActivity(intent);
+
     }
 }

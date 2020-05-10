@@ -19,24 +19,23 @@
             android:background="@color/colorAccent"
             android:backgroundTint="@android:color/darker_gray" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_grupos_crear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="145dp"
-            android:layout_marginTop="211dp"
-            android:text="Crear"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:ignore="UnknownId" />
 
         <Button
             android:id="@+id/btn_grupos_unir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="414dp"
-            android:layout_marginEnd="178dp"
+            android:layout_width="190dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="179dp"
             android:text="Unirse"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
