@@ -112,7 +112,8 @@ public class Assignatures extends ActivityWithNavView {
                 viewModel.removeCourse(adapter.getEventAt(viewHolder.getAdapterPosition()));
 
                 //TODO falla eliminar
-                final Call<Void> call = courseDAOI.deleteCourse(viewModel.getToken(), "1", viewModel.getUserID());
+                String course_id = adapter.getCourseID();
+                final Call<Void> call = courseDAOI.deleteCourse(viewModel.getToken(), course_id, viewModel.getUserID());
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {

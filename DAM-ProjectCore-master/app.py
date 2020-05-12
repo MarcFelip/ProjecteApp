@@ -41,11 +41,14 @@ application.add_route("/account/delete_token", account_resources.ResourceDeleteU
 application.add_route("/users/register", user_resources.ResourceRegisterUser())
 application.add_route("/users/show/{username}", user_resources.ResourceGetUserProfile())
 
+# List Courses
 application.add_route("/courses/list", course_resources.ResourceGetCourses())
+# Create and delete Courses
 application.add_route("/courses/add", course_resources.ResourceAddCourse())
 application.add_route("/courses/{course_id}/add", course_resources.ResourceAddCourse())
 application.add_route("/courses/{course_id}/{user_id}/delete", course_resources.ResourceDeleteCourse())
 
+# List Tasks
 application.add_route("/courses/task/list", course_resources.ResourceGetTasks())
 # Create the task and enroll in a course.
 application.add_route("/courses/{course_id}/task/add", course_resources.ResourceAddTask())

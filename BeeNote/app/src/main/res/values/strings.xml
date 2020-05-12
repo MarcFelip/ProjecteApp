@@ -12,7 +12,7 @@
     <string name="registrar_text_contrsenya">Contraseña</string>
     <string name="registrar_hint_email">ejemplo@gmail.com</string>
 
-    <string name="login_text_email"> .@gmail.com</string>
+    <string name="login_text_email"> "@"gmail.com</string>
     <string name="login_hint_user">Usuario</string>
     <string name="login_hint_password">Contraseña</string>
     <string name="login_button_iniciar">Iniciar sesión</string>
@@ -47,9 +47,9 @@
 
     <string name="toolbarInicio_text_beenote">BeeNote</string>
 
-    <string name="header_text_user">Nombre usuario</string>
+    <string name="header_text_user">Usuario</string>
     <string name="header_text_nombre">Nombre</string>
-    <string name="header_text_estudio">Estudio</string>
+    <string name="header_text_estudio">Estudios</string>
 
     <string name="navmenu_text_menu">Menu Principal</string>
     <string name="navmenu_text_perfil">Perfil</string>

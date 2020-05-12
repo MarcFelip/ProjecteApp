@@ -116,7 +116,7 @@ public class Login extends AppCompatActivity {
                                             token = token.substring(2, token.length() - 2);
 
                                             loginviewmodel.Token(token);
-                                            loginviewmodel.setMail(username.getText().toString());
+                                            loginviewmodel.setMail(username.getText().toString()+"@gmail.com");
                                             Log.e("User Token", token);
 
                                             login_progressBar.setVisibility(View.INVISIBLE);

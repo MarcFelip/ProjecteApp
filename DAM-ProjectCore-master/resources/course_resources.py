@@ -50,8 +50,6 @@ class ResourceGetTasks(DAMCoreResource):
 
         current_user = req.context["auth_user"]
         response_student_task = list()
-        aux_student_courses= self.db_session.query(Enrollment.course_id, Course.name)\
-            .join(Course).filter(Enrollment.user_id == current_user.id )
 
         aux_student_task = self.db_session.query(Assigment.task_id, Task.tittle)\
             .join(Task).filter(Assigment.user_id == current_user.id)

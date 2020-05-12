@@ -3,12 +3,14 @@ package cat.udl.tidic.amd.beenote;
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import java.util.Map;
 
 import cat.udl.tidic.amd.beenote.ViewModels.menuPrincipal_ViewModel;
 import cat.udl.tidic.amd.beenote.models.TokenModel;
+import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
 import retrofit2.Call;
@@ -37,6 +40,12 @@ public class ActivityWithNavView extends AppCompatActivity {
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
     private Menu SubMenu;
 
+    private Map<String, String> map = new HashMap<>();
+    private UserModel userModel = new UserModel();
+    private TextView username;
+    private TextView name;
+    private TextView email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +59,12 @@ public class ActivityWithNavView extends AppCompatActivity {
         drawerLayout = findViewById(drawer);
         final NavigationView navigationView = findViewById(nav_view);
 
+        View headerView = navigationView.getHeaderView(0);
+        username = headerView.findViewById(R.id.toolbar_username);
+        name = headerView.findViewById(R.id.toolbar_Nombre);
+        email = headerView.findViewById(R.id.toolbar_Correo);
 
+        my_header();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -114,6 +128,38 @@ public class ActivityWithNavView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+    }
+
+    // Funcion de poner la informacion del usuario el Header del NavegationView
+    private void my_header()
+    {
+        String token = menuPrincipal_viewModel.getToken();
+        map.put("Authorization", token);
+
+        Call<UserModel> call = userService.getUserProfile(map);
+
+        call.enqueue(new Callback<UserModel>() {
+            @Override
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                userModel = response.body();
+                //System.out.println("Login - Toke " + response.body());
+                try {
+                    assert userModel != null;
+                    System.out.println("Username " + userModel.getUsername());
+                    username.setText(userModel.getUsername());
+                    System.out.println("Get username " + username.getText());
+                    name.setText(userModel.getName());
+                    email.setText(userModel.getEmail());
+                }catch (Exception e){
+                    Log.e("My_Header OK", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserModel> call, Throwable t) {
+                Log.d("My_Header Error",t.toString());
             }
         });
     }

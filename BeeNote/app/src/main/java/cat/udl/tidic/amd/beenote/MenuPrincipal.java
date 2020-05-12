@@ -39,6 +39,7 @@ import java.util.TimeZone;
 
 import cat.udl.tidic.amd.beenote.ViewModels.menuPrincipal_ViewModel;
 import cat.udl.tidic.amd.beenote.models.TokenModel;
+import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
 import retrofit2.Call;
@@ -58,12 +59,13 @@ public class MenuPrincipal extends ActivityWithNavView {
     private FloatingActionButton editarCalendar;
     private List<EventDay> events = new ArrayList<>();
     private TextView error;
-
+    private UserModel userModel = new UserModel();
 
     private String TAG="MenuPrincipal";
 
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
+    private Map<String, String> map = new HashMap<>();
 
     private DrawerLayout drawerLayout;
 
@@ -172,7 +174,6 @@ public class MenuPrincipal extends ActivityWithNavView {
                 popupMenu.show();
             }
         });
-
     }
 
     private void checkCalendarPermission() {
@@ -371,6 +372,7 @@ public class MenuPrincipal extends ActivityWithNavView {
 
         //@JordiMateoUdL: Això s'ha de llegir del account
         String mail = menuPrincipal_viewModel.getMail();
+        Log.i("MailCalendar",mail);
         String[] selectionArgs =  new String[]{};
         if (mail != null) {
             selectionArgs = new String[]{mail,
@@ -379,7 +381,7 @@ public class MenuPrincipal extends ActivityWithNavView {
         }
         else
         {
-            Log.i("MailCalendar","Error correo Calendar");
+            Log.e("MailCalendar","Error correo Calendar");
         }
         // Debido a que el SDK de destino = 25, verifique los permisos cuando se ejecutan las aplicaciones
         int permissionCheck = ContextCompat.checkSelfPermission(MenuPrincipal.this, Manifest.permission.READ_CALENDAR);
@@ -393,10 +395,11 @@ public class MenuPrincipal extends ActivityWithNavView {
         // Si el usuario tiene permiso para comenzar a consultar el calendario
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             cur = cr.query(uri_events, eventmProjection, selection, selectionArgs, null);
-           // System.out.println("Cur: "+ cur);
+            System.out.println("Cur: "+ cur);
             if (cur != null) {
                 while (cur.moveToNext()) {
                     // Obtenga la información dels Events
+                    System.out.println("Entrar");
                     String eventTitle = cur.getString(cur.getColumnIndex(CalendarContract.Events.TITLE));
                     String eventId = cur.getString(cur.getColumnIndex(CalendarContract.Events._ID));
                     String startDate = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
@@ -416,6 +419,11 @@ public class MenuPrincipal extends ActivityWithNavView {
                     addEventCalendar(year,month,date,hour,minute,seconds,eventTitle,eventId);
                 }
                 cur.close();
+            }
+            else
+            {
+                Log.e("MailCalendar","Error correo GoogleCalendar");
+                error.setText("Esta cuento no esta sincronizada con el GoogleCalendar en tu dispositivo");
             }
             // Per poder agafar la informacio del Calenadi (uri_cal)
             cur2 = cr.query(uri_cal, EVENT_PROJECTION, selection, selectionArgs, null);

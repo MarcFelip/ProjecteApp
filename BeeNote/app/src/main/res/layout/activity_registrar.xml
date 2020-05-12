@@ -198,6 +198,7 @@
         android:hint="@string/registrar_hint_email"
         android:inputType="textPersonName"
         android:paddingStart="20dp"
+        android:maxLength="40"
         android:textColor="#FFFFFF"
         android:textColorHint="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"

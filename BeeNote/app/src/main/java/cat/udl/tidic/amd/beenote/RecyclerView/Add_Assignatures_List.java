@@ -92,8 +92,8 @@ public class Add_Assignatures_List extends ActivityWithNavView implements Lifecy
                     text_error.setText("Pon un nombre el curso a crear");
                 }
                 else {
-                    saveEvent();
                     saveEventAPI();
+                    saveEvent();
                 }
             }
         });
@@ -152,6 +152,9 @@ public class Add_Assignatures_List extends ActivityWithNavView implements Lifecy
         }
 
         setResult(RESULT_OK, data);
+
         finish();
+        Intent intent = new Intent(Add_Assignatures_List.this, Assignatures.class);
+        startActivity(intent);
     }
 }
