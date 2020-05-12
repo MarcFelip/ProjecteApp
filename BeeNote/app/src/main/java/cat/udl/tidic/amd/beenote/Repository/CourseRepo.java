@@ -1,5 +1,6 @@
 package cat.udl.tidic.amd.beenote.Repository;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -13,7 +14,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CourseRepo {
+public class CourseRepo implements CourseRepoInterface{
 
     private CourseDAOI courseDAO;
     private final String TAG = "CourseRepo";
@@ -36,6 +37,7 @@ public class CourseRepo {
     }
 
     public void getStudentCourses(){
+        System.out.println(userRepo.getToken());
         courseDAO.getStudentCourses(userRepo.getToken()).enqueue(new Callback<List<CourseModel>>() {
             @Override
             public void onResponse(Call<List<CourseModel>> call, Response<List<CourseModel>> response) {
@@ -58,4 +60,26 @@ public class CourseRepo {
     });
     }
 
+    @Override
+    public void delete(CourseModel e) {
+        new DeleteEventAsyncTask(courseDAO).execute(e);
+    }
+
+    private static class DeleteEventAsyncTask extends AsyncTask<CourseModel, Void, Void> {
+
+        private CourseDAOI courseDAO;
+
+        private DeleteEventAsyncTask(CourseDAOI eventDAO) {
+            this.courseDAO = eventDAO;
+        }
+
+        @Override
+        protected Void doInBackground(CourseModel... events) {
+            courseDAO.delete(events[0]);
+            return null;
+        }
+    }
+
 }
+
+

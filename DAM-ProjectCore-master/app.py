@@ -31,6 +31,8 @@ app = application = falcon.API(
 )
 application.add_route("/", common_resources.ResourceHome())
 
+application.add_route("/account/profile/showID", account_resources.ResourceAccountUserID())
+
 application.add_route("/account/profile/show", account_resources.ResourceAccountUserProfile())
 application.add_route("/account/profile/update", account_resources.ResourceAccountUpdateProfile())
 application.add_route("/account/create_token", account_resources.ResourceCreateUserToken())
@@ -40,8 +42,11 @@ application.add_route("/users/register", user_resources.ResourceRegisterUser())
 application.add_route("/users/show/{username}", user_resources.ResourceGetUserProfile())
 
 application.add_route("/courses/list", course_resources.ResourceGetCourses())
+application.add_route("/courses/add", course_resources.ResourceAddCourse())
+application.add_route("/courses/{course_id}/add", course_resources.ResourceAddCourse())
+application.add_route("/courses/{course_id}/{user_id}/delete", course_resources.ResourceDeleteCourse())
 
-
+application.add_route("/courses/task/list", course_resources.ResourceGetTasks())
 # Create the task and enroll in a course.
 application.add_route("/courses/{course_id}/task/add", course_resources.ResourceAddTask())
 # Join to a created task (Groups).

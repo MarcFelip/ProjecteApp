@@ -25,7 +25,7 @@
                 android:layout_height="?android:attr/listPreferredItemHeight"
                 android:contentDescription="Event foto"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:src="@drawable/avatar"
+                android:src="@drawable/courseicon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -35,8 +35,9 @@
                 android:maxLines="1"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.042"
                 app:layout_constraintStart_toEndOf="@+id/photo"
                 app:layout_constraintTop_toTopOf="parent" />
 

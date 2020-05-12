@@ -14,4 +14,8 @@ public interface UserRepository_Interface {
      String getCalendarID();
      void setMail(String i);
      String getMail();
+     void setPositionID(String i);
+     String getPositionID();
+     void setUserID(String i);
+     String getUserID();
 }

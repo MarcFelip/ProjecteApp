@@ -29,12 +29,3 @@ SchemaUpdateUser = {
     },
     "required": []
 }
-
-SchemaPostClass = {
-    "type": "object",
-    "properties": {
-        "classe": {"type": "string"},
-        "description": {"type": "string"},
-    },
-    "required": ["classe"]
-}

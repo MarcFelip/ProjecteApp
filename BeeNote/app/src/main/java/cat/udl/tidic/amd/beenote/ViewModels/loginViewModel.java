@@ -38,4 +38,9 @@ public class loginViewModel extends ViewModel {
         userRepository.setMail(mail);
     }
 
+    public void setUserID(String id)
+    {
+        userRepository.setUserID(id);
+    }
+
 }

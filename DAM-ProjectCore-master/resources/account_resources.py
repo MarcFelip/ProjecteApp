@@ -83,6 +83,7 @@ class ResourceAccountUserProfile(DAMCoreResource):
         resp.media = current_user.json_model
         resp.status = falcon.HTTP_200
 
+
 @falcon.before(requires_auth)
 class ResourceAccountUpdateProfile(DAMCoreResource):
     @jsonschema.validate(SchemaUpdateUser)
@@ -94,3 +95,16 @@ class ResourceAccountUpdateProfile(DAMCoreResource):
         self.db_session.query(User).filter(User.username == current_user.username).update(req.media)
         self.db_session.commit()
         resp.status = falcon.HTTP_200
+
+
+@falcon.before(requires_auth)
+class ResourceAccountUserID(DAMCoreResource):
+    def on_get(self, req, resp, *args, **kwargs):
+        super(ResourceAccountUserID, self).on_get(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+        try:
+            resp.media = current_user.id
+            resp.status = falcon.HTTP_200
+        except KeyError:
+            raise falcon.HTTPBadRequest(description=messages.parameters_invalid)

@@ -62,6 +62,25 @@ public class UserRepository implements UserRepository_Interface {
         this.mPreferences.edit().putString("Mail",i).apply();
     }
 
+    @Override
+    public String getPositionID() {
+        return this.mPreferences.getString("ID", "");
+    }
+
+    @Override
+    public void setPositionID(String i) {
+        this.mPreferences.edit().putString("ID",i).apply();
+    }
+
+    @Override
+    public String getUserID() {
+        return this.mPreferences.getString("ID", "");
+    }
+
+    @Override
+    public void setUserID(String i) {
+        this.mPreferences.edit().putString("ID",i).apply();
+    }
 
 
 }

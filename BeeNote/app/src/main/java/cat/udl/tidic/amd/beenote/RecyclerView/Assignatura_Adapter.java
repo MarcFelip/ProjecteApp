@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import cat.udl.tidic.amd.beenote.R;
+import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 import cat.udl.tidic.amd.beenote.models.CourseModel;
 
 
@@ -47,6 +48,7 @@ public class Assignatura_Adapter extends ListAdapter<CourseModel, Assignatura_Ad
     public CourseModel getEventAt(int position) {
         Log.d(TAG, "Position: "+ position);
         Log.d(TAG, "Asignatura: "+ getItem(position).getTitle());
+
         return getItem(position);
     }
 

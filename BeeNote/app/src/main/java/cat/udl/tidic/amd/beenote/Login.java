@@ -115,15 +115,30 @@ public class Login extends AppCompatActivity {
                                             // -----> SuperString de java per treure el primer i ultim caracter
                                             token = token.substring(2, token.length() - 2);
 
-                                            //System.out.println("Token"+token);
-
                                             loginviewmodel.Token(token);
                                             loginviewmodel.setMail(username.getText().toString());
+                                            Log.e("User Token", token);
 
                                             login_progressBar.setVisibility(View.INVISIBLE);
-                                            Intent intent = new Intent(Login.this, MenuPrincipal.class);
-                                            startActivity(intent);
-                                        }
+
+                                            Call<String> call2 = userService.getUserID(loginviewmodel.getToken());
+                                            call2.enqueue(new Callback<String>() {
+                                                @Override
+                                                public void onResponse(Call<String> call, Response<String> response) {
+
+                                                    String id = response.body();
+                                                    loginviewmodel.setUserID(id);
+                                                    Log.e("User ID", id);
+                                                    Intent intent = new Intent(Login.this, MenuPrincipal.class);
+                                                    startActivity(intent);
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<String> call, Throwable t) {
+
+                                                }
+                                            });
+                                                                                    }
 
                                     } catch (IOException e) {
                                         e.printStackTrace();

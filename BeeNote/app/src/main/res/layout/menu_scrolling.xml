@@ -11,12 +11,32 @@
 
 
         <Button
-            android:id="@+id/MenuPrincipal_Grupos"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="92dp"
-            android:background="@drawable/briefcase"
+            android:id="@+id/MenuPrincipal_PerfilUsuario"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="256dp"
+            android:layout_marginTop="204dp"
+            android:background="@drawable/user"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/MenuPrincipal_Horari"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="256dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/calendar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/MenuScrolling_Notes"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/asignatures"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,46 +44,25 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:text="@string/menuPrincipal_button_perfil"
             android:textColor="@android:color/black"
-            android:textSize="12dp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/MenuPrincipal_PerfilUsuario"
+            app:layout_constraintHorizontal_bias="0.593"
             app:layout_constraintStart_toStartOf="@+id/MenuPrincipal_PerfilUsuario"
             app:layout_constraintTop_toBottomOf="@+id/MenuPrincipal_PerfilUsuario" />
-
-
-        <Button
-            android:id="@+id/MenuPrincipal_PerfilUsuario"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="316dp"
-            android:layout_marginTop="92dp"
-            android:background="@drawable/user"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/menuPrincipal_button_horario"
-            android:textColor="@android:color/black"
-            android:textSize="12dp"
-            app:layout_constraintEnd_toEndOf="@+id/MenuPrincipal_Horari"
-            app:layout_constraintStart_toStartOf="@+id/MenuPrincipal_Horari"
-            app:layout_constraintTop_toBottomOf="@+id/MenuPrincipal_Horari" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:text="@string/menuPrincipal_button_notas"
             android:textColor="@android:color/black"
-            android:textSize="12dp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/MenuScrolling_Notes"
+            app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="@+id/MenuScrolling_Notes"
             app:layout_constraintTop_toBottomOf="@+id/MenuScrolling_Notes" />
 
@@ -71,21 +70,35 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:text="@string/menuPrincipal_button_grupos"
             android:textColor="@android:color/black"
-            android:textSize="12dp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/MenuPrincipal_Grupos"
+            app:layout_constraintHorizontal_bias="0.714"
             app:layout_constraintStart_toStartOf="@+id/MenuPrincipal_Grupos"
             app:layout_constraintTop_toBottomOf="@+id/MenuPrincipal_Grupos" />
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/menuPrincipal_button_horario"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/MenuPrincipal_Horari"
+            app:layout_constraintHorizontal_bias="0.833"
+            app:layout_constraintStart_toStartOf="@+id/MenuPrincipal_Horari"
+            app:layout_constraintTop_toBottomOf="@+id/MenuPrincipal_Horari" />
+
         <Button
-            android:id="@+id/MenuScrolling_Notes"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="132dp"
-            android:layout_marginTop="92dp"
-            android:background="@drawable/notebook"
+            android:id="@+id/MenuPrincipal_Grupos"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="204dp"
+            android:background="@drawable/briefcase"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +106,7 @@
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="440dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="200dp"
             android:layout_weight="1"
             app:eventsEnabled="true"
             app:headerColor="@color/colorAccent"
@@ -117,15 +130,19 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/MenuPrincipal_Horari"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="228dp"
-            android:layout_marginTop="92dp"
-            android:background="@drawable/time"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Calendario"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/calendarView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.068"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
