@@ -1,20 +1,10 @@
 package cat.udl.tidic.amd.beenote;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-
-import java.util.List;
-
-import cat.udl.tidic.amd.beenote.RecyclerView.Assignatura_Adapter;
-import cat.udl.tidic.amd.beenote.RecyclerView.AssignaturesDiffCallback;
-import cat.udl.tidic.amd.beenote.models.CourseModel;
 
 public class Grups extends ActivityWithNavView  {
 
@@ -28,8 +18,7 @@ public class Grups extends ActivityWithNavView  {
 
         this.initViews();
 
-        crear = findViewById(R.id.btn_grupos_crear);
-        unir = findViewById(R.id.btn_grupos_unir);
+
 
 
         // Per anar al layout de crear un grup

@@ -80,6 +80,7 @@
     <string name="texto_estas_Seguro">¿Estás seguro de eliminar el evento seleccionado?</string>
     <string name="a_adir_grupo">Añadir grupo</string>
     <string name="a_adir_tarea">Añadir tarea</string>
+    <string name="buscar_tarea">Buscar tarea</string>
 
 
 </resources>

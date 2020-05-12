@@ -87,10 +87,14 @@ public class ActivityWithNavView extends AppCompatActivity {
                     navigateToAssignatures();
                 }
                 else if (id == R.id.nav_grupos) {
-
+                    drawerLayout.closeDrawers();
+                    navigateToGrups();
+                    /*
                     SubMenu = navigationView.getMenu();
                     MenuItem submenu= SubMenu.findItem(R.id.nav_añadirgrupo);
                     submenu.setVisible(true);
+
+                     */
 
                 }
                 else if (id == R.id.nav_añadirgrupo) {
@@ -217,6 +221,12 @@ public class ActivityWithNavView extends AppCompatActivity {
 
     private void navigateToAñadirGrupo(){
         Intent intent = new Intent(this, CrearGrupo.class);
+        startActivity(intent);
+
+    }
+
+    private void navigateToGrups(){
+        Intent intent = new Intent(this, Tasks.class);
         startActivity(intent);
 
     }

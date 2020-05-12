@@ -1,32 +1,28 @@
 package cat.udl.tidic.amd.beenote;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import cat.udl.tidic.amd.beenote.RecyclerView.Add_Assignatures_List;
 import cat.udl.tidic.amd.beenote.RecyclerView.Assignatura_Adapter;
-import cat.udl.tidic.amd.beenote.RecyclerView.AssignaturesDiffCallback;
+import cat.udl.tidic.amd.beenote.RecyclerView_Assignatures.AssignaturesDiffCallback;
 import cat.udl.tidic.amd.beenote.ViewModels.AssiganturesViewModel;
 import cat.udl.tidic.amd.beenote.ViewModels.CourseViewModel;
 import cat.udl.tidic.amd.beenote.dao.CourseDAOI;
 import cat.udl.tidic.amd.beenote.models.CourseModel;
-import cat.udl.tidic.amd.beenote.models.CourseModel2;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.preferences.PreferencesProvider;
 import retrofit2.Call;
