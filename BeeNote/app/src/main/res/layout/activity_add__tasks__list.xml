@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_add_notes"
+    android:id="@+id/drawer_add_task"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorFons"
-    tools:context=".RecyclerView.Add_Assignatures_List">
+    tools:context="RecyclerView_Tasks.Add_Tasks_List">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,79 +23,101 @@
             android:id="@+id/crear_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="312dp"
-            android:text="CREAR"
+            android:layout_marginTop="472dp"
             android:background="@drawable/btn_registrar"
+            android:text="CREAR"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.693"
+            app:layout_constraintHorizontal_bias="0.73"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <EditText
+            android:id="@+id/textAddTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="96dp"
+            android:ems="10"
+            android:hint="Tarea"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
+
         <Button
-            android:id="@+id/cancelar_asignatura"
+            android:id="@+id/cancelar_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="88dp"
-            android:layout_marginTop="312dp"
-            android:text="CANCELAR"
+            android:layout_marginTop="472dp"
             android:background="@drawable/btn_registrar"
+            android:text="CANCELAR"
             app:layout_constraintEnd_toStartOf="@+id/crear_asignatura"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/textDesciptionCourse"
+            android:id="@+id/textDesciptionTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="221dp"
             android:ems="10"
             android:hint="Descripcion"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textAddCourse" />
-
-        <EditText
-            android:id="@+id/textAddCourse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="96dp"
-            android:ems="10"
-            android:hint="Asignatura"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/assignatures_text_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/task_text_error"
+            android:layout_width="3dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="203dp"
+            android:layout_marginTop="56dp"
             android:textColor="@color/red"
-            app:layout_constraintBottom_toTopOf="@+id/textAddCourse"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menu_toolbar"
-            app:layout_constraintVertical_bias="0.844" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/add_assignatura_title"
+            android:id="@+id/add_task_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Creando una asignatura..."
+            android:text="Creando una tarea..."
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
+        <EditText
+            android:id="@+id/textAddTaskstart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="300dp"
+            android:ems="10"
+            android:hint="Fecha inicio"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/textAddTaskend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="381dp"
+            android:ems="10"
+            android:hint="Fecha final"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav__add_notes"
+        android:id="@+id/nav__add_task"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

@@ -1,7 +1,5 @@
 package cat.udl.tidic.amd.beenote.RecyclerView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -9,22 +7,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationView;
-
 import java.util.Objects;
 
 import cat.udl.tidic.amd.beenote.ActivityWithNavView;
 import cat.udl.tidic.amd.beenote.Assignatures;
-import cat.udl.tidic.amd.beenote.MenuPrincipal;
-import cat.udl.tidic.amd.beenote.Perfil_User;
 import cat.udl.tidic.amd.beenote.R;
 import cat.udl.tidic.amd.beenote.dao.CourseDAOI;
 import cat.udl.tidic.amd.beenote.models.CourseModel2;
@@ -107,7 +99,6 @@ public class Add_Assignatures_List extends ActivityWithNavView implements Lifecy
         });
 
     }
-
 
     private void saveEventAPI() {
         String description = "";

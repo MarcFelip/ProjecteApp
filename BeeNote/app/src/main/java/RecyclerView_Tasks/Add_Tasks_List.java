@@ -1,28 +1,30 @@
 package RecyclerView_Tasks;
 
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.LifecycleOwner;
 
-import com.google.android.material.navigation.NavigationView;
+import java.util.Objects;
 
 import cat.udl.tidic.amd.beenote.ActivityWithNavView;
-import cat.udl.tidic.amd.beenote.Assignatures;
-import cat.udl.tidic.amd.beenote.MenuPrincipal;
-import cat.udl.tidic.amd.beenote.Perfil_User;
 import cat.udl.tidic.amd.beenote.R;
+import cat.udl.tidic.amd.beenote.Tasks;
+import cat.udl.tidic.amd.beenote.models.CourseModel2;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class Add_Tasks_List extends ActivityWithNavView implements LifecycleOwner {
+
+public class Add_Tasks_List extends  ActivityWithNavView implements LifecycleOwner {
 
     public static final String EXTRA_ID =
             "cat.udl.tidic.amd.beenote.EXTRA_ID";
@@ -34,107 +36,116 @@ public class Add_Tasks_List extends ActivityWithNavView implements LifecycleOwne
 
     private DrawerLayout drawerLayout;
     private EditText editTextTitle;
+    private EditText textDesciptionTask;
+    private EditText textAddTaskstart;
+    private EditText textAddTaskend;
+    private TextView TextTitle;
+    private EditText textAddTask;
     private Button menu;
     private Button crear_tasca;
-    private Button cancelar_asignatura;
+    private Button cancelar_tasca;
+    private TextView text_error;
 
-    @SuppressLint("WrongViewCast")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add__assignatures__list);
+        setContentView(R.layout.activity_add__tasks__list);
+
+        // Creem la part del menu (Pare)
+        super.initView(R.layout.activity_add__tasks__list,
+                R.id.drawer_add_task,
+                R.id.nav__add_task);
 
         menu = findViewById(R.id.Toolbar_Menu);
-        cancelar_asignatura = findViewById(R.id.cancelar_asignatura);
-        crear_tasca = findViewById(R.id.btn_grupos_crear);
-        editTextTitle = findViewById(R.id.asignaturas_title);
+        cancelar_tasca = findViewById(R.id.cancelar_task);
+        crear_tasca = findViewById(R.id.crear_task);
+        TextTitle = findViewById(R.id.add_task_title);
+        textDesciptionTask = findViewById(R.id.textDesciptionTask);
+        textAddTaskstart = findViewById(R.id.textAddTaskstart);
+        textAddTaskend = findViewById(R.id.textAddTaskend);
+
+        text_error = findViewById(R.id.task_text_error);
+        textAddTask = findViewById(R.id.textAddTask);
 
         Intent intent = getIntent();
 
-
         if (intent.hasExtra(EXTRA_ID)) {
-            setTitle("Edit Event");
+            setTitle("Edit Task");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
 
         } else {
-            setTitle("Add Event");
+            setTitle("Add Task");
         }
 
-        crear_tasca.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveEvent();
-            }
-        });
 
-        cancelar_asignatura.setOnClickListener(new View.OnClickListener() {
+        cancelar_tasca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Add_Tasks_List.this, Assignatures.class);
+                Intent intent = new Intent(Add_Tasks_List.this, Tasks.class);
                 startActivity(intent);
             }
         });
 
-        // El menu deslizante
-        drawerLayout = findViewById(R.id.drawer_add_notes);
-        final NavigationView navigationView = findViewById(R.id.nav__add_notes);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        crear_tasca.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                menuItem.setChecked(true);
-                drawerLayout.closeDrawers();
+            public void onClick(View view) {
 
-                int id = menuItem.getItemId();
-
-                if (id == R.id.nav_account) {
-                    Intent intent = new Intent(Add_Tasks_List.this, Perfil_User.class);
-                    startActivity(intent);
+                if (textAddTask.getText().toString().equals("")) {
+                    text_error.setText("Pon un nombre la tarea a crear");
+                } else {
+                    //saveTaskAPI();
+                    saveEvent();
                 }
-                else if(id == R.id.nav_menu){
-                    Intent intent = new Intent(Add_Tasks_List.this, MenuPrincipal.class);
-                    startActivity(intent);
-                }
-                else if(id == R.id.nav_notas){
-                    Intent intent = new Intent(Add_Tasks_List.this, Assignatures.class);
-                    startActivity(intent);
-                }
-                return true;
             }
         });
 
-        // El icono del toolbar per anar el menu
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.LEFT);
+        /*private void saveTaskAPI() {
+            String description = "";
+            if (textDesciptionTask.getText().toString().equals("")) {
+                description = "No description";
+
+            } else {
+                description = textDesciptionTask.getText().toString();
             }
-        });
+            CourseModel2 model = new CourseModel2(textAddTask.getText().toString(), description);
+            final Call<Void> call = tasksDAOI.postCourseWithoutId("656e50e154865a5dc469b80437ed2f963b8f58c8857b66c9bf", model);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Log.d("AddTask", "OK" + response.toString());
+                }
 
-
-    }
-
-
-
-    private void saveEvent() {
-        String title = editTextTitle.getText().toString();
-
-
-        if (title.trim().isEmpty()) {
-            Toast.makeText(this,
-                    "Porfavor, inserte un nombre ", Toast.LENGTH_SHORT).show();
-            return;
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Log.d("AddTask", Objects.requireNonNull(t.getMessage()));
+                }
+            });*/
         }
 
-        Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE, title);
+        private void saveEvent() {
+            String title = textAddTask.getText().toString();
 
-       int id = getIntent().getIntExtra(EXTRA_ID, -1);
-        if (id != -1) {
-            data.putExtra(EXTRA_ID, id);
+
+            if (title.trim().isEmpty()) {
+                Toast.makeText(this,
+                        "Porfavor, inserte un nombre ", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent data = new Intent();
+            data.putExtra(EXTRA_TITLE, title);
+
+            int id = getIntent().getIntExtra(EXTRA_ID, -1);
+            if (id != -1) {
+                data.putExtra(EXTRA_ID, id);
+            }
+
+            setResult(RESULT_OK, data);
+
+            finish();
+            Intent intent = new Intent(Add_Tasks_List.this, Tasks.class);
+            startActivity(intent);
         }
 
-        setResult(RESULT_OK, data);
-        finish();
-    }
 }

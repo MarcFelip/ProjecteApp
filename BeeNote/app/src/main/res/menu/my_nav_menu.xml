@@ -12,7 +12,7 @@
             android:title="@string/navmenu_text_perfil" />
         <item
             android:id="@+id/nav_notas"
-            android:icon="@drawable/briefcase_nav"
+            android:icon="@drawable/courseicon"
             android:title="@string/navmenu_text_notas" />
         <item
             android:id="@+id/nav_horario"
@@ -25,6 +25,7 @@
         <item
             android:id="@+id/nav_añadirgrupo"
             android:title="@string/a_adir_tarea"
+            android:icon="@drawable/ic_add"
             android:visible="false"/>
     </group>
 </menu>

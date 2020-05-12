@@ -16,9 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CrearGrupo"/>
-        <activity android:name=".Grups" />
-        <activity android:name="RecyclerView_Tasks.Add_Tasks_List"/>
+        <activity android:name="RecyclerView_Tasks.Add_Tasks_List"></activity>
         <activity android:name=".Tasks" />
         <activity android:name=".RecyclerView.Add_Assignatures_List" />
         <activity android:name=".Assignatures" />
@@ -36,7 +34,6 @@
         <activity android:name=".NewEventCalendar" />
         <activity android:name=".EditEventCalendar" />
         <activity android:name=".DeleteEventCalendar" />
-
     </application>
 
 </manifest>
