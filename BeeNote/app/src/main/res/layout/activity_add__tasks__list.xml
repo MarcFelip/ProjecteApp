@@ -91,28 +91,30 @@
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
         <EditText
-            android:id="@+id/textAddTaskstart"
+            android:id="@+id/task_total_points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="28dp"
             android:ems="10"
-            android:hint="Fecha inicio"
-            android:inputType="textPersonName"
+            android:hint="Nota"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/task_deadline" />
 
         <EditText
-            android:id="@+id/textAddTaskend"
+            android:id="@+id/task_deadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="381dp"
+            android:layout_marginTop="20dp"
             android:ems="10"
-            android:hint="Fecha final"
-            android:inputType="textPersonName"
+            android:hint="Data"
+            android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textDesciptionTask" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

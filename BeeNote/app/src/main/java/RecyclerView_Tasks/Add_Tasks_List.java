@@ -13,10 +13,13 @@ import android.widget.Toast;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.LifecycleOwner;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import cat.udl.tidic.amd.beenote.ActivityWithNavView;
 import cat.udl.tidic.amd.beenote.R;
+import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 import cat.udl.tidic.amd.beenote.Tasks;
 import cat.udl.tidic.amd.beenote.dao.TasksDAOI;
 import cat.udl.tidic.amd.beenote.models.TaskModel2;
@@ -39,8 +42,8 @@ public class Add_Tasks_List extends  ActivityWithNavView implements LifecycleOwn
     private DrawerLayout drawerLayout;
     private EditText editTextTitle;
     private EditText textDesciptionTask;
-    private EditText textAddTaskstart;
-    private EditText textAddTaskend;
+    private EditText data;
+    private EditText nota;
     private TextView TextTitle;
     private EditText textAddTask;
     private Button menu;
@@ -49,6 +52,9 @@ public class Add_Tasks_List extends  ActivityWithNavView implements LifecycleOwn
     private TextView text_error;
 
     private TasksDAOI tasksDAOI = RetrofitClientInstance.getRetrofitInstance().create(TasksDAOI.class);
+
+    //Provisional
+    private UserRepository userRepository = new UserRepository();
 
 
     @Override
@@ -66,8 +72,9 @@ public class Add_Tasks_List extends  ActivityWithNavView implements LifecycleOwn
         crear_tasca = findViewById(R.id.crear_task);
         TextTitle = findViewById(R.id.add_task_title);
         textDesciptionTask = findViewById(R.id.textDesciptionTask);
-        textAddTaskstart = findViewById(R.id.textAddTaskstart);
-        textAddTaskend = findViewById(R.id.textAddTaskend);
+
+        data = findViewById(R.id.task_deadline);
+        nota = findViewById(R.id.task_total_points);
 
         text_error = findViewById(R.id.task_text_error);
         textAddTask = findViewById(R.id.textAddTask);
@@ -113,8 +120,31 @@ public class Add_Tasks_List extends  ActivityWithNavView implements LifecycleOwn
             } else {
                 description = textDesciptionTask.getText().toString();
             }
-            TaskModel2 model = new TaskModel2(textAddTask.getText().toString(), description);
-            final Call<Void> call = tasksDAOI.postTaskWithoutId("656e50e154865a5dc469b80437ed2f963b8f58c8857b66c9bf", model);
+            String data_girar = data.getText().toString();
+            String day="";
+            String month="";
+            String year="";
+            int contador=0;
+            System.out.println("Data: "+data.getText().toString());
+            for (int x=0;x<data_girar.length();x++) {
+
+                if (data_girar.charAt(x) == '/') {
+                    contador++;
+                } else {
+                    if (contador == 0) {
+                        day = day + data_girar.charAt(x);
+                    } if (contador == 1) {
+                        month = month + data_girar.charAt(x);
+                    } if (contador == 2) {
+                        year = year + data_girar.charAt(x);
+                    }
+                }
+                System.out.println("Contador: "+ contador);
+            }
+
+            System.out.println("Data2: "+year+"-"+month+"-"+day);
+            TaskModel2 model = new TaskModel2(textAddTask.getText().toString(), description,year+"-"+month+"-"+day,Integer.parseInt(nota.getText().toString()));
+            final Call<Void> call = tasksDAOI.addTask(userRepository.getToken(), "2",model);
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {

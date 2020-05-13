@@ -18,9 +18,8 @@ public class TasksDAOImpl implements TasksDAOI {
     }
 
     @Override
-    public Call<Void> postTaskWithoutId(String s, TaskModel2 model) {
+    public Call<Void> addTask(String token, String course_id, TaskModel2 model) {
         return null;
     }
-
 
 }
