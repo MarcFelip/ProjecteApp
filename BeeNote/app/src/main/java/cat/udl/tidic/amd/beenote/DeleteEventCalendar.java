@@ -18,7 +18,7 @@ import androidx.fragment.app.DialogFragment;
 import cat.udl.tidic.amd.beenote.Dialog.TimePickerFragment;
 import cat.udl.tidic.amd.beenote.ViewModels.menuPrincipal_ViewModel;
 
-public class DeleteEventCalendar extends AppCompatActivity {
+public class DeleteEventCalendar extends ActivityWithNavView {
 
 
     private TextView data;
@@ -35,10 +35,16 @@ public class DeleteEventCalendar extends AppCompatActivity {
         setContentView(R.layout.activity_deleteeventcalendar);
 
 
+
         data = findViewById(R.id.tw_data);
 
         boto_no = findViewById(R.id.btn_no);
         boto_si = findViewById(R.id.btn_si);
+
+        // Creem la part del menu (Pare)
+        super.initView(R.layout.activity_deleteeventcalendar,
+                R.id.drawer_delete_event,
+                R.id.nav__delete_event);
 
 
         //Afegim la data previament seleccionada

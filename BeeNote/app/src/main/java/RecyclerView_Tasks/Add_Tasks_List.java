@@ -18,7 +18,9 @@ import java.util.Objects;
 import cat.udl.tidic.amd.beenote.ActivityWithNavView;
 import cat.udl.tidic.amd.beenote.R;
 import cat.udl.tidic.amd.beenote.Tasks;
-import cat.udl.tidic.amd.beenote.models.CourseModel2;
+import cat.udl.tidic.amd.beenote.dao.TasksDAOI;
+import cat.udl.tidic.amd.beenote.models.TaskModel2;
+import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +47,8 @@ public class Add_Tasks_List extends  ActivityWithNavView implements LifecycleOwn
     private Button crear_tasca;
     private Button cancelar_tasca;
     private TextView text_error;
+
+    private TasksDAOI tasksDAOI = RetrofitClientInstance.getRetrofitInstance().create(TasksDAOI.class);
 
 
     @Override
@@ -92,15 +96,16 @@ public class Add_Tasks_List extends  ActivityWithNavView implements LifecycleOwn
             public void onClick(View view) {
 
                 if (textAddTask.getText().toString().equals("")) {
-                    text_error.setText("Pon un nombre la tarea a crear");
+                    text_error.setText("Pon nombre la tarea a crear");
                 } else {
-                    //saveTaskAPI();
+                    saveTaskAPI();
                     saveEvent();
                 }
             }
         });
+    }
 
-        /*private void saveTaskAPI() {
+        private void saveTaskAPI() {
             String description = "";
             if (textDesciptionTask.getText().toString().equals("")) {
                 description = "No description";
@@ -108,8 +113,8 @@ public class Add_Tasks_List extends  ActivityWithNavView implements LifecycleOwn
             } else {
                 description = textDesciptionTask.getText().toString();
             }
-            CourseModel2 model = new CourseModel2(textAddTask.getText().toString(), description);
-            final Call<Void> call = tasksDAOI.postCourseWithoutId("656e50e154865a5dc469b80437ed2f963b8f58c8857b66c9bf", model);
+            TaskModel2 model = new TaskModel2(textAddTask.getText().toString(), description);
+            final Call<Void> call = tasksDAOI.postTaskWithoutId("656e50e154865a5dc469b80437ed2f963b8f58c8857b66c9bf", model);
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
@@ -120,7 +125,7 @@ public class Add_Tasks_List extends  ActivityWithNavView implements LifecycleOwn
                 public void onFailure(Call<Void> call, Throwable t) {
                     Log.d("AddTask", Objects.requireNonNull(t.getMessage()));
                 }
-            });*/
+            });
         }
 
         private void saveEvent() {

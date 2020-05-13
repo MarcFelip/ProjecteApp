@@ -70,10 +70,10 @@
 
         <TextView
             android:id="@+id/task_text_error"
-            android:layout_width="3dp"
-            android:layout_height="14dp"
-            android:layout_marginStart="203dp"
-            android:layout_marginTop="56dp"
+            android:layout_width="196dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="127dp"
             android:textColor="@color/red"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

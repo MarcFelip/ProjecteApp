@@ -2,6 +2,7 @@ package cat.udl.tidic.amd.beenote.dao;
 
 import java.util.List;
 
+import cat.udl.tidic.amd.beenote.models.TaskModel2;
 import cat.udl.tidic.amd.beenote.models.TasksModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import retrofit2.Call;
@@ -15,4 +16,11 @@ public class TasksDAOImpl implements TasksDAOI {
     public Call<List<TasksModel>> getStudentTasks(String token) {
         return retrofit.create(TasksDAOI.class).getStudentTasks(token);
     }
+
+    @Override
+    public Call<Void> postTaskWithoutId(String s, TaskModel2 model) {
+        return null;
+    }
+
+
 }
