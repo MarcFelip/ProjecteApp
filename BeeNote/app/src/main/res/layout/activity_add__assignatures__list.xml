@@ -36,9 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="88dp"
             android:layout_marginTop="312dp"
-            android:text="CANCELAR"
             android:background="@drawable/btn_registrar"
-            app:layout_constraintEnd_toStartOf="@+id/crear_asignatura"
+            android:text="CANCELAR"
+            app:layout_constraintEnd_toStartOf="@+id/crear_task"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
