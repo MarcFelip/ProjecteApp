@@ -19,7 +19,7 @@
             android:backgroundTint="@android:color/darker_gray" />
 
         <Button
-            android:id="@+id/crear_task"
+            android:id="@+id/crear_asignatura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="312dp"
