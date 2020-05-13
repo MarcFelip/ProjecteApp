@@ -60,7 +60,7 @@ public class Add_Assignatures_List extends ActivityWithNavView implements Lifecy
 
         menu = findViewById(R.id.Toolbar_Menu);
         cancelar_asignatura = findViewById(R.id.cancelar_asignatura);
-        crear_asignatura = findViewById(R.id.crear_task);
+        crear_asignatura = findViewById(R.id.crear_asignatura);
         editTextTitle = findViewById(R.id.asignaturas_title);
         text_error = findViewById(R.id.assignatures_text_error);
         textAddCourse = findViewById(R.id.textAddCourse);
