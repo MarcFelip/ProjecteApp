@@ -18,13 +18,14 @@
             android:background="@color/colorAccent"
             android:backgroundTint="@android:color/darker_gray" />
 
-        <ImageButton
-            android:id="@+id/createEvent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="180dp"
-            android:layout_marginTop="128dp"
-            android:src="@drawable/ic_add"
+        <Button
+            android:id="@+id/addCourse"
+            android:layout_width="38dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="132dp"
+            android:background="@drawable/ic_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.726"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UnknownId" />
@@ -42,13 +43,13 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="391dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="64dp"
+            android:layout_width="414dp"
+            android:layout_height="60dp"
+            android:background="@color/colorBeNote"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/btn_redondo_black" />
+            app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
         <TextView
             android:id="@+id/asignaturas_title"
@@ -59,9 +60,23 @@
             android:textAllCaps="true"
             android:textColor="#000000"
             android:textSize="30sp"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Crear asignatura"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/addCourse"
+            app:layout_constraintHorizontal_bias="0.863"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView

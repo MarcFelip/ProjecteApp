@@ -37,5 +37,7 @@ public interface UserService {
     @PUT("/account/profile/update")
         Call<Void> updateUserProfile(@HeaderMap Map<String, String> headers, @Body JsonObject json);
 
+    @GET("/account/profile/showID")
+    Call<String> getUserID(@Header("Authorization") String base64_encoding);
 
 }

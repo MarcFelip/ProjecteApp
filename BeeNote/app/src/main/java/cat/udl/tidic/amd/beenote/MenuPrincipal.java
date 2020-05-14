@@ -39,6 +39,7 @@ import java.util.TimeZone;
 
 import cat.udl.tidic.amd.beenote.ViewModels.menuPrincipal_ViewModel;
 import cat.udl.tidic.amd.beenote.models.TokenModel;
+import cat.udl.tidic.amd.beenote.models.UserModel;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
 import cat.udl.tidic.amd.beenote.services.UserService;
 import retrofit2.Call;
@@ -49,20 +50,22 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
-public class MenuPrincipal extends AppCompatActivity {
+public class MenuPrincipal extends ActivityWithNavView {
 
     private Button perfil_usuario;
     private Button menu;
-    private Button ajustes;
     private Button notes;
+    private Button grups;
     private FloatingActionButton editarCalendar;
     private List<EventDay> events = new ArrayList<>();
     private TextView error;
+    private UserModel userModel = new UserModel();
 
     private String TAG="MenuPrincipal";
 
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
     private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
+    private Map<String, String> map = new HashMap<>();
 
     private DrawerLayout drawerLayout;
 
@@ -71,17 +74,22 @@ public class MenuPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
+        // El menu deslizante
+        // Creem la part del menu (Pare)
+        super.initView(R.layout.activity_menu_principal,
+                R.id.drawer_menu_principal,
+                R.id.nav_menu_principal);
+
         perfil_usuario = findViewById(R.id.MenuPrincipal_PerfilUsuario);
         menu = findViewById(R.id.Toolbar_Menu);
-        ajustes = findViewById(R.id.Toolbar_Ajustes);
         editarCalendar = findViewById(R.id.menu_editar_button);
         error = findViewById(R.id.menu_scrolling_text_error);
         notes = findViewById(R.id.MenuScrolling_Notes);
+        grups = findViewById(R.id.MenuPrincipal_Grupos);
 
         enableForm(true);
 
         checkCalendarPermission();
-
 
         query_calendar();
 
@@ -90,6 +98,24 @@ public class MenuPrincipal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuPrincipal.this, Assignatures.class);
+                startActivity(intent);
+            }
+        });
+
+        // Per anar el layout de grups
+        grups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuPrincipal.this, Tasks.class);
+                startActivity(intent);
+            }
+        });
+
+        // Anar al perfil d'usuari
+        perfil_usuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuPrincipal.this, Perfil_User.class);
                 startActivity(intent);
             }
         });
@@ -148,68 +174,6 @@ public class MenuPrincipal extends AppCompatActivity {
                 popupMenu.show();
             }
         });
-
-        //Popup ajustes
-        ajustes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(MenuPrincipal.this, ajustes);
-                popupMenu.getMenuInflater().inflate(R.menu.menu_ajustes, popupMenu.getMenu());
-
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int id = item.getItemId();
-
-                        if (id == R.id.nav_cerrar_sesion) {
-                            cerrarSesion();
-                        }
-                        return true;
-                    }
-                });
-                popupMenu.show();
-            }
-        });
-
-        // El menu deslizante
-        drawerLayout = findViewById(R.id.drawer_menu_principal);
-        final NavigationView navigationView = findViewById(R.id.nav_menu_principal);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                menuItem.setChecked(true);
-                drawerLayout.closeDrawers();
-
-                int id = menuItem.getItemId();
-
-                if (id == R.id.nav_account) {
-                    Intent intent = new Intent(MenuPrincipal.this, Perfil_User.class);
-                    startActivity(intent);
-                }
-                else if(id == R.id.nav_menu){
-                    drawerLayout.closeDrawers();
-                }
-                return true;
-            }
-        });
-
-        // El icono del toolbar per anar el menu
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.LEFT);
-            }
-        });
-
-        // Anar al perfil d'usuari
-        perfil_usuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuPrincipal.this, Perfil_User.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void checkCalendarPermission() {
@@ -230,32 +194,6 @@ public class MenuPrincipal extends AppCompatActivity {
         requestPermissions(new String[]{Manifest.permission.WRITE_CALENDAR},4);
     }
 
-    // Funció del cerrar sesion del menú d'ajustes
-    private void cerrarSesion(){
-        String token = menuPrincipal_viewModel.getToken();
-        //System.out.println(token);
-        TokenModel tokenModel = new TokenModel(token);
-
-        Map<String, String> map = new HashMap<>();
-        map.put("Authorization", token);
-
-        Call<Void> call = userService.deleteToken(map,tokenModel);
-
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                //System.out.println("MENU - Token eleiminat bee "+ response.toString());
-                menuPrincipal_viewModel.setToken("");
-                Intent intent = new Intent(MenuPrincipal.this, Login.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                //System.out.println("MENU - ERROR" + t.toString());
-            }
-        });
-    }
 
     public void popupEliminarEvent_(){
         String targetEventId = menuPrincipal_viewModel.getEventID();
@@ -265,7 +203,6 @@ public class MenuPrincipal extends AppCompatActivity {
     private void enableForm(boolean enable){
         perfil_usuario.setEnabled(enable);
         menu.setEnabled(enable);
-        ajustes.setEnabled(enable);
         editarCalendar.setEnabled(enable);
     }
 
@@ -298,7 +235,7 @@ public class MenuPrincipal extends AppCompatActivity {
         calendar.set(year,month-1,date,hourOfDay,minute,seconds);
 
         // Omplim la llista de EventDay amb MyEventDay (custom class)
-        events.add(new MyEventDay(calendar, R.drawable.boton_circulo,title,ID));
+        events.add(new MyEventDay(calendar, R.drawable.evento_calendar,title,ID));
 
         //System.out.println(events);
 
@@ -434,9 +371,18 @@ public class MenuPrincipal extends AppCompatActivity {
        // Posem el correu que volem controlar
 
         //@JordiMateoUdL: Això s'ha de llegir del account
-        String[] selectionArgs = new String[]{"XXXXXX@gmail.com",
-                "com.google","XXXXXXX@gmail.com"
-        };
+        String mail = menuPrincipal_viewModel.getMail();
+        Log.i("MailCalendar",mail);
+        String[] selectionArgs =  new String[]{};
+        if (mail != null) {
+            selectionArgs = new String[]{mail,
+                    "com.google", mail
+            };
+        }
+        else
+        {
+            Log.e("MailCalendar","Error correo Calendar");
+        }
         // Debido a que el SDK de destino = 25, verifique los permisos cuando se ejecutan las aplicaciones
         int permissionCheck = ContextCompat.checkSelfPermission(MenuPrincipal.this, Manifest.permission.READ_CALENDAR);
         //System.out.println("Permisos:"+ permissionCheck);
@@ -449,10 +395,11 @@ public class MenuPrincipal extends AppCompatActivity {
         // Si el usuario tiene permiso para comenzar a consultar el calendario
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             cur = cr.query(uri_events, eventmProjection, selection, selectionArgs, null);
-           // System.out.println("Cur: "+ cur);
+            System.out.println("Cur: "+ cur);
             if (cur != null) {
                 while (cur.moveToNext()) {
                     // Obtenga la información dels Events
+                    System.out.println("Entrar");
                     String eventTitle = cur.getString(cur.getColumnIndex(CalendarContract.Events.TITLE));
                     String eventId = cur.getString(cur.getColumnIndex(CalendarContract.Events._ID));
                     String startDate = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
@@ -472,6 +419,11 @@ public class MenuPrincipal extends AppCompatActivity {
                     addEventCalendar(year,month,date,hour,minute,seconds,eventTitle,eventId);
                 }
                 cur.close();
+            }
+            else
+            {
+                Log.e("MailCalendar","Error correo GoogleCalendar");
+                error.setText("Esta cuento no esta sincronizada con el GoogleCalendar en tu dispositivo");
             }
             // Per poder agafar la informacio del Calenadi (uri_cal)
             cur2 = cr.query(uri_cal, EVENT_PROJECTION, selection, selectionArgs, null);

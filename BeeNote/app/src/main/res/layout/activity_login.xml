@@ -59,15 +59,16 @@
 
     <EditText
         android:id="@+id/Login_Username"
-        android:layout_width="108dp"
+        android:layout_width="123dp"
         android:layout_height="65dp"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="85dp"
         android:layout_marginTop="248dp"
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="@string/login_hint_user"
         android:inputType="textPersonName"
         android:paddingStart="20dp"
+        android:maxLength="30"
         android:textColor="#FFFFFF"
         android:textColorHint="@android:color/darker_gray"
         app:layout_constraintStart_toStartOf="parent"

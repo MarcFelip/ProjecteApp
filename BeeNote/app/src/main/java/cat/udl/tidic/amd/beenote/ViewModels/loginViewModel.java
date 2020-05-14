@@ -33,4 +33,14 @@ public class loginViewModel extends ViewModel {
         return allNotes;
     }
 
+    public void setMail(String mail)
+    {
+        userRepository.setMail(mail);
+    }
+
+    public void setUserID(String id)
+    {
+        userRepository.setUserID(id);
+    }
+
 }

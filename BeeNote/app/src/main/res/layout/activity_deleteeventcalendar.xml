@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_delete_event"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/calendariEvents"
-    android:orientation="vertical"
-    tools:context=".Dialog."
-    tools:ignore="MissingDefaultResource">
+    android:background="@color/colorFons"
+    tools:context=".DeleteEventCalendar">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/menu_toolbar"
+            layout="@layout/toolbar"
+            android:background="@color/colorAccent"
+            android:backgroundTint="@android:color/darker_gray" />
+
+
+        <ImageView
+            android:layout_width="391dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="145dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_redondo_black" />
 
         <TextView
             android:id="@+id/textView5"
@@ -77,3 +94,20 @@
         </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+<com.google.android.material.navigation.NavigationView
+    android:id="@+id/nav__delete_event"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:fitsSystemWindows="true"
+    app:headerLayout="@layout/my_header"
+    app:layout_constraintEnd_toStartOf="parent"
+    app:menu="@menu/my_nav_menu"
+    tools:ignore="MissingConstraints">
+
+</com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
+
+

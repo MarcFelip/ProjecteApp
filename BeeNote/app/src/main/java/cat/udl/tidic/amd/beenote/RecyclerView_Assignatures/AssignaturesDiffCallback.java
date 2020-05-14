@@ -1,4 +1,4 @@
-package cat.udl.tidic.amd.beenote.RecyclerView;
+package cat.udl.tidic.amd.beenote.RecyclerView_Assignatures;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;

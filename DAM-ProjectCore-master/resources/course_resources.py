@@ -44,6 +44,92 @@ class ResourceGetCourses(DAMCoreResource):
 
 
 @falcon.before(requires_auth)
+class ResourceGetTasks(DAMCoreResource):
+    def on_get(self, req, resp, *args, **kwargs):
+        super(ResourceGetTasks, self).on_get(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+        response_student_task = list()
+
+        aux_student_task = self.db_session.query(Assigment.task_id, Task.tittle)\
+            .join(Task).filter(Assigment.user_id == current_user.id)
+
+        if aux_student_task is not None:
+            for student_current_task in aux_student_task.all():
+                response_item = {
+                    'id': student_current_task[0],
+                    'title': student_current_task[1],
+                }
+                response_student_task.append(response_item)
+
+        resp.media = response_student_task
+        resp.status = falcon.HTTP_200
+
+
+@falcon.before(requires_auth)
+class ResourceAddCourse(DAMCoreResource):
+    def on_post(self, req, resp, *args, **kwargs):
+        super(ResourceAddCourse, self).on_post(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+        aux_course = Course()
+
+        if not "course_id" in kwargs:
+            try:
+                # Create the course
+                aux_course.name = req.media["name"]
+                aux_course.description = req.media["description"]
+                self.db_session.add(aux_course)
+                self.db_session.commit()
+
+                course_id = self.db_session.query(Course.id).filter(req.media["name"] == Course.name)
+                aux_enrollment = Enrollment()
+                aux_enrollment.course_id = course_id
+                aux_enrollment.user_id = current_user.id
+                self.db_session.add(aux_enrollment)
+                self.db_session.commit()
+
+            except KeyError:
+                raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+        else:
+            try:
+                aux_enrollment = Enrollment()
+                aux_enrollment.course_id = kwargs["course_id"]
+                aux_enrollment.user_id = current_user.id
+                self.db_session.add(aux_enrollment)
+                self.db_session.commit()
+
+                resp.status = falcon.HTTP_200
+            except KeyError:
+                raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+            except IntegrityError:
+                raise falcon.HTTPBadRequest(description="Aquest course ja ha estat assignada per aquest usuari.")
+
+
+@falcon.before(requires_auth)
+class ResourceDeleteCourse(DAMCoreResource):
+    def on_delete(self, req, resp, *args, **kwargs):
+        super(ResourceDeleteCourse, self).on_delete(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+
+        if "course_id" in kwargs:
+            course_id = kwargs["course_id"]
+            user_id = kwargs["user_id"]
+            assigment = self.db_session.query(Enrollment) \
+                .filter(Enrollment.course_id == course_id).all()
+            if not assigment:
+                raise falcon.HTTPBadRequest(description="not allowed to update this task, first you need to join.")
+            else:
+                try:
+                    self.db_session.query(Enrollment).filter(Enrollment.course_id == course_id, Enrollment.user_id == user_id).delete()
+                    self.db_session.commit()
+                    resp.status = falcon.HTTP_200
+                except KeyError:
+                    raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+
+
+@falcon.before(requires_auth)
 class ResourceAddTask(DAMCoreResource):
     def on_post(self, req, resp, *args, **kwargs):
         super(ResourceAddTask, self).on_post(req, resp, *args, **kwargs)

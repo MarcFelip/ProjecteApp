@@ -12,16 +12,16 @@
     <string name="registrar_text_contrsenya">Contraseña</string>
     <string name="registrar_hint_email">ejemplo@gmail.com</string>
 
-    <string name="login_text_email"> .@gmail.com</string>
+    <string name="login_text_email"> "@"gmail.com</string>
     <string name="login_hint_user">Usuario</string>
     <string name="login_hint_password">Contraseña</string>
     <string name="login_button_iniciar">Iniciar sesión</string>
     <string name="login_button_registrar">Regístrate</string>
     <string name="login_text_cuenta">¿No tienes cuenta?</string>
 
-    <string name="perfil_text_name">name</string>
-    <string name="perfil_text_username">username</string>
-    <string name="perfil_text_email">email</string>
+    <string name="perfil_text_name">nombre</string>
+    <string name="perfil_text_username">nombre usaurio</string>
+    <string name="perfil_text_email">correo</string>
     <string name="perfil_hint_estudios">Estudios</string>
     <string name="perfil_hint_telefono">Teléfono móvil</string>
     <string name="perfil_button_guardar">Guardar</string>
@@ -34,7 +34,7 @@
     <string name="menuPrincipal_button_perfil">Perfil</string>
     <string name="menuPrincipal_button_cerrar">Cerrar Sesion</string>
     <string name="menuPrincipal_button_grupos">Grupos</string>
-    <string name="menuPrincipal_button_notas">Notas</string>
+    <string name="menuPrincipal_button_notas">Asignaturas</string>
     <string name="menuPrincipal_button_horario">Horario</string>
 
     <string name="Calendar_menu_Editar">Editar Evento</string>
@@ -47,19 +47,19 @@
 
     <string name="toolbarInicio_text_beenote">BeeNote</string>
 
-    <string name="header_text_user">Nombre usuario</string>
+    <string name="header_text_user">Usuario</string>
     <string name="header_text_nombre">Nombre</string>
-    <string name="header_text_estudio">Estudio</string>
+    <string name="header_text_estudio">Estudios</string>
 
     <string name="navmenu_text_menu">Menu Principal</string>
     <string name="navmenu_text_perfil">Perfil</string>
-    <string name="navmenu_text_notas">Notas</string>
+    <string name="navmenu_text_notas">Asignaturas</string>
     <string name="navmenu_text_horario">Horario</string>
     <string name="navmenu_text_calendario">Calendario</string>
     <string name="navmenu_text_grupos">Grupos</string>
 
     <string name="ajustesMenu_text_cerrarSesion">Cerrar Sesión</string>
-    
+
     <string name="confirmacio_borrar_event">¿Estas seguro de eliminar el evento?</string>
     <string name="porcentage_nota">Porcentage de la nota</string>
     <string name="tarea_grupo">Tarea en grupo</string>
@@ -78,6 +78,9 @@
     <string name="evento_guardar">Guardar Evento</string>
     <string name="evento_borrar">Eliminar Evento</string>
     <string name="texto_estas_Seguro">¿Estás seguro de eliminar el evento seleccionado?</string>
+    <string name="a_adir_grupo">Añadir grupo</string>
+    <string name="a_adir_tarea">Añadir tarea</string>
+    <string name="buscar_tarea">Buscar tarea</string>
 
 
 </resources>

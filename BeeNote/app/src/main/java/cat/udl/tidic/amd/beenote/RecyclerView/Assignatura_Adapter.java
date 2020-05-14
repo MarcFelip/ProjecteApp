@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import cat.udl.tidic.amd.beenote.R;
+import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 import cat.udl.tidic.amd.beenote.models.CourseModel;
 
 
@@ -20,6 +21,7 @@ public class Assignatura_Adapter extends ListAdapter<CourseModel, Assignatura_Ad
 
     private OnItemClickListener eventItemListener;
     private final static String TAG = "Assignatura_Adapter";
+    private String CourseID;
 
 
     public Assignatura_Adapter(@NonNull DiffUtil.ItemCallback<CourseModel> diffCallback) {
@@ -47,7 +49,16 @@ public class Assignatura_Adapter extends ListAdapter<CourseModel, Assignatura_Ad
     public CourseModel getEventAt(int position) {
         Log.d(TAG, "Position: "+ position);
         Log.d(TAG, "Asignatura: "+ getItem(position).getTitle());
+        int id_course = getItem(position).getId();
+        Log.d(TAG, "ID_COURSE_DELETE: "+ id_course);
+        CourseID = Integer.toString(id_course);
+
         return getItem(position);
+    }
+
+    public String getCourseID()
+    {
+        return CourseID;
     }
 
 

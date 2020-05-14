@@ -50,4 +50,13 @@ public class menuPrincipal_ViewModel extends ViewModel {
     {
         userRepository.setCalendarID(Long.toString(Calendarid));
     }
+
+    public String getMail (){
+        return userRepository.getMail();
+    }
+
+    public void setMail(String mail)
+    {
+        userRepository.setMail(mail);
+    }
 }
