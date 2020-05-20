@@ -126,7 +126,7 @@ if __name__ == "__main__":
     t1 = Task(
         tittle="Task 1 DAM",
         details = "Details Task 1 DAM",
-        deadline = datetime.datetime(2017, 1, 1),
+        deadline = datetime.datetime(2020, 6, 6),
         total_points = 10,
         join_secret="1234"
     )
@@ -134,7 +134,7 @@ if __name__ == "__main__":
     t2 = Task(
         tittle="Task 1 INTIC",
         details="Details Task 1 INTIC",
-        deadline=datetime.datetime(2017, 1, 1),
+        deadline=datetime.datetime(2020, 5, 21),
         total_points=10,
         join_secret="1234"
     )
@@ -142,7 +142,7 @@ if __name__ == "__main__":
     t3 = Task(
         tittle="Task 1 INTIC",
         details="Details Task 1 INTIC",
-        deadline=datetime.datetime(2017, 1, 1),
+        deadline=datetime.datetime(2020, 5, 21),
         total_points=10,
         join_secret="1234"
     )

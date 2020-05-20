@@ -43,6 +43,8 @@ application.add_route("/users/show/{username}", user_resources.ResourceGetUserPr
 
 # List Courses
 application.add_route("/courses/list", course_resources.ResourceGetCourses())
+application.add_route("/courses/show/{course_id}", course_resources.ResourceGetCourse())
+
 # Create and delete Courses
 application.add_route("/courses/add", course_resources.ResourceAddCourse())
 application.add_route("/courses/{course_id}/add", course_resources.ResourceAddCourse())
@@ -50,6 +52,7 @@ application.add_route("/courses/{course_id}/{user_id}/delete", course_resources.
 
 # List Tasks
 application.add_route("/courses/task/list", course_resources.ResourceGetTasks())
+
 # Create the task and enroll in a course.
 application.add_route("/courses/{course_id}/task/add", course_resources.ResourceAddTask())
 # Join to a created task (Groups).

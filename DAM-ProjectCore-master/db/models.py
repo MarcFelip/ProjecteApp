@@ -48,6 +48,7 @@ class GenereEnum(enum.Enum):
     female = "F"
 
 
+
 class UserToken(SQLAlchemyBase):
     __tablename__ = "users_tokens"
 
@@ -90,8 +91,12 @@ class Task(SQLAlchemyBase, JSONModel):
     @hybrid_property
     def json_model(self):
         return {
-            "course_id": self.course_id,
-            "user_id": self.user_id,
+            "id":self.id,
+            "tittle": self.tittle,
+            "details": self.details,
+            "deadline": self.deadline.strftime(
+                settings.DATE_DEFAULT_FORMAT) if self.deadline is not None else self.deadline,
+            "total_points":self.total_points
         }
 
 
@@ -147,9 +152,14 @@ class Schedule(SQLAlchemyBase, JSONModel):
     course_id = Column(Integer,ForeignKey("courses.id",onupdate="CASCADE", ondelete="CASCADE"), nullable=False)
     course = relationship("Course", back_populates="schedules")
 
-
-
-
+    @hybrid_property
+    def json_model(self):
+        return {
+            "day": self.day,
+            "start": self.start,
+            "end": self.end,
+            "place": self.place,
+        }
 
 class User(SQLAlchemyBase, JSONModel):
     __tablename__ = "users"
@@ -235,7 +245,8 @@ class Course(SQLAlchemyBase, JSONModel):
         return {
             "id": self.id,
             "name": self.name,
-            "description": self.description
+            "description": self.description,
+            "schedules": [schedule.json_model for schedule in self.schedules],
         }
 
 

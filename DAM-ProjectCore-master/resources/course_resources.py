@@ -4,6 +4,7 @@ import datetime
 import logging
 import random
 import string
+from _operator import and_
 
 import falcon
 from falcon.media.validators import jsonschema
@@ -51,16 +52,24 @@ class ResourceGetTasks(DAMCoreResource):
         current_user = req.context["auth_user"]
         response_student_task = list()
 
-        aux_student_task = self.db_session.query(Assigment.task_id, Task.tittle)\
+        aux_student_task = self.db_session.query(Assigment, Task) \
             .join(Task).filter(Assigment.user_id == current_user.id)
+
+        request_course = req.get_param("course", False)
+        if request_course is not None:
+            print(request_course)
+            aux_student_task = aux_student_task.filter(Assigment.course_id == request_course)
+
+        request_days = req.get_param("days", False)
+        if request_days is not None:
+            current_datetime = datetime.datetime.now()
+            day_period = datetime.timedelta(days=1)
+            aux_student_task = aux_student_task\
+                .filter(current_datetime + day_period * int(request_days) >= Task.deadline)
 
         if aux_student_task is not None:
             for student_current_task in aux_student_task.all():
-                response_item = {
-                    'id': student_current_task[0],
-                    'title': student_current_task[1],
-                }
-                response_student_task.append(response_item)
+                response_student_task.append(student_current_task[1].json_model)
 
         resp.media = response_student_task
         resp.status = falcon.HTTP_200
@@ -91,19 +100,19 @@ class ResourceAddCourse(DAMCoreResource):
 
             except KeyError:
                 raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
-        else:
-            try:
-                aux_enrollment = Enrollment()
-                aux_enrollment.course_id = kwargs["course_id"]
-                aux_enrollment.user_id = current_user.id
-                self.db_session.add(aux_enrollment)
-                self.db_session.commit()
 
-                resp.status = falcon.HTTP_200
-            except KeyError:
-                raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
-            except IntegrityError:
-                raise falcon.HTTPBadRequest(description="Aquest course ja ha estat assignada per aquest usuari.")
+        try:
+            aux_enrollment = Enrollment()
+            aux_enrollment.course_id = kwargs["course_id"]
+            aux_enrollment.user_id = current_user.id
+            self.db_session.add(aux_enrollment)
+            self.db_session.commit()
+
+            resp.status = falcon.HTTP_200
+        except KeyError:
+            raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+        except IntegrityError:
+            raise falcon.HTTPBadRequest(description="Aquest course ja ha estat assignada per aquest usuari.")
 
 
 @falcon.before(requires_auth)
@@ -232,3 +241,17 @@ class ResourceDeleteTask(DAMCoreResource):
                     resp.status = falcon.HTTP_200
                 except KeyError:
                     raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+
+@falcon.before(requires_auth)
+class ResourceGetCourse(DAMCoreResource):
+    def on_get(self, req, resp, *args, **kwargs):
+        super(ResourceGetCourse, self).on_get(req, resp, *args, **kwargs)
+
+        if "course_id" in kwargs:
+            try:
+                course = self.db_session.query(Course).filter(Course.id == kwargs["course_id"]).one()
+
+                resp.media = course.json_model
+                resp.status = falcon.HTTP_200
+            except NoResultFound:
+                raise falcon.HTTPBadRequest(description=messages.user_not_found)
