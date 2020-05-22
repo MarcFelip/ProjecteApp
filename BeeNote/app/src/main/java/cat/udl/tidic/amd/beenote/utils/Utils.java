@@ -5,7 +5,11 @@ import org.bouncycastle.crypto.generators.PKCS5S2ParametersGenerator;
 import org.bouncycastle.crypto.params.KeyParameter;
 
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class Utils {
@@ -31,5 +35,31 @@ public class Utils {
 
         return String.format(Locale.ENGLISH,
                 "$%s$%d$%s$%s", algorithm, iterations, salt_hash, hash);
+    }
+
+    public static int get_day(String date) {
+        Calendar calendar = Calendar.getInstance();
+        Date start = stringToDate(date);
+        calendar.setTime(start);
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static String get_month(String date) {
+        Date start = stringToDate(date);
+        SimpleDateFormat simpleDateformat = new SimpleDateFormat("MMM",
+                java.util.Locale.getDefault());
+        return simpleDateformat.format(start);
+    }
+
+    private static Date stringToDate(String date) {
+        Date d = null;
+        try {
+            d = new java.sql.Date(
+                    new SimpleDateFormat("yyyy-MM-dd",
+                            java.util.Locale.getDefault()).parse(date).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return d;
     }
 }

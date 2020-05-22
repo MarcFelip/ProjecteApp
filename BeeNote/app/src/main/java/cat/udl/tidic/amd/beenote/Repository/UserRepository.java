@@ -1,7 +1,5 @@
 package cat.udl.tidic.amd.beenote.Repository;
-
 import android.content.SharedPreferences;
-
 import cat.udl.tidic.amd.beenote.preferences.PreferencesProvider;
 
 public class UserRepository implements UserRepository_Interface {

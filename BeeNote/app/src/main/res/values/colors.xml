@@ -13,4 +13,9 @@
     <color name="calendariEvents">#ffe0b2</color>
     <color name="prova">#ffab00</color>
     <color name="prova_clicat">#cddc39</color>
+
+    <color name="blue">#2196F3</color>
+    <color name="green">#76ff03</color>
+    <color name="red2">#f4511e</color>
+
 </resources>

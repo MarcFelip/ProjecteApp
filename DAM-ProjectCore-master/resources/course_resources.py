@@ -14,7 +14,7 @@ from sqlalchemy.orm.exc import NoResultFound
 import re
 
 import messages
-from db.models import Course, Enrollment, Task, Assigment
+from db.models import Course, Enrollment, Task, Assigment, Schedule, Exam, CourseTask, TaskStatusEnum
 from hooks import requires_auth
 from resources.base_resources import DAMCoreResource
 from settings import DATE_DEFAULT_FORMAT
@@ -85,11 +85,15 @@ class ResourceAddCourse(DAMCoreResource):
 
         if not "course_id" in kwargs:
             try:
+
+
                 # Create the course
                 aux_course.name = req.media["name"]
                 aux_course.description = req.media["description"]
                 self.db_session.add(aux_course)
                 self.db_session.commit()
+
+
 
                 course_id = self.db_session.query(Course.id).filter(req.media["name"] == Course.name)
                 aux_enrollment = Enrollment()
@@ -116,6 +120,114 @@ class ResourceAddCourse(DAMCoreResource):
 
 
 @falcon.before(requires_auth)
+class ResourceAddSchedules(DAMCoreResource):
+    def on_post(self, req, resp, *args, **kwargs):
+        super(ResourceAddSchedules, self).on_post(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+        if "course_id" in kwargs:
+            try:
+                query = self.db_session.query(Course).filter(
+                    current_user.id == Course.owner_id)
+
+                query = query.filter(Course.id == kwargs["course_id"])
+
+                if query.all() == []:
+                    raise falcon.HTTPBadRequest(description="únicament el owner pot afegir horaris.")
+
+                schedules = req.media['schedules']
+
+                for schedule in schedules:
+                    print(schedule)
+                    aux_schedule = Schedule()
+                    aux_schedule.day = schedule['day']
+                    aux_schedule.start = schedule['start']
+                    aux_schedule.end = schedule['end']
+                    aux_schedule.place = schedule['place']
+                    aux_schedule.course_id = kwargs["course_id"]
+
+                    self.db_session.add(aux_schedule)
+                    self.db_session.commit()
+
+            except KeyError:
+                raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+        else:
+            raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+
+
+@falcon.before(requires_auth)
+class ResourceAddExams(DAMCoreResource):
+    def on_post(self, req, resp, *args, **kwargs):
+        super(ResourceAddExams, self).on_post(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+
+        if "course_id" in kwargs:
+            try:
+                exams = req.media['exams']
+                query = self.db_session.query(Course).filter(
+                    current_user.id == Course.owner_id)
+
+                query = query.filter(Course.id == kwargs["course_id"])
+
+                if not query.all():
+                    raise falcon.HTTPBadRequest(description="únicament el owner pot afegir horaris.")
+
+                for exam in exams:
+                    aux_exam = Exam()
+                    aux_exam.date = datetime.datetime.strptime(exam['date'], DATE_DEFAULT_FORMAT).date()
+                    aux_exam.percent = exam['percent']
+                    aux_exam.tittle = exam['tittle']
+                    aux_exam.details = exam['details']
+                    aux_exam.total_points = exam['total_points']
+                    aux_exam.course_id = kwargs["course_id"]
+                    self.db_session.add(aux_exam)
+
+                    self.db_session.add(aux_exam)
+                self.db_session.commit()
+
+            except KeyError:
+                raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+        else:
+            raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+
+# revisar dates datetime.datetime.strptime(req.media["deadline"], DATE_DEFAULT_FORMAT).date()
+@falcon.before(requires_auth)
+class ResourceAddTask(DAMCoreResource):
+    def on_post(self, req, resp, *args, **kwargs):
+        super(ResourceAddTask, self).on_post(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+
+        if "course_id" in kwargs:
+            try:
+                tasks = req.media['tasks']
+                query = self.db_session.query(Course).filter(
+                    current_user.id == Course.owner_id)
+
+                query = query.filter(Course.id == kwargs["course_id"])
+
+                if not query.all():
+                    raise falcon.HTTPBadRequest(description="únicament el owner pot afegir tasques.")
+
+                for task in tasks:
+                    aux_task = CourseTask()
+                    aux_task.details = task['details']
+                    aux_task.tittle = task['tittle']
+                    aux_task.total_points = task['total_points']
+                    aux_task.percent = task['percent']
+                    aux_task.deadline = datetime.datetime.strptime(task['deadline'], DATE_DEFAULT_FORMAT).date()
+                    aux_task.course_id = kwargs["course_id"]
+                    self.db_session.add(aux_task)
+                self.db_session.commit()
+
+            except KeyError:
+                raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+        else:
+            raise falcon.HTTPBadRequest(description=messages.parameters_invalid)
+
+
+@falcon.before(requires_auth)
 class ResourceDeleteCourse(DAMCoreResource):
     def on_delete(self, req, resp, *args, **kwargs):
         super(ResourceDeleteCourse, self).on_delete(req, resp, *args, **kwargs)
@@ -139,9 +251,9 @@ class ResourceDeleteCourse(DAMCoreResource):
 
 
 @falcon.before(requires_auth)
-class ResourceAddTask(DAMCoreResource):
+class ResourceAddStudentTask(DAMCoreResource):
     def on_post(self, req, resp, *args, **kwargs):
-        super(ResourceAddTask, self).on_post(req, resp, *args, **kwargs)
+        super(ResourceAddStudentTask, self).on_post(req, resp, *args, **kwargs)
 
         current_user = req.context["auth_user"]
         aux_task = Task()
@@ -149,10 +261,7 @@ class ResourceAddTask(DAMCoreResource):
         if not "task_id" in kwargs:
             try:
                 # Create the task
-                aux_task.deadline = datetime.datetime.strptime(req.media["deadline"], DATE_DEFAULT_FORMAT).date()
-                aux_task.tittle = req.media["tittle"]
-                aux_task.details = req.media["details"]
-                aux_task.total_points = req.media["total_points"]
+                aux_task.course_task_id = kwargs["course_task_id"]
                 aux_task.join_secret = ''.join(random.choices(string.ascii_uppercase + string.digits, k=20))
                 self.db_session.add(aux_task)
                 self.db_session.commit()
@@ -244,14 +353,59 @@ class ResourceDeleteTask(DAMCoreResource):
 
 @falcon.before(requires_auth)
 class ResourceGetCourse(DAMCoreResource):
+
+
     def on_get(self, req, resp, *args, **kwargs):
         super(ResourceGetCourse, self).on_get(req, resp, *args, **kwargs)
 
+        current_user = req.context["auth_user"]
         if "course_id" in kwargs:
             try:
                 course = self.db_session.query(Course).filter(Course.id == kwargs["course_id"]).one()
 
-                resp.media = course.json_model
-                resp.status = falcon.HTTP_200
+                enroll = self.db_session.query(Enrollment).filter(
+                        and_(Enrollment.user_id == current_user.id, Enrollment.course_id == kwargs["course_id"]))
+                if enroll:
+
+                    assigments = self.db_session.query(Assigment).join(Task).filter(Assigment.course_id == kwargs["course_id"],
+                                                  Assigment.user_id == current_user.id)
+
+                    response = course.json_model
+                    subscribed = 0
+                    completed = 0
+                    task_index = 0
+                    global_mark = 0
+                    for task in course.tasks:
+                        for assigment in assigments:
+                            if task.id == assigment.task_id:
+                                subscribed+=1
+                                if assigment.mark is not None:
+                                    completed+=1
+                                    response["tasks"][task_index]["mark"]= assigment.mark
+                                    response["tasks"][task_index]["status"] = TaskStatusEnum.completed.value
+                                    global_mark += (int(assigment.mark) * (response["tasks"][task_index]["percent"]) / 100.0)
+                                else:
+                                    current_datetime = datetime.date.today()
+                                    day_period = datetime.timedelta(days=1)
+
+                                    if current_datetime + day_period  > task.deadline:
+                                        response["tasks"][task_index]["status"] = TaskStatusEnum.closed.value
+                                    else:
+                                        response["tasks"][task_index]["status"] = TaskStatusEnum.ongoing.value
+                        task_index+=1
+
+                    response["subscribed_tasks"] = subscribed
+                    response["completed_tasks"] = completed
+                    response["mark"] = global_mark
+
+
+
+                    resp.media = response
+                    resp.status = falcon.HTTP_200
+                else:
+                    resp.media = course.json_model
+                    resp.status = falcon.HTTP_200
             except NoResultFound:
                 raise falcon.HTTPBadRequest(description=messages.user_not_found)
+
+

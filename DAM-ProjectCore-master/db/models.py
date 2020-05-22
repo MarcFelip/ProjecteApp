@@ -47,6 +47,11 @@ class GenereEnum(enum.Enum):
     male = "M"
     female = "F"
 
+class TaskStatusEnum(enum.Enum):
+    completed = "Completed"
+    ongoing = "Ongoing"
+    closed = "Closed"
+
 
 
 class UserToken(SQLAlchemyBase):
@@ -64,6 +69,7 @@ class Enrollment(SQLAlchemyBase, JSONModel):
 
     course_id = Column(Integer, ForeignKey('courses.id',onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id',onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
+    mark = Column(Integer)
 
     student_enrolled = relationship("Course", back_populates="students_enrolled")
     course_enrolled = relationship("User", back_populates="courses_enrolled")
@@ -76,27 +82,68 @@ class Enrollment(SQLAlchemyBase, JSONModel):
         }
 
 
-class Task(SQLAlchemyBase, JSONModel):
-    __tablename__ = "tasks"
+# class Task(SQLAlchemyBase, JSONModel):
+#     __tablename__ = "tasks"
+#
+#     id = Column(Integer, primary_key=True)
+#     tittle = Column(Unicode(50))
+#     details = Column(Unicode(200))
+#     deadline = Column(Date)
+#     total_points = Column(Integer)
+#     join_secret = Column(UnicodeText, nullable=False)
+#
+#     task_assigments = relationship("Assigment", back_populates="task_assigment", cascade="all, delete-orphan")
+#
+#     @hybrid_property
+#     def json_model(self):
+#         return {
+#             "id":self.id,
+#             "tittle": self.tittle,
+#             "details": self.details,
+#             "deadline": self.deadline.strftime(
+#                 settings.DATE_DEFAULT_FORMAT) if self.deadline is not None else self.deadline,
+#             "total_points":self.total_points
+#         }
+
+class Milestone(SQLAlchemyBase, JSONModel):
+    __tablename__ = "milestones"
 
     id = Column(Integer, primary_key=True)
     tittle = Column(Unicode(50))
     details = Column(Unicode(200))
     deadline = Column(Date)
-    total_points = Column(Integer)
-    join_secret = Column(UnicodeText, nullable=False)
-
-    task_assigments = relationship("Assigment", back_populates="task_assigment", cascade="all, delete-orphan")
+    completed = Column(Integer)
+    task_id = Column(Integer, ForeignKey('tasks.id', onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
+    task = relationship("Task", back_populates="milestones")
 
     @hybrid_property
     def json_model(self):
         return {
             "id":self.id,
             "tittle": self.tittle,
-            "details": self.details,
             "deadline": self.deadline.strftime(
                 settings.DATE_DEFAULT_FORMAT) if self.deadline is not None else self.deadline,
-            "total_points":self.total_points
+            "details": self.details,
+            "completed": self.completed,
+        }
+
+class Task(SQLAlchemyBase, JSONModel):
+    __tablename__ = "tasks"
+
+    id = Column(Integer, primary_key=True)
+    course_task_id = Column(Integer, ForeignKey('course_tasks.id', onupdate="CASCADE", ondelete="CASCADE"))
+    join_secret = Column(UnicodeText, nullable=False)
+
+
+    task_assigments = relationship("Assigment", back_populates="task_assigment", cascade="all, delete-orphan")
+    milestones = relationship("Milestone", back_populates="task", cascade="all, delete-orphan")
+
+    @hybrid_property
+    def json_model(self):
+        return {
+            "id":self.id,
+            "join_secret": self.join_secret,
+            "milestones": [milestone.json_model for milestone in self.milestones],
         }
 
 
@@ -119,26 +166,58 @@ class Assigment(SQLAlchemyBase, JSONModel):
             "user_id": self.user_id,
         }
 
+
+
 class Exam(SQLAlchemyBase, JSONModel):
     __tablename__ = "exams"
 
+    id = Column(Integer, autoincrement=True, primary_key=True)
     course_id = Column(Integer, ForeignKey('courses.id',onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id',onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
     tittle = Column(Unicode(50))
     details = Column(Unicode(200))
-    deadline = Column(Date)
+    date = Column(Date)
     total_points = Column(Integer)
-    mark = Column(Integer)
-
-    student_exam = relationship("Course", back_populates="students_exams")
-    course_exam = relationship("User", back_populates="courses_exams")
+    percent = Column(Integer)
+    course = relationship("Course", back_populates="exams")
 
     @hybrid_property
     def json_model(self):
         return {
-            "course_id": self.course_id,
-            "user_id": self.user_id,
+            "id": self.id,
+            "total_points": self.total_points,
+            "date": self.date.strftime(
+                settings.DATE_DEFAULT_FORMAT) if self.date is not None else self.date,
+            "tittle": self.tittle,
+            "details": self.details,
+            "percent": self.percent
         }
+
+
+class CourseTask(SQLAlchemyBase, JSONModel):
+    __tablename__ = "course_tasks"
+
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    course_id = Column(Integer, ForeignKey('courses.id',onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
+    tittle = Column(Unicode(50))
+    details = Column(Unicode(200))
+    deadline = Column(Date)
+    total_points = Column(Integer)
+    percent = Column(Integer)
+
+    @hybrid_property
+    def json_model(self):
+        return {
+            "id": self.id,
+            "total_points": self.total_points,
+            "deadline": self.deadline.strftime(
+                settings.DATE_DEFAULT_FORMAT) if self.deadline is not None else self.deadline,
+            "tittle": self.tittle,
+            "details": self.details,
+            "percent": self.percent
+        }
+
+    course = relationship("Course", back_populates="tasks")
+
 
 
 class Schedule(SQLAlchemyBase, JSONModel):
@@ -179,8 +258,8 @@ class User(SQLAlchemyBase, JSONModel):
 
     courses_enrolled = relationship("Enrollment", back_populates="course_enrolled", cascade="all, delete-orphan")
     courses_assigments = relationship("Assigment", back_populates="course_assigment",cascade="all, delete-orphan")
-    courses_exams = relationship("Exam", back_populates="course_exam", cascade="all, delete-orphan")
-
+    #courses_exams = relationship("Exam", back_populates="course_exam", cascade="all, delete-orphan")
+    courses_created = relationship("Course", back_populates="owner", cascade="all, delete-orphan")
     #subjects_enrolled = relationship("Subject", back_populates="registered")
 
     @hybrid_property
@@ -235,10 +314,15 @@ class Course(SQLAlchemyBase, JSONModel):
     name = Column(Unicode(100), nullable=False, unique=True)
     description = Column(Unicode(200))
 
+    owner_id = Column(Integer,ForeignKey("users.id",onupdate="CASCADE", ondelete="CASCADE"), nullable=False)
+    owner = relationship("User", back_populates="courses_created")
+
     students_enrolled = relationship("Enrollment", back_populates="student_enrolled", cascade="all, delete-orphan")
     students_assigments = relationship("Assigment", back_populates="student_assigment", cascade="all, delete-orphan")
-    students_exams = relationship("Exam", back_populates="student_exam", cascade="all, delete-orphan")
+    #students_exams = relationship("Exam", back_populates="student_exam", cascade="all, delete-orphan")
     schedules = relationship("Schedule", back_populates="course", cascade="all, delete-orphan")
+    exams = relationship("Exam", back_populates="course", cascade="all, delete-orphan")
+    tasks = relationship("CourseTask", back_populates="course", cascade="all, delete-orphan")
 
     @hybrid_property
     def json_model(self):
@@ -247,6 +331,8 @@ class Course(SQLAlchemyBase, JSONModel):
             "name": self.name,
             "description": self.description,
             "schedules": [schedule.json_model for schedule in self.schedules],
+            "exams":[exam.json_model for exam in self.exams],
+            "tasks": [task.json_model for task in self.tasks],
         }
 
 

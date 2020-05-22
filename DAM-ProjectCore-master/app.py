@@ -44,28 +44,29 @@ application.add_route("/users/show/{username}", user_resources.ResourceGetUserPr
 # List Courses
 application.add_route("/courses/list", course_resources.ResourceGetCourses())
 application.add_route("/courses/show/{course_id}", course_resources.ResourceGetCourse())
-
-# Create and delete Courses
+# Serveix per donar d'alta un nou curs -> usuari és l'owner
 application.add_route("/courses/add", course_resources.ResourceAddCourse())
+# Serveix per subscriureu's a un curs
 application.add_route("/courses/{course_id}/add", course_resources.ResourceAddCourse())
+# Serveix per desubscriureu's a un curs -> si es l'owner elimina el curs de la BD
 application.add_route("/courses/{course_id}/{user_id}/delete", course_resources.ResourceDeleteCourse())
+# Aquestes operacions son del owner (afegir horaris, examens i tasques)
+application.add_route("/courses/{course_id}/schedules/add", course_resources.ResourceAddSchedules())
+application.add_route("/courses/{course_id}/exams/add", course_resources.ResourceAddExams())
+application.add_route("/courses/{course_id}/task/add", course_resources.ResourceAddTask())
 
 # List Tasks
 application.add_route("/courses/task/list", course_resources.ResourceGetTasks())
-
 # Create the task and enroll in a course.
-application.add_route("/courses/{course_id}/task/add", course_resources.ResourceAddTask())
+application.add_route("/courses/{course_id}/tasks/{course_task_id}/add", course_resources.ResourceAddStudentTask())
+
 # Join to a created task (Groups).
-application.add_route("/courses/{course_id}/task/{task_id}/join", course_resources.ResourceAddTask())
-application.add_route("/courses/{course_id}/task/{task_id}/update", course_resources.ResourceUpdateTask())
-application.add_route("/courses/{course_id}/task/{task_id}/delete", course_resources.ResourceDeleteTask())
+application.add_route("/tasks/{course_id}/{task_id}/join", course_resources.ResourceAddStudentTask())
+application.add_route("/tasks/{course_id}/{task_id}/update", course_resources.ResourceUpdateTask())
+application.add_route("/tasks/{course_id}/{task_id}/delete", course_resources.ResourceDeleteTask())
 
-
-
-
-
-
-
+# OJO: course_task_id -> representa la informació comuna -> es la tasca del curs
+# OJO: task_id -> representa la copia de la tasca a la carpeta dels estudiants o faran el seu seguiment i podran fer grups.
 
 #application.add_route("/users/insert_class", user_resources.ResourcePostSubject())
 application.add_sink(handle_404, "")

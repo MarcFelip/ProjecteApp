@@ -1,10 +1,12 @@
 package cat.udl.tidic.amd.beenote.dao;
 
+
 import com.google.gson.JsonObject;
 
 import java.util.List;
 import java.util.Map;
 
+import cat.udl.tidic.amd.beenote.models.Course;
 import cat.udl.tidic.amd.beenote.models.CourseModel;
 import cat.udl.tidic.amd.beenote.models.CourseModel2;
 import cat.udl.tidic.amd.beenote.network.RetrofitClientInstance;
@@ -18,6 +20,11 @@ public class CourseDAOImpl implements CourseDAOI {
     @Override
     public Call<List<CourseModel>> getStudentCourses(String token) {
         return retrofit.create(CourseDAOI.class).getStudentCourses(token);
+    }
+
+    @Override
+    public Call<Course> getCourse(String token, String course_id) {
+        return retrofit.create(CourseDAOI.class).getCourse(token, course_id);
     }
 
     @Override
