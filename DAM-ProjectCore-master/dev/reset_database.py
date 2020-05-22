@@ -9,7 +9,8 @@ from sqlalchemy.sql import text
 
 import db
 import settings
-from db.models import SQLAlchemyBase, User, GenereEnum, UserToken, Course, Schedule, Task, Exam, Enrollment, Assigment
+from db.models import SQLAlchemyBase, User, GenereEnum, UserToken, Course, Schedule, Task, Exam, Enrollment, Assigment, \
+    CourseTask
 from settings import DEFAULT_LANGUAGE
 
 # LOGGING
@@ -88,11 +89,13 @@ if __name__ == "__main__":
     course_dam = Course(
         name = "Desenvolupament d'Apliacions per a dispositius mòvils",
         description="Aquesta es la descripció de DAM...",
+        owner_id=2
     )
 
     course_intic = Course(
         name="Innovació a les TIC",
         description="Aquesta es la descripció de INTIC...",
+        owner_id=2
     )
 
     db_session.add(course_dam)
@@ -121,67 +124,63 @@ if __name__ == "__main__":
     db_session.add(user2NTIC)
     db_session.commit()
 
-# -------------------- CREATE TASKS --------------------
-    mylogger.info("Creating default tasks...")
-    t1 = Task(
-        tittle="Task 1 DAM",
-        details = "Details Task 1 DAM",
-        deadline = datetime.datetime(2020, 6, 6),
-        total_points = 10,
-        join_secret="1234"
-    )
 
-    t2 = Task(
-        tittle="Task 1 INTIC",
-        details="Details Task 1 INTIC",
-        deadline=datetime.datetime(2020, 5, 21),
-        total_points=10,
-        join_secret="1234"
-    )
-
-    t3 = Task(
-        tittle="Task 1 INTIC",
-        details="Details Task 1 INTIC",
-        deadline=datetime.datetime(2020, 5, 21),
-        total_points=10,
-        join_secret="1234"
-    )
-
-    db_session.add(t1)
-    db_session.add(t2)
-    db_session.add(t3)
-    db_session.commit()
-
-    user1task1INTIC = Assigment(
-        task_id=1,
-        user_id=2,
-        course_id=1
-    )
-
-    user1task2INTIC = Assigment(
-        task_id=2,
-        user_id=2,
-        course_id=1
-    )
-
-    db_session.add(user1task1INTIC)
-    db_session.add(user1task2INTIC)
-    db_session.commit()
-
-
-    # -------------------- CREATE EXAMNS --------------------
+    # -------------------- CREATE EXAMS --------------------
     mylogger.info("Creating default exams...")
-    user1exam1DAM = Exam(
+    exam1DAM = Exam(
         course_id=1,
-        user_id=2,
         tittle="Exam 1 DAM",
         details="Details Exam 1 DAM",
-        deadline=datetime.datetime(2017, 1, 1),
+        date=datetime.datetime(2017, 1, 1),
         total_points=10,
-        mark=8
+        percent=20,
     )
 
-    db_session.add(user1exam1DAM)
+    exam2DAM = Exam(
+        course_id=1,
+        tittle="Exam 1 DAM",
+        details="Details Exam 1 DAM",
+        date=datetime.datetime(2017, 1, 1),
+        total_points=10,
+        percent=20,
+    )
+
+    db_session.add(exam1DAM)
+    db_session.add(exam2DAM)
+    db_session.commit()
+
+    # -------------------- CREATE TASKS --------------------
+    mylogger.info("Creating default course tasks...")
+    task1DAM = CourseTask(
+        course_id=1,
+        tittle="Task 1 DAM",
+        details="Details Task 1 DAM",
+        deadline=datetime.datetime(2017, 1, 1),
+        total_points=10,
+        percent=10
+    )
+
+    task2DAM = CourseTask(
+        course_id=1,
+        tittle="Task 2 DAM",
+        details="Details Exam 2 DAM",
+        deadline=datetime.datetime(2017, 1, 1),
+        total_points=5,
+        percent=20
+    )
+
+    task3DAM = CourseTask(
+        course_id=1,
+        tittle="Task 3 DAM",
+        details="Details Task 3 DAM",
+        deadline=datetime.datetime(2021, 1, 1),
+        total_points=5,
+        percent=20
+    )
+
+    db_session.add(task1DAM)
+    db_session.add(task2DAM)
+    db_session.add(task3DAM)
     db_session.commit()
 
  # -------------------- CREATE SCHEDULES --------------------
@@ -214,5 +213,52 @@ if __name__ == "__main__":
     db_session.add(schedule1INTIC)
     db_session.add(schedule2INTIC)
     db_session.add(schedule1DAM)
+
+    # -------------------- CREATE TASKS --------------------
+    mylogger.info("Creating default tasks...")
+    t1 = Task(
+        course_task_id=1,
+        join_secret="1234"
+    )
+
+    t2 = Task(
+        course_task_id=1,
+        join_secret="1234"
+    )
+
+    t3 = Task(
+        course_task_id=2,
+        join_secret="1234"
+    )
+
+    db_session.add(t1)
+    db_session.add(t2)
+    db_session.add(t3)
+    db_session.commit()
+
+    user1task1INTIC = Assigment(
+        task_id=1,
+        user_id=2,
+        course_id=1,
+        mark = 8
+    )
+
+    user1task2INTIC = Assigment(
+        task_id=2,
+        user_id=2,
+        course_id=1
+    )
+
+    user1task3INTIC = Assigment(
+        task_id=3,
+        user_id=2,
+        course_id=1
+    )
+
+    db_session.add(user1task1INTIC)
+    db_session.add(user1task2INTIC)
+    db_session.add(user1task3INTIC)
+    db_session.commit()
+
     db_session.commit()
     db_session.close()

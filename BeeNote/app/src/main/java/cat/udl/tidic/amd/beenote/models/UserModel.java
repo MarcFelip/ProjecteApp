@@ -8,9 +8,6 @@ import com.google.gson.annotations.SerializedName;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cat.udl.tidic.amd.beenote.Repository.UserRepository;
-import cat.udl.tidic.amd.beenote.services.UserService;
-
 public class UserModel {
 
     @SerializedName("created_at")

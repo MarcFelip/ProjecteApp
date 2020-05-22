@@ -79,7 +79,7 @@ public class Assignatures extends ActivityWithNavView {
         adapter.setOnItemClickListener(new Assignatura_Adapter.OnItemClickListener() {
             @Override
             public void onItemClick(CourseModel event) {
-                Intent intent = new Intent(Assignatures.this, Assignatures.class);
+                Intent intent = new Intent(Assignatures.this, CourseActivity.class);
                 startActivity(intent);
             }
         });
@@ -115,6 +115,7 @@ public class Assignatures extends ActivityWithNavView {
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         Log.e("Course eliminado", response.message());
                         Toast.makeText(getApplicationContext(), "Curso eliminado", Toast.LENGTH_SHORT).show();
+                        viewModel.obtainStudentCourses();
                     }
 
                     @Override

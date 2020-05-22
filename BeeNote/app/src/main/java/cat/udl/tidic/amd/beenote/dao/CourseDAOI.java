@@ -7,9 +7,10 @@ import com.google.gson.JsonObject;
 import java.util.List;
 import java.util.Map;
 
+
+import cat.udl.tidic.amd.beenote.models.Course;
 import cat.udl.tidic.amd.beenote.models.CourseModel;
 import cat.udl.tidic.amd.beenote.models.CourseModel2;
-import cat.udl.tidic.amd.beenote.models.UserModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -27,6 +28,10 @@ public interface CourseDAOI {
 
     @GET("/courses/list")
     Call<List<CourseModel>> getStudentCourses(@Header("Authorization") String token);
+
+    @GET("/courses/show/{course_id}")
+    Call<Course> getCourse(@Header("Authorization") String token,
+                           @Path("course_id")String course_id);
 
     @POST("/courses/add")
     Call<Void> postCourseWithoutId(@Header("Authorization") String base64_encoding, @Body CourseModel2 model);

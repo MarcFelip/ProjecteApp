@@ -1,5 +1,35 @@
 package cat.udl.tidic.amd.beenote.models;
 
+import cat.udl.tidic.amd.beenote.R;
+
+//private enum TaskType{
+//        Classe("classe", "classe"), Entrega("entrega", "entrega"), Examen("examen", "examen");
+//
+//        String name;
+//        String id;
+//
+//        TaskType(String _id,String name){
+//            this.name = name;
+//            this.id = id;
+//        }
+//
+//        public static Integer getColourResource(TaskType t){
+//        switch(t){
+//            case Classe:
+//                return R.color.red;
+//            case Entrega:
+//                return R.color.colorAccent;
+//            case Examen:
+//                return R.color.colorPrimary;
+//            default:
+//                return -1;
+//        }
+//    }
+//
+//        // TODO: Si voleu assignar una icona a cada tipo
+//}
+
+
 public class TaskModel2 {
 
     private String tittle;

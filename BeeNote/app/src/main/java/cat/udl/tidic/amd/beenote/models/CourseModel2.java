@@ -1,5 +1,6 @@
 package cat.udl.tidic.amd.beenote.models;
 
+
 public class CourseModel2 {
 
     private String name;

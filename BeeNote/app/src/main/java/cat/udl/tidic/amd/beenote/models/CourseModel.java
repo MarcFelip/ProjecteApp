@@ -1,7 +1,5 @@
 package cat.udl.tidic.amd.beenote.models;
 
-
-
 import com.google.gson.annotations.SerializedName;
 
 
@@ -13,11 +11,37 @@ public class CourseModel {
     @SerializedName("name")
     private String title;
 
+    @SerializedName("description")
+    private String description;
+
+    @SerializedName("schedules")
+    private Schedule schedules;
+
+    @SerializedName("exams")
+    private Exam exams;
+
+    @SerializedName("tasks")
+    private Task tasks;
 
     public CourseModel() {
 
     }
+    public CourseModel(String name, String description) {
+        this.title = name;
+        this.description = description;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getId() {
         return id;

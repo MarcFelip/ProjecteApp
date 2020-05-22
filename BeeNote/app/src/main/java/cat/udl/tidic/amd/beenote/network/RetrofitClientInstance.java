@@ -1,5 +1,4 @@
 package cat.udl.tidic.amd.beenote.network;
-
 import android.util.Log;
 
 import cat.udl.tidic.amd.beenote.BuildConfig;
