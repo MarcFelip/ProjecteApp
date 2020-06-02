@@ -2,6 +2,8 @@ package cat.udl.tidic.amd.beenote;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,7 +58,7 @@ public class Assignatures extends ActivityWithNavView {
         // Creem la part del menu (Pare)
         super.initView(R.layout.activity_assignatures,
                 R.id.drawer_assignatures,
-                R.id.nav__assignatures);
+                R.id.nav__assignatures,2);
 
         addCourse = findViewById(R.id.addCourse);
 
@@ -100,11 +102,13 @@ public class Assignatures extends ActivityWithNavView {
             public boolean onMove(@NonNull RecyclerView recyclerView,
                                   @NonNull RecyclerView.ViewHolder viewHolder,
                                   @NonNull RecyclerView.ViewHolder target) {
+                viewHolder.itemView.setBackgroundColor(Color.RED);
                 return false;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                viewHolder.itemView.setBackgroundColor(Color.RED);
                 viewModel.removeCourse(adapter.getEventAt(viewHolder.getAdapterPosition()));
 
                 //TODO falla eliminar

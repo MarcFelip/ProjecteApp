@@ -14,27 +14,29 @@
             android:id="@+id/MenuPrincipal_PerfilUsuario"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="120dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="80dp"
             android:background="@drawable/user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintStart_toEndOf="@+id/MenuPrincipal_Tareas"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/MenuPrincipal_Horari"
             android:layout_width="65dp"
             android:layout_height="65dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="80dp"
-            android:layout_marginEnd="120dp"
+            android:layout_marginEnd="150dp"
             android:background="@drawable/calendar"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/MenuPrincipal_PerfilUsuario"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/MenuScrolling_Notes"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginStart="120dp"
+            android:layout_marginStart="150dp"
             android:layout_marginTop="80dp"
             android:background="@drawable/asignatures"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,8 +84,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="10dp"
             android:text="@string/menuPrincipal_button_horario"
             android:textColor="@android:color/black"
             android:textSize="14sp"
@@ -96,15 +97,15 @@
             android:id="@+id/MenuPrincipal_Tareas"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="80dp"
             android:background="@drawable/tareas"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintStart_toEndOf="@+id/MenuScrolling_Notes"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/calendarView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="440dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
@@ -126,45 +127,27 @@
             android:id="@+id/menu_scrolling_text_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:textColor="#F44336"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.213"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="24dp"
             android:text="Calendario"
             android:textColor="@android:color/secondary_text_light"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.068"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="20dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="left" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

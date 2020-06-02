@@ -8,7 +8,7 @@ public enum TaskStatusEnum {
     Ongoing("Ongoing","Ongoing"),
     Closed("Closed","Closed");
 
-    String name;
+    String name="";
     String id;
 
     TaskStatusEnum(String _id, String _name){

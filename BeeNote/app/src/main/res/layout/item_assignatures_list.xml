@@ -16,28 +16,40 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="72dp"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/photo"
-                android:layout_width="?android:attr/listPreferredItemHeight"
-                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:layout_width="100dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
                 android:contentDescription="Event foto"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:src="@drawable/courseicon"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="268dp"
                 android:layout_height="21dp"
+                android:layout_marginTop="12dp"
                 android:maxLines="1"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.042"
+                app:layout_constraintStart_toEndOf="@+id/photo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="268dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="35dp"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/photo"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nav_editaCalendar">
-
-        <item
-            android:id="@+id/nav_editarEvento"
-            android:icon="@android:drawable/ic_menu_edit"
-            android:title="@string/Calendar_menu_Editar" />
-        <item
-            android:id="@+id/nav_ElimimarEvento"
-            android:icon="@android:drawable/ic_delete"
-            android:title="@string/Calendar_menu_Eliminar" />
-        <item
-            android:id="@+id/nav_NuevoEvento"
-            android:icon="@android:drawable/ic_input_add"
-            android:title="@string/Calendar_menu_Nuevo" />
+        <item android:id="@+id/nav_evento_calendar_title" android:title="Evento">
+                <menu>
+                        <item
+                            android:id="@+id/nav_editarEvento"
+                            android:icon="@android:drawable/ic_menu_edit"
+                            android:title="@string/Calendar_menu_Editar" />
+                        <item
+                            android:id="@+id/nav_NuevoEvento"
+                            android:icon="@android:drawable/ic_input_add"
+                            android:title="@string/Calendar_menu_Nuevo" />
+                        <item
+                            android:id="@+id/nav_ElimimarEvento"
+                            android:icon="@android:drawable/ic_delete"
+                            android:title="@string/Calendar_menu_Eliminar" />
+                </menu>
+        </item>
 </menu>

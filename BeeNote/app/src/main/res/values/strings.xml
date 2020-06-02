@@ -36,6 +36,7 @@
     <string name="menuPrincipal_button_grupos">Grupos</string>
     <string name="menuPrincipal_button_notas">Asignaturas</string>
     <string name="menuPrincipal_button_horario">Horario</string>
+    <string name="menuPrincipal_button_tareas">Tareas</string>
 
     <string name="Calendar_menu_Editar">Editar Evento</string>
     <string name="Calendar_menu_Nuevo">Nuevo Evento</string>
@@ -57,6 +58,7 @@
     <string name="navmenu_text_horario">Horario</string>
     <string name="navmenu_text_calendario">Calendario</string>
     <string name="navmenu_text_grupos">Grupos</string>
+    <string name="navmenu_text_tareas">Tareas</string>
 
     <string name="ajustesMenu_text_cerrarSesion">Cerrar Sesión</string>
 

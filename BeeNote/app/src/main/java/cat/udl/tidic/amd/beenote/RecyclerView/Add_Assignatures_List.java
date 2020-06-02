@@ -56,7 +56,7 @@ public class Add_Assignatures_List extends ActivityWithNavView implements Lifecy
         // Creem la part del menu (Pare)
         super.initView(R.layout.activity_add__assignatures__list,
                 R.id.drawer_add_notes,
-                R.id.nav__add_notes);
+                R.id.nav__add_notes,0);
 
         menu = findViewById(R.id.Toolbar_Menu);
         cancelar_asignatura = findViewById(R.id.cancelar_asignatura);

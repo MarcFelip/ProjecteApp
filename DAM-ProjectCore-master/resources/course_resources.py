@@ -29,14 +29,15 @@ class ResourceGetCourses(DAMCoreResource):
 
         current_user = req.context["auth_user"]
         response_student_courses = list()
-        aux_student_courses= self.db_session.query(Enrollment.course_id, Course.name)\
+        aux_student_courses= self.db_session.query(Enrollment.course_id, Course.name, Course.description)\
             .join(Course).filter(Enrollment.user_id == current_user.id )
 
         if aux_student_courses is not None:
             for student_current_course in aux_student_courses.all():
                 response_item = {
                     'id': student_current_course[0],
-                    'name': student_current_course[1]
+                    'name': student_current_course[1],
+                    'description': student_current_course[2]
                 }
                 response_student_courses.append(response_item)
 

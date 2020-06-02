@@ -2,7 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4f57374-19b2-45da-a1ba-e8665e53e54f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/Assignatures.java" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/Assignatures.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/Dialog/Calendar_Dialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/Dialog/EventCalendarDelete.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BeeNote/app/src/main/res/drawable/tareas.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout/activity_calendario_dialog.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout/activity_delet_event_calendar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/ActivityWithNavView.java" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/ActivityWithNavView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/DeleteEventCalendar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/Dialog/NewEventCalendar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/MenuPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/MenuPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/MyEventDay.java" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/MyEventDay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/NewEventCalendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/NewEventCalendar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/ViewModels/menuPrincipal_ViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/ViewModels/menuPrincipal_ViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/adapters/TaskAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/adapters/TaskAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/models/TaskStatusEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/java/cat/udl/tidic/amd/beenote/models/TaskStatusEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout-land/activity_menu_principal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout-land/activity_menu_principal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout/activity_deleteeventcalendar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout/activity_editeventcalendar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout/activity_editeventcalendar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout/activity_neweventcalendar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout/activity_neweventcalendar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout/menu_scrolling.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/res/layout/menu_scrolling.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/res/menu/menu_calendar_editar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/res/menu/menu_calendar_editar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/res/menu/my_nav_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/res/menu/my_nav_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BeeNote/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BeeNote/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAM-ProjectCore-master/dev/reset_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/DAM-ProjectCore-master/dev/reset_database.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

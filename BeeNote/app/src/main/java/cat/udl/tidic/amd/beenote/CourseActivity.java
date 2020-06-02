@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.app.progresviews.ProgressWheel;
 
-import cat.udl.tidic.amd.beenote.RecyclerView.Assignatura_Adapter;
-import cat.udl.tidic.amd.beenote.RecyclerView_Assignatures.AssignaturesDiffCallback;
 import cat.udl.tidic.amd.beenote.ViewModels.CourseViewModel;
 import cat.udl.tidic.amd.beenote.adapters.TaskAdapter;
 import cat.udl.tidic.amd.beenote.adapters.TaskDiffCallback;
@@ -44,7 +42,7 @@ public class CourseActivity extends ActivityWithNavView {
     private void initViews() {
         super.initView(R.layout.course_activity,
                 R.id.drawer_assignatures,
-                R.id.nav__assignatures);
+                R.id.nav__assignatures,3);
 
         textViewTaskSubscribed = findViewById(R.id.textViewTaskSubscribed);
         textViewCourseSchedules = findViewById(R.id.textViewCourseSchedules);

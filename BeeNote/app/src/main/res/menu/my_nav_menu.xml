@@ -19,12 +19,16 @@
             android:icon="@drawable/time_nav"
             android:title="@string/navmenu_text_horario" />
         <item
+            android:id="@+id/nav_tareas"
+            android:icon="@drawable/notes"
+            android:title="@string/navmenu_text_tareas" />
+        <item
             android:id="@+id/nav_grupos"
             android:icon="@drawable/briefcase_nav"
             android:title="@string/navmenu_text_grupos" />
         <item
             android:id="@+id/nav_añadirgrupo"
-            android:title="@string/a_adir_tarea"
+            android:title="Añadir grupo"
             android:icon="@drawable/ic_add"
             android:visible="false"/>
     </group>

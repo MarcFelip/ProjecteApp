@@ -99,12 +99,14 @@ public class CourseRepo {
 
         private CourseDAOI courseDAO;
 
+
         private DeleteEventAsyncTask(CourseDAOI eventDAO) {
             this.courseDAO = eventDAO;
         }
 
         @Override
         protected Void doInBackground(CourseModel... events) {
+
             courseDAO.delete(events[0]);
             return null;
         }

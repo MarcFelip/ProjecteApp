@@ -65,7 +65,7 @@ public class Add_Tasks_List extends  ActivityWithNavView implements LifecycleOwn
         // Creem la part del menu (Pare)
         super.initView(R.layout.activity_add__tasks__list,
                 R.id.drawer_add_task,
-                R.id.nav__add_task);
+                R.id.nav__add_task,0);
 
         menu = findViewById(R.id.Toolbar_Menu);
         cancelar_tasca = findViewById(R.id.cancelar_task);

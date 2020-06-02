@@ -79,9 +79,22 @@ if __name__ == "__main__":
     user_2.set_password("r45tgt")
     user_2.tokens.append(UserToken(token="0a821f8ce58965eadc5ef884cf6f7ad99e0e7f58f429f584b2"))
 
+    user_3 = User(
+        created_at=datetime.datetime(2020, 1, 1, 0, 1, 1),
+        username="beenote00",
+        email="beenote00@gmail.com",
+        name="BeeNote",
+        surname="3",
+        birthdate=datetime.datetime(2000, 1, 1),
+        genere=GenereEnum.male
+    )
+    user_3.set_password("beenote")
+    user_3.tokens.append(UserToken(token="db4af57b245f2b69df0fca9f1cc3f33a824bd6513ff465da73"))
+
     db_session.add(user_admin)
     db_session.add(user_1)
     db_session.add(user_2)
+    db_session.add(user_3)
     db_session.commit()
 
  # -------------------- CREATE COURSES --------------------
@@ -119,9 +132,20 @@ if __name__ == "__main__":
         user_id=3,
     )
 
+    user3DAM = Enrollment(
+        course_id=1,
+        user_id=4,
+    )
+    user3NTIC = Enrollment(
+        course_id=2,
+        user_id=4,
+    )
+
     db_session.add(user1DAM)
     db_session.add(user1NTIC)
     db_session.add(user2NTIC)
+    db_session.add(user3DAM)
+    db_session.add(user3NTIC)
     db_session.commit()
 
 
@@ -255,9 +279,24 @@ if __name__ == "__main__":
         course_id=1
     )
 
+    user4task1INTIC = Assigment(
+        task_id=1,
+        user_id=4,
+        course_id=1,
+        mark = 8
+    )
+    user4task2INTIC = Assigment(
+        task_id=2,
+        user_id=4,
+        course_id=1,
+        mark=5
+    )
+
     db_session.add(user1task1INTIC)
     db_session.add(user1task2INTIC)
     db_session.add(user1task3INTIC)
+    db_session.add(user4task1INTIC)
+    db_session.add(user4task2INTIC)
     db_session.commit()
 
     db_session.commit()

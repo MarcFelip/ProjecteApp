@@ -53,7 +53,7 @@ public class ActivityWithNavView extends AppCompatActivity {
 
     }
 
-    protected void initView(int layout, int drawer, int nav_view){
+    protected void initView(int layout, int drawer, int nav_view, int pantalla){
         setContentView(layout);
         menu = findViewById(R.id.Toolbar_Menu);
         ajustes = findViewById(R.id.Toolbar_Ajustes);
@@ -66,6 +66,30 @@ public class ActivityWithNavView extends AppCompatActivity {
         email = headerView.findViewById(R.id.toolbar_Correo);
 
         my_header();
+
+        System.out.println("Menu: " + layout);
+
+        if(pantalla==1)
+        {
+            navigationView.getMenu().getItem(0).setChecked(true);
+        }
+        if(pantalla == 2)
+        {
+            navigationView.getMenu().getItem(2).setChecked(true);
+        }
+        if(pantalla == 3)
+        {
+            navigationView.getMenu().getItem(2).setChecked(true);
+        }
+        if(pantalla == 4)
+        {
+            navigationView.getMenu().getItem(1).setChecked(true);
+        }
+        if(pantalla == 5)
+        {
+            navigationView.getMenu().getItem(4).setChecked(true);
+        }
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -87,6 +111,10 @@ public class ActivityWithNavView extends AppCompatActivity {
                     drawerLayout.closeDrawers();
                     navigateToAssignatures();
                 }
+                else if (id == R.id.nav_tareas) {
+                    drawerLayout.closeDrawers();
+                    navigateToTask();
+                }
                 else if (id == R.id.nav_grupos) {
 
                     SubMenu = navigationView.getMenu();
@@ -96,7 +124,6 @@ public class ActivityWithNavView extends AppCompatActivity {
                 }
                 else if (id == R.id.nav_añadirgrupo) {
                     drawerLayout.closeDrawers();
-                    navigateToAñadirGrupo();
                 }
 
                 return true;
@@ -216,8 +243,8 @@ public class ActivityWithNavView extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void navigateToAñadirGrupo(){
-        Intent intent = new Intent(this, Add_Tasks_List.class);
+    private void navigateToTask(){
+        Intent intent = new Intent(this, Tasks.class);
         startActivity(intent);
 
     }

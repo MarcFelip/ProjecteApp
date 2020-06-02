@@ -58,7 +58,10 @@ public class TaskAdapter extends ListAdapter<Task, TaskAdapter.TaskHolder> {
         holder.task_total_points.setText(String.valueOf(currentTask.getPoints())+"("+ currentTask.getPercent()+"%)");
 
 
+        System.out.println("Tascas: "+currentTask);
         holder.task_status.setText(currentTask.getStatus().getName());
+        System.out.println("Tascas status: "+currentTask.getStatus());
+        System.out.println("Tascas status name: "+currentTask.getStatus().getName());
         holder.task_status.setTextColor(ContextCompat.getColor(holder.task_status.getContext(),
                 TaskStatusEnum.getColourResource(currentTask.getStatus())));
 

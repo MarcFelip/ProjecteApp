@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -45,6 +46,12 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
     private Button grup_no;
     private EditText nota;
     private Button guardar;
+    private Button calcelar;
+
+    private int houreFinal = 000;
+    private int minuteFinale;
+
+    private boolean grup = false;
 
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
     private MenuPrincipal menuPrincipal = new MenuPrincipal();
@@ -67,23 +74,15 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
         grup_si = findViewById(R.id.btn_si_grup);
         nota = findViewById(R.id.et_nota);
         guardar = findViewById(R.id.boto_guardar);
+        calcelar = findViewById(R.id.evento_boto_cancelar);
 
-
-        //Guardem la descripcció, la aula, la nota i el títol
-        String titulo_string = titulo.getText().toString();
-        String aula_string = aula.getText().toString();
-        String descricpio_string = descripcio.getText().toString();
-        String nota_string = nota.getText().toString();
-
-        titulo.setText(titulo_string);
-        aula.setText(aula_string);
-        descripcio.setText(descricpio_string);
-        nota.setText(nota_string);
 
         //Afegim la data previament seleccionada
-        String menu_data;
-        menu_data = String.valueOf(menuPrincipal_viewModel.getDate());
-        data.setText(menu_data);
+        Bundle extras = getIntent().getExtras();
+        String dataCalendar = extras.getString("Data");
+        long datamilli = extras.getLong(("DataMilli"));
+        System.out.println("data: " + dataCalendar);
+        data.setText(dataCalendar);
 
         //Listener botó hora
         boto_hora.setOnClickListener(new View.OnClickListener() {
@@ -109,22 +108,77 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
         adapter_tipus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tasca.setAdapter(adapter_tipus);
 
-        /*
-        tasca.setOnItemClickListener(new AdapterView.OnItemSelectedListener() {
+
+        guardar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onClick(View v) {
+                //Guardem la descripcció, la aula, la nota i el títol
+                String titulo_string = titulo.getText().toString();
+                String aula_string = aula.getText().toString();
+                String descricpio_string = descripcio.getText().toString();
+                TextView textView = (TextView)tasca.getSelectedView();
+                String tipo_tasca = textView.getText().toString();
+                TextView textView2 = (TextView)assignatura.getSelectedView();
+                String assignatura = textView2.getText().toString();
+                boolean grupFinal = grup;
+                String notaFinal = nota.getText().toString();
+
+                if (titulo_string.equals(""))
+                {
+                    titulo.setError("Campo Obligatorio");
+                }
+                if (descricpio_string.equals(""))
+                {
+                    descripcio.setError("Campo Obligatorio");
+                }
+                if(houreFinal == 000)
+                {
+                    boto_hora.setError("Campo Obligatorio");
+                }
+                else
+                {
+                    //menuPrincipal.popUp_InsertEvent(titulo_string,descricpio_string);
+                    Intent intent = new Intent(NewEventCalendar.this, MenuPrincipal.class);
+                    intent.putExtra("titulo",titulo_string);
+                    intent.putExtra("descripcion",descricpio_string);
+                    intent.putExtra("hora",houreFinal);
+                    intent.putExtra("minutos",minuteFinale);
+                    intent.putExtra("datamilli",datamilli);
+                    intent.putExtra("assignatura",assignatura);
+                    intent.putExtra("tipotasca",tipo_tasca);
+                    intent.putExtra("grup",grupFinal);
+                    intent.putExtra("aula",aula_string);
+                    intent.putExtra("nota",notaFinal);
+                    startActivity(intent);
+                    //menuPrincipal.popUp_InsertEvent(titulo_string,descricpio_string,houreFinal,minuteFinale);
+                }
 
             }
+        });
 
+        calcelar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onClick(View v) {
+                Intent intent = new Intent(NewEventCalendar.this, MenuPrincipal.class);
+                startActivity(intent);
             }
-        }){
+        });
 
-        };
+        grup_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                grup = false;
+            }
+        });
 
-         */
+        grup_si.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                grup = true;
+            }
+        });
+
+
     }
 
 
@@ -133,6 +187,8 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         tv_hora = findViewById(R.id.tw_hora);
         tv_hora.setText(hourOfDay + ":" + minute);
+        houreFinal = hourOfDay;
+        minuteFinale = minute;
     }
 }
 

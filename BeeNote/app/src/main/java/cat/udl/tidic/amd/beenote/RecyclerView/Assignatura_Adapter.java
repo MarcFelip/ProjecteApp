@@ -1,6 +1,5 @@
 package cat.udl.tidic.amd.beenote.RecyclerView;
 
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import cat.udl.tidic.amd.beenote.Assignatures;
 import cat.udl.tidic.amd.beenote.R;
 import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 import cat.udl.tidic.amd.beenote.models.CourseModel;
@@ -22,7 +22,6 @@ public class Assignatura_Adapter extends ListAdapter<CourseModel, Assignatura_Ad
     private OnItemClickListener eventItemListener;
     private final static String TAG = "Assignatura_Adapter";
     private String CourseID;
-
 
     public Assignatura_Adapter(@NonNull DiffUtil.ItemCallback<CourseModel> diffCallback) {
         super(diffCallback);
@@ -41,18 +40,17 @@ public class Assignatura_Adapter extends ListAdapter<CourseModel, Assignatura_Ad
 
         CourseModel currentEvent = getItem(position);
         holder.textViewTitle.setText(currentEvent.getTitle());
-
+        holder.editTextDescription.setText(currentEvent.getDescription());
     }
-
 
 
     public CourseModel getEventAt(int position) {
         Log.d(TAG, "Position: "+ position);
         Log.d(TAG, "Asignatura: "+ getItem(position).getTitle());
+        Log.d(TAG, "Descricion: "+ getItem(position).getDescription());
         int id_course = getItem(position).getId();
         Log.d(TAG, "ID_COURSE_DELETE: "+ id_course);
         CourseID = Integer.toString(id_course);
-
         return getItem(position);
     }
 
@@ -65,12 +63,14 @@ public class Assignatura_Adapter extends ListAdapter<CourseModel, Assignatura_Ad
 
     class EventHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
+        private TextView editTextDescription;
         //private TextView textViewDescription;
         // private RatingBar ratingAvaluation;
 
         public EventHolder(View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.title);
+            editTextDescription = itemView.findViewById(R.id.description);
             /*textViewDescription = itemView.findViewById(R.id.description);
             ratingAvaluation = itemView.findViewById(R.id.avaluation);*/
 

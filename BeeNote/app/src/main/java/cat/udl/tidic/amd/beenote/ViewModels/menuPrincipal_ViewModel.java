@@ -7,8 +7,10 @@ import cat.udl.tidic.amd.beenote.Repository.UserRepository;
 public class menuPrincipal_ViewModel extends ViewModel {
 
     private UserRepository userRepository;
-    private Long date = getDate();
+    private String date = "0";
+    private Long data2 = 0L;
     private String eventID = "0";
+    private int positionEvent = 0;
 
     public menuPrincipal_ViewModel() {
         this.userRepository = new UserRepository();
@@ -24,13 +26,21 @@ public class menuPrincipal_ViewModel extends ViewModel {
         return userRepository.getToken();
     }
 
-    public Long getDate(){
+    public String getDate(){
         return date;
     }
 
-    public void setDate(long date)
+    public void setDate(String date)
     {
            this.date = date;
+    }
+
+    public Long getData2() {
+        return data2;
+    }
+
+    public void setData2(Long data2) {
+        this.data2 = data2;
     }
 
     public String getEventID(){
@@ -59,4 +69,13 @@ public class menuPrincipal_ViewModel extends ViewModel {
     {
         userRepository.setMail(mail);
     }
+
+    public int getPositionEvent() {
+        return positionEvent;
+    }
+
+    public void setPositionEvent(int positionEvent) {
+        this.positionEvent = positionEvent;
+    }
+
 }

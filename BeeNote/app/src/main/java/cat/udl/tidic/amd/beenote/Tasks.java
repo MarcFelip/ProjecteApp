@@ -45,7 +45,7 @@ public class Tasks extends ActivityWithNavView {
         // Creem la part del menu (Pare)
         super.initView(R.layout.activity_tasks,
                 R.id.drawer_tasks,
-                R.id.nav__tasks);
+                R.id.nav__tasks,5);
 
         addTask = findViewById(R.id.btn_new_task);
 

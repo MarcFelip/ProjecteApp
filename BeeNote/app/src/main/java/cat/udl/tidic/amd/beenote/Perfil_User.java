@@ -63,7 +63,7 @@ public class Perfil_User extends ActivityWithNavView {
         // Creem la part del menu (Pare)
         super.initView(R.layout.activity_perfil__user,
                 R.id.drawer_perfil_usuari,
-                R.id.nav__perfil_usuari);
+                R.id.nav__perfil_usuari,4);
 
         estudios = findViewById(R.id.Perfil_estudios);
         telefono = findViewById(R.id.Perfil_telefono);
