@@ -55,6 +55,7 @@ public class ActivityWithNavView extends AppCompatActivity {
 
     protected void initView(int layout, int drawer, int nav_view, int pantalla){
         setContentView(layout);
+
         menu = findViewById(R.id.Toolbar_Menu);
         ajustes = findViewById(R.id.Toolbar_Ajustes);
         drawerLayout = findViewById(drawer);
@@ -75,7 +76,7 @@ public class ActivityWithNavView extends AppCompatActivity {
         }
         if(pantalla == 2)
         {
-            navigationView.getMenu().getItem(2).setChecked(true);
+            navigationView.getMenu().getItem(3).setChecked(true);
         }
         if(pantalla == 3)
         {
@@ -247,6 +248,11 @@ public class ActivityWithNavView extends AppCompatActivity {
         Intent intent = new Intent(this, Tasks.class);
         startActivity(intent);
 
+    }
+
+    public void layoutFocus(Boolean enable){
+        menu.setEnabled(enable);
+        ajustes.setEnabled(enable);
     }
 
 }

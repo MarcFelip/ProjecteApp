@@ -33,4 +33,8 @@ public class TasksViewModel extends AndroidViewModel {
         repository.getStudentTasks();
     }
 
+    public void obtainTasksExamns(){
+        repository.getTasksExamns();
+    }
+
 }

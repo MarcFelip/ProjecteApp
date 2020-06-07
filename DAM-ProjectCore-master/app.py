@@ -57,6 +57,10 @@ application.add_route("/courses/{course_id}/task/add", course_resources.Resource
 
 # List Tasks
 application.add_route("/courses/task/list", course_resources.ResourceGetTasks())
+application.add_route("/courses/task/list/all", course_resources.ResourceGetTasksListAll())
+application.add_route("/courses/task/list/course", course_resources.ResourceGetTasksListCourse())
+application.add_route("/courses/task/exam", course_resources.ResourceGetTasksExam())
+application.add_route("/courses/task/schedules", course_resources.ResourceGetTasksSchedules())
 # Create the task and enroll in a course.
 application.add_route("/courses/{course_id}/tasks/{course_task_id}/add", course_resources.ResourceAddStudentTask())
 

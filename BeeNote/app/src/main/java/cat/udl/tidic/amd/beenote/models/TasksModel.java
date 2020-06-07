@@ -10,15 +10,26 @@ public class TasksModel {
     @SerializedName("id")
     private int id;
 
-    @SerializedName("title")
-    private String title;
+    @SerializedName("tittle")
+    private String tittle;
+
+    @SerializedName("total_points")
+    private String total_points;
+
+    @SerializedName("deadline")
+    private String deadline;
+
+    @SerializedName("details")
+    private String details;
+
+    @SerializedName("percent")
+    private String percent;
 
 
 
     public TasksModel() {
 
     }
-
 
     public int getId() {
         return id;
@@ -31,9 +42,16 @@ public class TasksModel {
 
 
     public String getTitle() {
-        return title;
+        return tittle;
     }
 
+    public String getDetails() {
+        return details;
+    }
+
+    public String getDeadline() {
+        return deadline;
+    }
 
 
     @Override
@@ -55,7 +73,7 @@ public class TasksModel {
 
         // Compare the data members and return accordingly
         return this.id == e.getId()
-                && this.title.equals(e.getTitle());
+                && this.tittle.equals(e.getTitle());
 
     }
 

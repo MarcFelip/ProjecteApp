@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import org.jetbrains.annotations.NotNull;
+
 import cat.udl.tidic.amd.beenote.MenuPrincipal;
 import cat.udl.tidic.amd.beenote.R;
 
@@ -53,13 +55,11 @@ public class Calendar_Dialog extends DialogFragment {
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                 .setView(rootView)
                 .setTitle("Evento")
-                .setCancelable(true)
-                .setPositiveButton("Aplicar", null)
                 .create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.setCancelable(false);
+        alertDialog.setCanceledOnTouchOutside(true);
         return alertDialog;
     }
+
 
     private void initViews() {
         rootView = LayoutInflater.from(getContext())
@@ -110,12 +110,13 @@ public class Calendar_Dialog extends DialogFragment {
             System.out.println("Dintre visible");
         }
         else{
+           /*
             tarea2.setVisibility(View.INVISIBLE);
             asignatura2.setVisibility(View.INVISIBLE);
             grupo2.setVisibility(View.INVISIBLE);
             aula2.setVisibility(View.INVISIBLE);
             nota2.setVisibility(View.INVISIBLE);
-
+            */
             tarea.setText("");
             asignatura.setText("");
             grupo.setText("");

@@ -7,42 +7,29 @@
     android:orientation="vertical"
     tools:context=".Dialog.TerminosCondiciones">
 
+    <TextView
+        android:layout_width="325dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/texto_estas_Seguro"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tw_data2" />
+
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="391dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="392dp"
+        android:layout_height="61dp"
         android:layout_marginBottom="38dp"
+        android:background="@drawable/beenote_fons"
         app:layout_constraintBottom_toTopOf="@+id/tw_data2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/btn_redondo_black" />
-
-    <RelativeLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="335dp"
-        android:layout_height="98dp"
-        android:layout_marginBottom="60dp"
-        android:background="@color/calendariEvents_popup"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tw_data2"
-        app:layout_constraintVertical_bias="0.128">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/texto_estas_Seguro"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-
-    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView10"
@@ -60,11 +47,11 @@
         android:id="@+id/tw_data2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="24dp"
         android:text="@string/data_event"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 </androidx.constraintlayout.widget.ConstraintLayout>

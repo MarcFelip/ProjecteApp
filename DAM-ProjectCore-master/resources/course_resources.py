@@ -77,6 +77,107 @@ class ResourceGetTasks(DAMCoreResource):
 
 
 @falcon.before(requires_auth)
+class ResourceGetTasksListAll(DAMCoreResource):
+    def on_get(self, req, resp, *args, **kwargs):
+        super(ResourceGetTasksListAll, self).on_get(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+        response_student_task = list()
+        request_course = req.get_param("course", False)
+        #request_course = req.get_param("course", False)
+
+      #  aux_student_courses = self.db_session.query(Enrollment, Course) \
+       #     .join(Course).filter(Enrollment.user_id == current_user.id)
+
+        aux_student_courses = self.db_session.query(Enrollment.course_id) \
+            .join(Course).filter(Enrollment.user_id == current_user.id)
+
+        if aux_student_courses is not None:
+            # .in_ Filtrar com si fos un for (bucle)
+            aux_student_task2 = self.db_session.query(CourseTask).filter(CourseTask.course_id.in_(aux_student_courses))
+
+            # Filtrar per coursos les tasques
+            #aux_student_task2 = self.db_session.query(CourseTask).filter(CourseTask.course_id == request_course)
+
+            if aux_student_task2 is not None:
+                for current_task in aux_student_task2.all():
+                    response_student_task.append(current_task.json_model)
+
+        resp.media = response_student_task
+        resp.status = falcon.HTTP_200
+
+
+@falcon.before(requires_auth)
+class ResourceGetTasksListCourse(DAMCoreResource):
+    def on_get(self, req, resp, *args, **kwargs):
+        super(ResourceGetTasksListCourse, self).on_get(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+        response_student_task = list()
+        request_course = req.get_param("course", False)
+
+        aux_student_courses = self.db_session.query(Enrollment.course_id) \
+            .join(Course).filter(Enrollment.user_id == current_user.id)
+
+        if aux_student_courses is not None:
+            # Filtrar per coursos les tasques
+            aux_student_task2 = self.db_session.query(CourseTask).filter(CourseTask.course_id == request_course)
+
+            if aux_student_task2 is not None:
+                for current_task in aux_student_task2.all():
+                    response_student_task.append(current_task.json_model)
+
+        resp.media = response_student_task
+        resp.status = falcon.HTTP_200
+
+
+@falcon.before(requires_auth)
+class ResourceGetTasksExam(DAMCoreResource):
+    def on_get(self, req, resp, *args, **kwargs):
+        super(ResourceGetTasksExam, self).on_get(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+        response_student_task = list()
+
+        aux_student_courses = self.db_session.query(Enrollment.course_id) \
+            .join(Course).filter(Enrollment.user_id == current_user.id)
+
+        if aux_student_courses is not None:
+            # .in_ Filtrar com si fos un for (bucle)
+            aux_student_exam = self.db_session.query(Exam).filter(Exam.course_id.in_(aux_student_courses))
+
+            if aux_student_exam is not None:
+                for current_task in aux_student_exam.all():
+                    response_student_task.append(current_task.json_model)
+
+        resp.media = response_student_task
+        resp.status = falcon.HTTP_200
+
+
+@falcon.before(requires_auth)
+class ResourceGetTasksSchedules(DAMCoreResource):
+    def on_get(self, req, resp, *args, **kwargs):
+        super(ResourceGetTasksSchedules, self).on_get(req, resp, *args, **kwargs)
+
+        current_user = req.context["auth_user"]
+        response_student_task = list()
+
+        aux_student_courses = self.db_session.query(Enrollment.course_id) \
+            .join(Course).filter(Enrollment.user_id == current_user.id)
+
+        if aux_student_courses is not None:
+            # .in_ Filtrar com si fos un for (bucle)
+            aux_student_exam = self.db_session.query(Schedule).filter(Schedule.course_id.in_(aux_student_courses))
+
+            if aux_student_exam is not None:
+                for current_task in aux_student_exam.all():
+                    response_student_task.append(current_task.json_model)
+
+        resp.media = response_student_task
+        resp.status = falcon.HTTP_200
+
+
+@falcon.before(requires_auth)
 class ResourceAddCourse(DAMCoreResource):
     def on_post(self, req, resp, *args, **kwargs):
         super(ResourceAddCourse, self).on_post(req, resp, *args, **kwargs)

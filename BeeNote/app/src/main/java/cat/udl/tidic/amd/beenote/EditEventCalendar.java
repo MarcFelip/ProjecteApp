@@ -64,9 +64,10 @@ public class EditEventCalendar extends AppCompatActivity implements TimePickerDi
         nota.setText(nota_string);
 
         //Afegim la data previament seleccionada
-        String menu_data;
-        menu_data = String.valueOf(menuPrincipal_viewModel.getDate());
-        data.setText(menu_data);
+        Bundle extras = getIntent().getExtras();
+        assert extras != null;
+        String dataCalendar = extras.getString("Data");
+        data.setText(dataCalendar);
 
         //Listener botó hora
         boto_hora.setOnClickListener(new View.OnClickListener() {

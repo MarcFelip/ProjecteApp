@@ -40,6 +40,8 @@ public class Tasks_Adapter extends ListAdapter<TasksModel, Tasks_Adapter.EventHo
 
         TasksModel currentEvent = getItem(position);
         holder.textViewTitle.setText(currentEvent.getTitle());
+        holder.textViewDetails.setText(currentEvent.getDetails());
+        holder.textViewTime.setText(currentEvent.getDeadline());
     }
 
 

@@ -18,6 +18,21 @@ public class TasksDAOImpl implements TasksDAOI {
     }
 
     @Override
+    public Call<List<TasksModel>> getStudentTasksExams(String token) {
+        return retrofit.create(TasksDAOI.class).getStudentTasksExams(token);
+    }
+
+    @Override
+    public Call<List<TasksModel>> getStudentTasksSchedules(String token) {
+        return retrofit.create(TasksDAOI.class).getStudentTasksSchedules(token);
+    }
+
+    @Override
+    public Call<List<TasksModel>> getStudentTaskswithCourse(String token, int course) {
+        return null;
+    }
+
+    @Override
     public Call<Void> addTask(String token, String course_id, TaskModel2 model) {
         return null;
     }

@@ -18,6 +18,7 @@
                     android:layout_width="391dp"
                     android:layout_height="52dp"
                     android:layout_marginTop="35dp"
+                    android:background="@drawable/beenote_fons"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +71,6 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="40dp"
-                    android:background="@color/calendariEvents_popup"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.291"
                     app:layout_constraintStart_toStartOf="parent"
@@ -80,9 +80,8 @@
                     android:id="@+id/spinner_tasca"
                     android:layout_width="350dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="40dp"
                     android:layout_marginLeft="15dp"
-                    android:background="@color/calendariEvents_popup"
+                    android:layout_marginTop="40dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.291"
                     app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +123,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="10dp"
+                            android:background="@drawable/btn_registrar"
                             android:text="@string/_si" />
 
                         <Button
@@ -133,6 +133,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="10dp"
+                            android:background="@drawable/btn_registrar"
                             android:text="@string/_no" />
                 </LinearLayout>
 
@@ -171,11 +172,12 @@
 
                         <Button
                             android:id="@+id/btn_hora"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="166dp"
+                            android:layout_height="50dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="18dp"
                             android:layout_marginBottom="15dp"
+                            android:background="@drawable/btn_registrar"
                             android:text="@string/hora_evento"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.303"
@@ -212,18 +214,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/et_nota" />
 
                 <Button
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="40dp"
-                android:text="@string/evento_guardar"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_marginLeft="105dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_descripción" />
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="105dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/btn_registrar"
+                    android:text="@string/evento_guardar"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_descripción" />
 
                 <EditText
                     android:id="@+id/et_nota"

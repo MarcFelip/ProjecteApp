@@ -1,8 +1,6 @@
 package cat.udl.tidic.amd.beenote;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -19,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,13 +60,11 @@ public class MenuPrincipal extends ActivityWithNavView {
     private TextView error;
     private UserModel userModel = new UserModel();
     private int position = -1;
+    private ProgressBar menu_progressbar;
+    private CalendarView calendarView;
 
     private String TAG="MenuPrincipal";
-
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
-    private final UserService userService = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
-    private Map<String, String> map = new HashMap<>();
-    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +83,18 @@ public class MenuPrincipal extends ActivityWithNavView {
         error = findViewById(R.id.menu_scrolling_text_error);
         notes = findViewById(R.id.MenuScrolling_Notes);
         tareas = findViewById(R.id.MenuPrincipal_Tareas);
+        menu_progressbar = findViewById(R.id.Menu_progressBar);
+        calendarView = findViewById(R.id.calendarView);
 
-        enableForm(true);
+        menu_progressbar.setVisibility(View.VISIBLE);
+        layoutFocusMenu(false);
 
         checkCalendarPermission();
 
         query_calendar();
+
+        menu_progressbar.setVisibility(View.INVISIBLE);
+        layoutFocusMenu(true);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null)
@@ -140,19 +143,13 @@ public class MenuPrincipal extends ActivityWithNavView {
             }
         });
 
-
         //Popup editarCalendar amb les 3 opcions
+        PopupMenu popupMenu = new PopupMenu(MenuPrincipal.this,editarCalendar);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_calendar_editar, popupMenu.getMenu());
         editarCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Menu menu = findViewById(R.id.nav_editaCalendar);
-                //onPrepareOptionsMenu(menu);
 
-                PopupMenu popupMenu = new PopupMenu(MenuPrincipal.this,editarCalendar);
-                popupMenu.getMenuInflater().inflate(R.menu.menu_calendar_editar, popupMenu.getMenu());
-
-
-                //menuPrincipal_viewModel.setDateToRepository(menuPrincipal_viewModel.getDate());
                 error.setText("");
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -170,6 +167,7 @@ public class MenuPrincipal extends ActivityWithNavView {
                             else
                             {
                                 Intent intent = new Intent(MenuPrincipal.this, EditEventCalendar.class);
+                                intent.putExtra("Data",menuPrincipal_viewModel.getDate());
                                 startActivity(intent);
                             }
                         }
@@ -185,6 +183,7 @@ public class MenuPrincipal extends ActivityWithNavView {
                             else
                             {
                                 EventCalendarDelete dialog = EventCalendarDelete.newInstance(MenuPrincipal.this);
+                                dialog.adddata(menuPrincipal_viewModel.getDate());
                                 dialog.setCancelable(false);
                                 dialog.show(getSupportFragmentManager(),"DialogTAGEventCalendarDelete");
                             }
@@ -258,19 +257,9 @@ public class MenuPrincipal extends ActivityWithNavView {
         elimateEventCalendar(posicion,targetEventId);
     }
 
-    private void enableForm(boolean enable){
-        perfil_usuario.setEnabled(enable);
-        menu.setEnabled(enable);
-        editarCalendar.setEnabled(enable);
-    }
-
-
-
         // ------------------- Material Calendar View --------------------------
     public void addEventCalendar(int year, int month, int date, int hourOfDay, int minute, int seconds, String title,String descripcion, String ID, String tipo_tarea, String asignatura, boolean grup, String Aula, String percentatge_nota)
     {
-        //events.add(new EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M")));
-        //events.add(new EventDay(calendar, R.drawable.account,Color.parseColor("#228B22")));
         // Indiquem a quin dia volem posar el event
         Calendar calendar = Calendar.getInstance();
         calendar.set(year,month-1,date,hourOfDay,minute,seconds);
@@ -347,13 +336,12 @@ public class MenuPrincipal extends ActivityWithNavView {
                     }
                     if(((MyEventDay) eventDay).getNote() != null)
                     {
-                        System.out.println("Enabled: "+ ((MyEventDay) eventDay).isEnabled());
+                        //System.out.println("Enabled: "+ ((MyEventDay) eventDay).isEnabled());
                         //Toast.makeText(getApplicationContext(), eventDay.getCalendar().getTime().toString() + " " + ((MyEventDay) eventDay).getNote(), Toast.LENGTH_SHORT).show();
                         Calendar_Dialog dialog = Calendar_Dialog.newInstance(MenuPrincipal.this);
-                        dialog.setCancelable(false);
                         dialog.add_Info(((MyEventDay) eventDay).getNote(),((MyEventDay) eventDay).getDescription(),((MyEventDay) eventDay).getFecha(),((MyEventDay) eventDay).getHorario(),((MyEventDay) eventDay).getMtipo_tarea(),((MyEventDay) eventDay).getMasignatura(),((MyEventDay) eventDay).isMgrup(),((MyEventDay) eventDay).getmAula(),((MyEventDay) eventDay).getMpercentatge_nota());
                         dialog.show(getSupportFragmentManager(),"CalendarioEventoTAG");
-                        System.out.println("Tarea Event: " + ((MyEventDay) eventDay).getMtipo_tarea());
+                        //System.out.println("Tarea Event: " + ((MyEventDay) eventDay).getMtipo_tarea());
                     }
                 }
                 catch(Exception e) {
@@ -659,5 +647,19 @@ public class MenuPrincipal extends ActivityWithNavView {
         }
     }
 
+    @Override
+    public void onBackPressed(){
+        finishAffinity();
+    }
+
+    public void layoutFocusMenu(Boolean enable){
+        perfil_usuario.setEnabled(enable);
+        menu.setEnabled(enable);
+        editarCalendar.setEnabled(enable);
+        perfil_usuario.setEnabled(enable);
+        notes.setEnabled(enable);
+        tareas.setEnabled(enable);
+        calendarView.setEnabled(enable);
+    }
 
 }

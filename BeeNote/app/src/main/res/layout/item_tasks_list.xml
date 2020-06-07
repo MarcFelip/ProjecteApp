@@ -16,7 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="70dp"
             android:gravity="center">
 
             <ImageView
@@ -24,14 +24,15 @@
                 android:layout_width="?android:attr/listPreferredItemHeight"
                 android:layout_height="?android:attr/listPreferredItemHeight"
                 android:contentDescription="Event foto"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:src="@drawable/task"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/titol_tasks"
                 android:layout_width="268dp"
                 android:layout_height="21dp"
+                android:layout_marginStart="16dp"
                 android:maxLines="1"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"
@@ -44,21 +45,22 @@
                 android:id="@+id/detalls"
                 android:layout_width="268dp"
                 android:layout_height="25dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/photo"
                 app:layout_constraintTop_toBottomOf="@+id/titol_tasks" />
 
             <TextView
                 android:id="@+id/data"
-                android:layout_width="50dp"
-                android:layout_height="21dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="68dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.013"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/photo"
-                app:layout_constraintTop_toBottomOf="@+id/titol_tasks" />
+                app:layout_constraintTop_toBottomOf="@+id/detalls" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

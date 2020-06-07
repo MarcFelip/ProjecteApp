@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -79,8 +80,10 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
 
         //Afegim la data previament seleccionada
         Bundle extras = getIntent().getExtras();
+        assert extras != null;
         String dataCalendar = extras.getString("Data");
         long datamilli = extras.getLong(("DataMilli"));
+
         System.out.println("data: " + dataCalendar);
         data.setText(dataCalendar);
 

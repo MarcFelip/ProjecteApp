@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_ajustes">
+        <group  android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_examenes"
+                    android:icon="@drawable/courseicon"
+                    android:title="Examenes" />
+
+                <item
+                    android:id="@+id/nav_tascas"
+                    android:icon="@drawable/notes"
+                    android:checked="true"
+                    android:title="Tascas" />
+
+        </group>
+</menu>
