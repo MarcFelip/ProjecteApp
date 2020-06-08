@@ -84,8 +84,11 @@ public class Registrar extends AppCompatActivity {
                     String password = Registrar.this.password.getText().toString();
                     String password2 = passwordConfirmacio.getText().toString();
 
+                    String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
+                    //System.out.println(password.matches(pattern));
+
                     if (password.equals(password2)) {
-                        if(password.length()>=8 && !password.equals("12345678")) {
+                        if(password.matches(pattern)) {
                             // ------> Per encriptar la contrasenya
                             // Course API requires passwords in sha-256 in passlib format so:
                             String salt = registrar_viewModel.getSalt();
@@ -157,6 +160,7 @@ public class Registrar extends AppCompatActivity {
 
                         } else{
                             salida.setText("Las contraseñas es poco segura");
+                            Registrar.this.password.setError("Numeros, minusculas y mayusculas, caracteres especiales, minimo 8 digitos");
                             registrar_progressbar.setVisibility(View.INVISIBLE);
                         }
                     } else {

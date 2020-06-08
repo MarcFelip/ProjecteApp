@@ -184,4 +184,9 @@ public class Login extends AppCompatActivity {
         login_progressBar.setEnabled(enable);
         login_registrado.setEnabled(enable);
     }
+
+    @Override
+    public void onBackPressed(){
+        finishAffinity();
+    }
 }

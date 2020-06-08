@@ -1,5 +1,7 @@
 package cat.udl.tidic.amd.beenote.Repository;
 
+import android.content.ContentResolver;
+
 public interface UserRepository_Interface {
      void setToken(String i);
      String getToken();

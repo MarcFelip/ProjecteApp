@@ -1,4 +1,5 @@
 package cat.udl.tidic.amd.beenote.Repository;
+import android.content.ContentResolver;
 import android.content.SharedPreferences;
 import cat.udl.tidic.amd.beenote.preferences.PreferencesProvider;
 
@@ -79,6 +80,5 @@ public class UserRepository implements UserRepository_Interface {
     public void setUserID(String i) {
         this.mPreferences.edit().putString("ID",i).apply();
     }
-
 
 }

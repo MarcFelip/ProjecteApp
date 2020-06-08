@@ -83,6 +83,7 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
         assert extras != null;
         String dataCalendar = extras.getString("Data");
         long datamilli = extras.getLong(("DataMilli"));
+        String eventID = extras.getString("eventID");
 
         System.out.println("data: " + dataCalendar);
         data.setText(dataCalendar);
@@ -152,6 +153,7 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
                     intent.putExtra("grup",grupFinal);
                     intent.putExtra("aula",aula_string);
                     intent.putExtra("nota",notaFinal);
+                    intent.putExtra("eventID",eventID);
                     startActivity(intent);
                     //menuPrincipal.popUp_InsertEvent(titulo_string,descricpio_string,houreFinal,minuteFinale);
                 }
@@ -183,9 +185,6 @@ public class NewEventCalendar extends AppCompatActivity implements TimePickerDia
 
 
     }
-
-
-
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         tv_hora = findViewById(R.id.tw_hora);

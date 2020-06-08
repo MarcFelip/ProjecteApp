@@ -65,6 +65,7 @@ public class MenuPrincipal extends ActivityWithNavView {
 
     private String TAG="MenuPrincipal";
     private menuPrincipal_ViewModel menuPrincipal_viewModel = new menuPrincipal_ViewModel();
+    private ContentResolver cr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,10 @@ public class MenuPrincipal extends ActivityWithNavView {
         tareas = findViewById(R.id.MenuPrincipal_Tareas);
         menu_progressbar = findViewById(R.id.Menu_progressBar);
         calendarView = findViewById(R.id.calendarView);
+
+         cr = getContentResolver();
+
+         menuPrincipal_viewModel.setContentResolver(cr);
 
         menu_progressbar.setVisibility(View.VISIBLE);
         layoutFocusMenu(false);
@@ -111,7 +116,6 @@ public class MenuPrincipal extends ActivityWithNavView {
             boolean grup = extras.getBoolean("grup");
             String aula = extras.getString("aula");
             String nota = extras.getString("nota");
-
             System.out.println("AddEvent"+titulo+descripcion);
             popUp_InsertEventFormulari(titulo,descripcion,hora,minutos,tipotasca,assignatura,grup,aula,nota);
         }
@@ -166,8 +170,16 @@ public class MenuPrincipal extends ActivityWithNavView {
                             }
                             else
                             {
+                                EditEventCalendar.setViewModelMenu(menuPrincipal_viewModel);
                                 Intent intent = new Intent(MenuPrincipal.this, EditEventCalendar.class);
                                 intent.putExtra("Data",menuPrincipal_viewModel.getDate());
+                                intent.putExtra("dataLong",menuPrincipal_viewModel.getData2());
+                                intent.putExtra("titulo",menuPrincipal_viewModel.getTitulo());
+                                intent.putExtra("descripcion",menuPrincipal_viewModel.getDescripcion());
+                                intent.putExtra("tasca",menuPrincipal_viewModel.getTasca());
+                                intent.putExtra("asigantura",menuPrincipal_viewModel.getAsigantura());
+                                intent.putExtra("porcentage",menuPrincipal_viewModel.getPorcentage());
+                                intent.putExtra("eventID",menuPrincipal_viewModel.getEventID());
                                 startActivity(intent);
                             }
                         }
@@ -198,6 +210,7 @@ public class MenuPrincipal extends ActivityWithNavView {
                                     System.out.println("Data"+menuPrincipal_viewModel.getDate());
                                     intent.putExtra("Data",menuPrincipal_viewModel.getDate());
                                     intent.putExtra("DataMilli",menuPrincipal_viewModel.getData2());
+                                    intent.putExtra("eventID",menuPrincipal_viewModel.getEventID());
                                     startActivity(intent);
                                 }
                                 else{
@@ -342,6 +355,11 @@ public class MenuPrincipal extends ActivityWithNavView {
                         dialog.add_Info(((MyEventDay) eventDay).getNote(),((MyEventDay) eventDay).getDescription(),((MyEventDay) eventDay).getFecha(),((MyEventDay) eventDay).getHorario(),((MyEventDay) eventDay).getMtipo_tarea(),((MyEventDay) eventDay).getMasignatura(),((MyEventDay) eventDay).isMgrup(),((MyEventDay) eventDay).getmAula(),((MyEventDay) eventDay).getMpercentatge_nota());
                         dialog.show(getSupportFragmentManager(),"CalendarioEventoTAG");
                         //System.out.println("Tarea Event: " + ((MyEventDay) eventDay).getMtipo_tarea());
+                        menuPrincipal_viewModel.setTitulo(((MyEventDay) eventDay).getNote());
+                        menuPrincipal_viewModel.setDescripcion(((MyEventDay) eventDay).getDescription());
+                        menuPrincipal_viewModel.setTasca(((MyEventDay) eventDay).getMtipo_tarea());
+                        menuPrincipal_viewModel.setAsigantura(((MyEventDay) eventDay).getMasignatura());
+                        menuPrincipal_viewModel.setPorcentage(((MyEventDay) eventDay).getMpercentatge_nota());
                     }
                 }
                 catch(Exception e) {
@@ -364,24 +382,25 @@ public class MenuPrincipal extends ActivityWithNavView {
             int data = Integer.parseInt(DateFormat.format("dd", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getData2()))).toString());
             int seconds = Integer.parseInt(DateFormat.format("ss", Long.parseLong(String.valueOf(menuPrincipal_viewModel.getData2()))).toString());
 
-            String eventid = menuPrincipal_viewModel.getEventID();
             String calendarid = menuPrincipal_viewModel.getCalendarID();
-            addEventCalendar(year,month,data,hora,minutos,seconds,title,descripcion,eventid,tipo_tarea,asignatura,grup,Aula,percentatge_nota);
-
             long millis1 = TimeUnit.HOURS.toMillis(hora);
             long millis2 = TimeUnit.MINUTES.toMillis(minutos);
             insert_event(calendarid,menuPrincipal_viewModel.getData2()+millis1+millis2,menuPrincipal_viewModel.getData2()+100,title);
+
+            String eventID = menuPrincipal_viewModel.getEventID();
+            addEventCalendar(year,month,data,hora,minutos,seconds,title,descripcion,eventID,tipo_tarea,asignatura,grup,Aula,percentatge_nota);
+
             System.out.println("Guardar: "+year+"/"+month+"/"+data);
         }
-
     }
 
     // (TODO) Per eliminar els Events del CalendarView
     public void elimateEventCalendar(int posicion,String id)
     {
         events.remove(posicion);
+        calendarView.refreshDrawableState();
+        calendarView.setEvents(events);
         delete_event(id);
-
     }
 
     // Desabilitas el poder seleccionar un dia en el CalendarView
@@ -577,7 +596,7 @@ public class MenuPrincipal extends ActivityWithNavView {
         // Obteniu l'ID del calendari a EditText
         long calendarId = Long.parseLong(targetCalendarId);
         // Nova activitat
-        ContentResolver cr = getContentResolver();
+
         ContentValues values = new ContentValues();
         values.put(CalendarContract.Events.DTSTART, StartTimeMillis);
         values.put(CalendarContract.Events.DTEND, EndTimeMillis);
@@ -598,6 +617,7 @@ public class MenuPrincipal extends ActivityWithNavView {
             Log.d(TAG, "Uri: " + uri);
             if (uri != null) {
                 long eventID = Long.parseLong(Objects.requireNonNull(uri.getLastPathSegment()));
+                menuPrincipal_viewModel.setEventID(eventID);
                 //EditText targetEventId = (EditText) findViewById(R.id.event_id);
                 Log.d(TAG, "InsertEVENT: " + String.format("InsertEvent %s ", eventID));
                 Toast toast = Toast.makeText(this, "Evento creado con exito", Toast.LENGTH_LONG);
@@ -614,7 +634,7 @@ public class MenuPrincipal extends ActivityWithNavView {
         // Obteniu l'ID d'esdeveniment a EditText
         long eventId = Long.parseLong(targetEventId);
         // Actualitzar l’activitat
-        ContentResolver cr = getContentResolver();
+        cr = getContentResolver();
         ContentValues values = new ContentValues();
         values.put(CalendarContract.Events.TITLE, targetTitle);
         // Com que targetSDK = 25, comproveu els permisos quan s'executen aplicacions
