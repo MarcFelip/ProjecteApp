@@ -1,3 +1,4 @@
+/*
 package cat.udl.tidic.amd.beenote.RecyclerView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -149,3 +150,4 @@ public class Add_Assignatures_List extends ActivityWithNavView implements Lifecy
         startActivity(intent);
     }
 }
+*/

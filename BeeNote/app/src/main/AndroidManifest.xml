@@ -19,7 +19,7 @@
         <activity android:name=".CourseActivity"></activity>
         <activity android:name="RecyclerView_Tasks.Add_Tasks_List" />
         <activity android:name=".Tasks" />
-        <activity android:name=".RecyclerView.Add_Assignatures_List" />
+<!--        <activity android:name=".RecyclerView.Add_Assignatures_List" />-->
         <activity android:name=".Assignatures" />
         <activity android:name=".Login">
             <intent-filter>
@@ -34,6 +34,7 @@
         <activity android:name=".Registrar" />
         <activity android:name=".NewEventCalendar" />
         <activity android:name=".EditEventCalendar" />
+        <activity android:name=".Dialog.AddAsignatures_Dialog" />
     </application>
 
 </manifest>

@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
-import cat.udl.tidic.amd.beenote.RecyclerView.Add_Assignatures_List;
+import cat.udl.tidic.amd.beenote.Dialog.AddAsignatures_Dialog;
+//import cat.udl.tidic.amd.beenote.RecyclerView.Add_Assignatures_List;
 import cat.udl.tidic.amd.beenote.RecyclerView.Assignatura_Adapter;
 import cat.udl.tidic.amd.beenote.RecyclerView_Assignatures.AssignaturesDiffCallback;
 import cat.udl.tidic.amd.beenote.ViewModels.AssiganturesViewModel;
@@ -66,8 +66,9 @@ public class Assignatures extends ActivityWithNavView {
             @Override
             public void onClick(View v) {
                 //TODO ADD COURSE 2 FORMATS
-                Intent intent = new Intent(Assignatures.this, Add_Assignatures_List.class);
-                startActivity(intent);
+                AddAsignatures_Dialog dialog = AddAsignatures_Dialog.newInstance(Assignatures.this);
+                dialog.setCancelable(false);
+                dialog.show(getSupportFragmentManager(),"Añadir asignatura");
             }
         });
 
