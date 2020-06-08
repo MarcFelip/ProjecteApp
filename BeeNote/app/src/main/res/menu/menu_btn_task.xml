@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_addtasks">
+
+    <item
+        android:id="@+id/nav__add_task"
+        android:icon="@drawable/ic_add"
+        android:title="@string/a_adir_tarea" />
+    <item
+        android:id="@+id/nav__join_task"
+        android:title="@string/unirse_en_una_tarea" />
+
+</menu>

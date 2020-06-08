@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_ajustes">
+    android:id="@+id/nav_filter">
         <group  android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_examenes"
@@ -11,7 +11,7 @@
                     android:id="@+id/nav_tascas"
                     android:icon="@drawable/notes"
                     android:checked="true"
-                    android:title="Tascas" />
+                    android:title="Tareas" />
 
         </group>
 </menu>

@@ -33,15 +33,17 @@
 
         <EditText
             android:id="@+id/textAddTask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="96dp"
+            android:layout_width="216dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="192dp"
+            android:background="@drawable/btn_redondo_black"
             android:ems="10"
             android:hint="Tarea"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/cancelar_task"
@@ -58,13 +60,15 @@
 
         <EditText
             android:id="@+id/textDesciptionTask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="221dp"
+            android:layout_width="216dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="252dp"
+            android:background="@drawable/btn_redondo_black"
             android:ems="10"
-            android:hint="Descripcion"
+            android:hint="@string/descripci_n"
             android:inputType="textPersonName"
+            android:paddingStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,8 +76,8 @@
             android:id="@+id/task_text_error"
             android:layout_width="196dp"
             android:layout_height="19dp"
-            android:layout_marginStart="112dp"
-            android:layout_marginTop="127dp"
+            android:layout_marginStart="104dp"
+            android:layout_marginTop="144dp"
             android:textColor="@color/red"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -92,27 +96,31 @@
 
         <EditText
             android:id="@+id/task_total_points"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_width="216dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/btn_redondo_black"
             android:ems="10"
             android:hint="Nota"
             android:inputType="number"
+            android:paddingStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_deadline" />
 
         <EditText
             android:id="@+id/task_deadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_width="216dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/btn_redondo_black"
             android:ems="10"
-            android:hint="Data"
+            android:hint="Fecha"
             android:inputType="date"
+            android:paddingStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textDesciptionTask" />
 

@@ -92,13 +92,37 @@ public class Tasks extends ActivityWithNavView {
             }
         });
 
+
+
+
+        PopupMenu popupTasks = new PopupMenu(Tasks.this,addTask);
+        popupTasks.getMenuInflater().inflate(R.menu.menu_btn_task, popupTasks.getMenu());
+
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Tasks.this, Add_Tasks_List.class);
-                startActivity(intent);
+
+                popupTasks.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int id = item.getItemId();
+                        item.setChecked(true);
+
+                        if (id == R.id.nav__add_task) {
+                            Intent intent = new Intent(Tasks.this, Add_Tasks_List.class);
+                            startActivity(intent);
+                        }
+                        else if (id == R.id.nav__join_task) {
+
+                        }
+                        return true;
+                    }
+                });
+                popupTasks.show();
             }
         });
+
+
         // TODO RecyclerView Course
         RecyclerView recyclerView = findViewById(R.id.activityRVTasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
